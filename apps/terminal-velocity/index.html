@@ -622,7 +622,8 @@
                         isCorrect = true;
                     } else if (level.level === 3 && targetDirectory === '/home/user/.SAASApp') {
                         isCorrect = true;
-                    } else if (level.level === 5 && targetDirectory === '/home/user/.SAASApp') {
+                    } else if (level.level === 5 && targetDirectory !== currentDirectory) {
+                        // Level 5: accept any cd that successfully leaves the nested src directory
                         isCorrect = true;
                     }
                 }
