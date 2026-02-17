@@ -665,7 +665,7 @@
                 if (args.length === 0) {
                     addOutput('mkdir: missing operand', 'error');
                     enableInput();
-                } else if (level.level === 6 && args[0] === 'languageapp') {
+                } else if (level.level === 6 && args.includes('languageapp')) {
                     addOutput(`✓ Created directory: ${args[0]}`, 'success');
                     addOutput(level.response, 'success');
                     totalXP += level.xp;
