@@ -1,0 +1,128 @@
+{
+  "battles": [
+    {
+      "id": 1,
+      "title": "Social Media Gold",
+      "difficulty": "easy",
+      "challenge": "Generate a tweet promoting a new coffee app",
+      "promptA": "Write a tweet",
+      "resultA": "Check out our new coffee app! It's really cool and has great features. Download it now!",
+      "promptB": "Write a tweet that creates FOMO and curiosity. Include an emoji. Make people want to click immediately. Focus on the unique angle (AI finds your perfect coffee).",
+      "resultB": "☕ AI just found your perfect coffee match. Your local cafe is about to become YOUR cafe. Try it free for 7 days. 🔗",
+      "xp": 50,
+      "lesson": "Specificity wins. Tell AI: tone (FOMO), format (emoji), angle (AI matching), and outcome (free trial urgency)."
+    },
+    {
+      "id": 2,
+      "title": "Email Subject Lines",
+      "difficulty": "easy",
+      "challenge": "Write an email subject line for a course launch",
+      "promptA": "Write an email subject line",
+      "resultA": "Learn Something New Today",
+      "promptB": "Write an email subject line that: Creates curiosity (not clickbait), promises specific benefit (not vague), includes power word. Subject line wins if people WANT to open it.",
+      "resultB": "The 3-day method that got me hired at Google (free course inside)",
+      "xp": 50,
+      "lesson": "Great prompts include: desired feeling (curiosity), specificity (3-day method), proof angle (hired at Google), and end goal (free course gets opens)."
+    },
+    {
+      "id": 3,
+      "title": "Product Description Showdown",
+      "difficulty": "medium",
+      "challenge": "Describe a productivity tracker for independent creators",
+      "promptA": "Write a product description for a time tracker app",
+      "resultA": "Our app tracks time automatically and gives you insights into how you spend your day. Features include reports, integrations, and notifications.",
+      "promptB": "Write product copy that opens with: The #1 problem creators have is losing track of billable hours. Our app solves this in one click. Then show: Who it's for (indie creators), what they get (reclaim 5+ hours/week), how it works (auto-tracking), and one strong CTA.",
+      "resultB": "Losing track of time? Indie creators waste 5+ hours weekly on manual time tracking. TrackFlow does it automatically - just work, we'll clock it. See your real hourly rate instantly. Most creators earn $200/month extra just from billing what they earned. Start free →",
+      "xp": 75,
+      "lesson": "Structure beats length. Pain point → Solution → Who it's for → Benefit → Proof → CTA. That's the template."
+    },
+    {
+      "id": 4,
+      "title": "Content Brief Battle",
+      "difficulty": "medium",
+      "challenge": "Create a blog post outline about remote work",
+      "promptA": "Write blog post outline about remote work",
+      "resultA": "Introduction\nBenefits of Remote Work\nChallenges of Remote Work\nTips for Success\nConclusion",
+      "promptB": "Create blog outline for articles targeting: Audience (managers trying to hire remote talent), Angle (counterintuitive insight: remote workers are 40% more productive), Format (5 sections, each under 200 words), CTA (sign up for guide), and Data Points (cite 2-3 stats).",
+      "resultB": "1. The Misconception (remote workers aren't as productive - WRONG, data shows 40% more output)\n2. Why It Happens (fewer distractions, no office interruptions, deeper flow)\n3. How to Hire Remote Right (what to look for, red flags)\n4. Tools That Actually Work (async communication matters more than video calls)\n5. The Math (remote talent costs 30% less, outputs 40% more)\nCTA: Download the Remote Hiring Playbook",
+      "xp": 75,
+      "lesson": "Good briefs specify: audience, angle/counterintuitive insight, format constraints, data requirements, and CTA goal. That drives better content."
+    },
+    {
+      "id": 5,
+      "title": "Sales Page Conversion Battle",
+      "difficulty": "hard",
+      "challenge": "Write the main CTA section for a course sales page",
+      "promptA": "Write a CTA section for a course",
+      "resultA": "Sign up now and start learning. We have limited spots available.",
+      "promptB": "Write a CTA that: (1) Removes objections first (60-day guarantee, no credit card needed), (2) Creates urgency (limited cohort, closes Friday), (3) Shows proof (500+ students, avg 40% income increase), (4) Makes next step obvious (one button, one action), (5) Uses specificity (not 'sign up', but 'claim your spot').",
+      "resultB": "Only 12 spots left in this cohort (cohort closes Friday at 5pm).\n\n500+ students have taken this course. Average result: 40% income increase within 6 months.\n\nNo risk: Try it free for 60 days. If you don't love it, full refund, no questions.\n\n→ CLAIM YOUR SPOT (no credit card required)",
+      "xp": 100,
+      "lesson": "Conversion writing = objections cleared + urgency + proof + clarity. Stack all 4 and conversion rates multiply."
+    },
+    {
+      "id": 6,
+      "title": "Customer Testimonial Remix",
+      "difficulty": "hard",
+      "challenge": "Turn generic customer feedback into compelling testimonial",
+      "promptA": "Make this testimonial sound good: 'I liked the product. It helped my business.'",
+      "resultA": "'I really like this product and it has helped my business grow. I would recommend it.' - John Smith",
+      "promptB": "Transform feedback into testimonial showing: (1) Before/After situation (what was hard, what's easy now), (2) Specific metric or result (not 'helped', but 'grew revenue X%' or 'saved Y hours'), (3) Quote that sounds authentic (emotional + specific), (4) Include relevant credential (John Smith, CEO of TechCorp, previously skeptical).",
+      "resultB": "'Before this, I was manually managing 50+ client projects - losing 15 hours a week to admin. Now? AutoTrack handles it all. My team and I reclaimed those 15 hours. Revenue went up 30% because we actually had TIME to serve more clients.' - John Smith, CEO TechCorp (previously used 3 competitors)",
+      "xp": 100,
+      "lesson": "Best testimonials show the transformation (before/after), not just approval. Include proof (metrics) and credibility (their role)."
+    },
+    {
+      "id": 7,
+      "title": "FAQ Effectiveness Faceoff",
+      "difficulty": "hard",
+      "challenge": "Write FAQs that actually convert instead of just answering questions",
+      "promptA": "Write FAQ for a productivity app",
+      "resultA": "Q: How do I set up the app?\nA: Download it and follow the setup wizard.\n\nQ: Does it work on mobile?\nA: Yes, iOS and Android.",
+      "promptB": "Write FAQs that: (1) Answer the real objection behind each question (not just the surface question), (2) Include social proof in answers (others did this and got X result), (3) End each answer with micro-CTA (link, button, or next action), (4) Organize by customer journey stage (before buying, after buying, getting value).",
+      "resultB": "BEFORE BUYING\nQ: Will this actually save me time or is it another tool cluttering my inbox?\nA: Average users save 5.2 hours/week - enough for a full workday. (Tracked via 2,000+ user study) Your first month, most users notice it immediately. Free trial lets you measure your own time savings.\n\nAFTER BUYING  \nQ: I have 20 years of data in my old system. Can I really import it?\nA: Yes - 1-click import from every major system. 500+ customers successfully migrated. Setup takes 30 mins. We even have a dedicated migration specialist if you get stuck. → Book your migration call (free)",
+      "xp": 125,
+      "lesson": "FAQs that sell address objections (not just questions), include proof, and guide next steps. They're sales documents, not dictionaries."
+    },
+    {
+      "id": 8,
+      "title": "Competitor Comparison Prompt",
+      "difficulty": "expert",
+      "challenge": "Write comparison showing why your product wins vs competitors",
+      "promptA": "Compare our product to competitors",
+      "resultA": "Our product is better than the others because we have more features and better customer service.",
+      "promptB": "Write a comparison that: (1) Leads with your unique unfair advantage (not just different, but irreplaceably better at one thing), (2) Uses specific dimensions (price, speed, ease, results), (3) Shows numbers/proof for each claim, (4) Frames competitor strengths fairly then reframe why it doesn't matter for this use case, (5) Ends with clear reason to choose you.",
+      "resultB": "The Only AI-Powered Solution Built for Non-Technical Teams\n\n| Feature | Our App | Competitor A | Competitor B |\n| --- | --- | --- | --- |\n| Setup time | 5 mins | 2 weeks (needs developer) | 3 days |\n| AI accuracy | 94% on messy data | 78% (clean data only) | 89% |\n| Cost per user | $99/mo | $500/mo | $199/mo |\n| Support | 1-hour response | Email only, 24hr | Chat only |\n\nWhy it matters: You don't have a developer on staff. You need something that works TODAY on your actual data. We're built for you.",
+      "xp": 150,
+      "lesson": "Best comparisons lead with your unfair advantage, use numbers to prove it, and reframe the battlefield so you win."
+    },
+    {
+      "id": 9,
+      "title": "Objection Handling Script",
+      "difficulty": "expert",
+      "challenge": "Turn a customer objection into a conversion opportunity",
+      "promptA": "Customer says: 'It's too expensive.' How do I respond?",
+      "resultA": "Our pricing is competitive. You get what you pay for.",
+      "promptB": "Create response script that: (1) Validates their concern (not defensive), (2) Reframes cost as investment with ROI shown (cost $X, get back $Y), (3) Provides alternative path (payment plan, freemium, or specific lower-cost offering), (4) Shows social proof (others had same concern, then saw ROI), (5) Ends with easy next step (no pressure).",
+      "resultB": "'That's a fair question - budget matters. Here's how most teams think about it: Yes, it's $99/person/month. BUT - average user saves 5 hours/week = $250/week of recovered billable time. So the app pays for itself in 2 weeks, then pure profit after that. Plus, we offer a 60-day free trial so you can calculate YOUR specific ROI before committing. Want me to show you the calculator?' → (Link to ROI tool)",
+      "xp": 150,
+      "lesson": "Best objection responses don't fight the concern - they reframe the conversation to show ROI, offer flexible alternatives, and prove others decided it was worth it."
+    },
+    {
+      "id": 10,
+      "title": "The Ultimate Prompt Battle",
+      "difficulty": "expert",
+      "challenge": "You're in the final round. Which prompt approach would generate the most effective marketing copy?",
+      "options": [
+        "Write marketing copy for our app",
+        "Analyze our audience (B2B creators, $50K-200K annual income), core pain (losing time to admin), and write copy that leads with their biggest pain point, shows specific measurable transformation (time saved + income impact), includes objection handling (no implementation burden), and ends with friction-free next step. Use the AIDA framework (Attention, Interest, Desire, Action).",
+        "Write something persuasive about our product",
+        "Ask AI to write whatever sounds good"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The best prompts specify: WHO (audience), WHAT (core pain/desire), HOW (format/framework like AIDA), and WHY (outcome you want - conversions, shares, clicks). Option 1 is too vague (mediocre output). Option 3 is vague. Option 4 abdicates control. Option 2 wins because it guides every decision.",
+      "xp": 200,
+      "achievement": "battle-champion"
+    }
+  ]
+}

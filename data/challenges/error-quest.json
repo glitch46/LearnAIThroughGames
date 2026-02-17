@@ -1,0 +1,164 @@
+{
+  "challenges": [
+    {
+      "id": 1,
+      "title": "The Vague Response",
+      "difficulty": "easy",
+      "scenario": "You asked Claude to write a landing page headline for a productivity app, and got this response:\n\n'A powerful solution for managing your tasks and improving efficiency.'",
+      "problems": [
+        "Too generic - sounds like every app",
+        "Missing emotional appeal",
+        "No specific benefit highlighted",
+        "Doesn't create urgency or curiosity"
+      ],
+      "refinement": "Add specific numbers or results. Appeal to emotion. Create curiosity or urgency.",
+      "correctApproach": "Ask Claude: 'Make this more exciting and specific. Include a concrete benefit like saving time or earning money. Add urgency that makes someone want to click.'",
+      "xp": 50,
+      "achievement": "error-detector"
+    },
+    {
+      "id": 2,
+      "title": "The Hallucinated Details",
+      "difficulty": "easy",
+      "scenario": "You asked ChatGPT to write product copy, and it included:\n\n'Our AI-powered solution processes information 10,000x faster than competitors (verified by independent labs)'",
+      "problems": [
+        "Unverifiable claim",
+        "Sounds made up",
+        "No actual source cited",
+        "Marketing team can't back this up"
+      ],
+      "refinement": "Remove unsubstantiated claims. Ask for verifiable facts only.",
+      "correctApproach": "Revise with: 'Remove the specific comparison claim. Instead, use actual metrics you can prove - like our benchmark shows 5x improvement on test cases, or cite real customer feedback.'",
+      "xp": 50,
+      "achievement": "hallucination-fighter"
+    },
+    {
+      "id": 3,
+      "title": "The Wrong Tone",
+      "difficulty": "medium",
+      "scenario": "You needed professional B2B copy for enterprise clients. AI generated:\n\n'OMG, this app is INSANE! 🤩 You're gonna LOVE it! Super fun and chill to use!'",
+      "problems": [
+        "Tone is casual, not professional",
+        "Excessive exclamation marks and emojis",
+        "Doesn't build trust with executives",
+        "Doesn't match enterprise audience"
+      ],
+      "refinement": "Match the tone to the audience. B2B enterprise needs authoritative, professional language.",
+      "correctApproach": "Rebuild with: 'Rewrite in professional B2B tone. Focus on ROI, efficiency, and risk reduction. Remove slang and excess punctuation. Sound like industry experts.'",
+      "xp": 75,
+      "achievement": "tone-master"
+    },
+    {
+      "id": 4,
+      "title": "The Missing Call-to-Action",
+      "difficulty": "medium",
+      "scenario": "You got this email body from an AI:\n\n'Here's information about our new features. We've added better analytics, improved integrations, and faster loading. Our team works hard every day.'",
+      "problems": [
+        "No clear next step for reader",
+        "Doesn't create urgency",
+        "Doesn't tell people what to do",
+        "Weak closing"
+      ],
+      "refinement": "Add a strong CTA. Make it obvious what action you want readers to take.",
+      "correctApproach": "Revise with: 'Add a clear CTA like: Get started free, Schedule a demo, Claim your early-bird discount. Make it feel urgent: Limited time, For a limited time, Act now.'",
+      "xp": 75,
+      "achievement": "cta-expert"
+    },
+    {
+      "id": 5,
+      "title": "The Over-Complicated Explanation",
+      "difficulty": "hard",
+      "scenario": "Your AI-generated product description:\n\n'Our sophisticated algorithmic framework leverages synergistic optimization matrices through multi-dimensional parameter distribution to facilitate enhanced computational throughput and dynamically adjudicate resource allocation via advanced heuristic paradigms.'",
+      "problems": [
+        "Incomprehensible to most readers",
+        "Uses jargon for jargon's sake",
+        "No human benefit explained",
+        "Reads like it was written by AI (not good)"
+      ],
+      "refinement": "Simplify. Use everyday language. Focus on human benefit, not technical specs.",
+      "correctApproach": "Rewrite with: 'Translate to plain English: What does this actually do? Who benefits? How much faster/cheaper/better? Remove technical jargon. Ask: Would a 10-year-old understand this?'",
+      "xp": 100,
+      "achievement": "simplicity-sage"
+    },
+    {
+      "id": 6,
+      "title": "The Inconsistent Brand Voice",
+      "difficulty": "hard",
+      "scenario": "Your AI generated these two consecutive paragraphs:\n\nPara 1: 'We're a cutting-edge tech startup disrupting the industry with innovative solutions.'\n\nPara 2: 'We humbly serve our customers with old-fashioned values and traditional craftsmanship.'",
+      "problems": [
+        "Contradictory messaging",
+        "Confuses readers about brand identity",
+        "Two different brands described",
+        "Loses credibility"
+      ],
+      "refinement": "Maintain consistent brand voice throughout. All sections should sound like same company.",
+      "correctApproach": "Ask AI: 'Rewrite both paragraphs to match our brand voice. [Define voice: We're innovative but grounded, tech-forward but human-centered]. Make both paragraphs sound like they came from same company.'",
+      "xp": 100,
+      "achievement": "voice-keeper"
+    },
+    {
+      "id": 7,
+      "title": "The Missing Social Proof",
+      "difficulty": "hard",
+      "scenario": "Sales page from AI:\n\n'This software is really good and will help your business. You should definitely buy it. It's the best in its category.'",
+      "problems": [
+        "No evidence or proof",
+        "Sounds like opinion, not fact",
+        "No testimonials or metrics",
+        "Doesn't build buyer confidence"
+      ],
+      "refinement": "Add social proof: reviews, testimonials, metrics, case studies, user counts.",
+      "correctApproach": "Tell AI: 'Add social proof. Include: # of users, customer testimonials, case study results, industry awards, published case studies, metrics (faster, cheaper, higher conversion).'",
+      "xp": 125,
+      "achievement": "proof-finder"
+    },
+    {
+      "id": 8,
+      "title": "The Feature Dump",
+      "difficulty": "expert",
+      "scenario": "Product description AI generated:\n\n'Features: Advanced analytics, AI detection, real-time monitoring, cloud backup, mobile app, dark mode, API access, webhooks, SSO, SAML, custom domains, staging environments, audit logs, multi-team support, permission levels, duplicate detection, and pattern recognition engine.'",
+      "problems": [
+        "Lists everything, prioritizes nothing",
+        "Overwhelms the reader",
+        "No focus on #1 benefit",
+        "Doesn't answer: Why should I care?"
+      ],
+      "refinement": "Prioritize benefits over features. Answer: What's the #1 problem it solves? Then secondary benefits.",
+      "correctApproach": "Restructure with: 'Focus on top 3 benefits users care about most. Put others in expandable sections. Lead with: This solves X problem that costs you Y. Secondary features support that core benefit.'",
+      "xp": 125,
+      "achievement": "prioritizer"
+    },
+    {
+      "id": 9,
+      "title": "The Assumed Knowledge",
+      "difficulty": "expert",
+      "scenario": "Blog post from AI:\n\n'The webhook payload uses JWT token validation with RS256 algorithm and asymmetric key rotation through PKI infrastructure. Standard OAuth 2.0 bearer schema with CORS preflight handling.'",
+      "problems": [
+        "Assumes readers know technical terms",
+        "Alienates non-technical audience",
+        "Too much jargon",
+        "Doesn't explain 'why' behind the 'what'"
+      ],
+      "refinement": "Explain concepts for mixed audience. Define technical terms. Include the 'why'.",
+      "correctApproach": "Ask AI: 'Explain this for a mixed audience (some technical, some not). Define technical terms. Add: Why does this matter? What problem does it solve?'",
+      "xp": 150,
+      "achievement": "bridge-builder"
+    },
+    {
+      "id": 10,
+      "title": "The Unfinished Request",
+      "difficulty": "expert",
+      "scenario": "You asked for email copy without clear direction. AI gave you 5 different versions with no context. Which refinement request would prevent this?",
+      "options": [
+        "Just pick the longest one",
+        "Tell AI the exact format, length, target audience, tone, and what emotion you want to trigger",
+        "Ask for more options",
+        "Edit it yourself completely"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Vague requests get vague results. The best prompt specifies: Length (50 words, 100 words), Tone (professional, casual, urgent), Audience (executives, students, creators), Goal (inspire action, build trust, create curiosity), and Format (bullet points, story, question-answer).",
+      "xp": 150,
+      "achievement": "prompt-architect"
+    }
+  ]
+}

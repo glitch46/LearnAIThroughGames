@@ -1,0 +1,273 @@
+{
+  "competitions": [
+    {
+      "id": 1,
+      "title": "Creative Writing Round",
+      "difficulty": "easy",
+      "prompt": "Write a brand story for a sustainable fashion company",
+      "tools": {
+        "claude": {
+          "strength": "Storytelling, emotional depth, nuance, authenticity",
+          "sample": "Founded in 2008, three friends realized their favorite vintage pieces told better stories than new clothes. That spark became a mission: prove that great style and sustainability weren't just compatible—they were inseparable. Today, they partner with 50+ artisans worldwide, each piece carrying the maker's story. Quality lasts. That's the real sustainability.",
+          "score": 95
+        },
+        "chatgpt": {
+          "strength": "Accessibility, good variety of angles, mass appeal",
+          "sample": "Our sustainable fashion company started when we noticed people wanted to dress better without harming the planet. We decided to create beautiful, eco-friendly clothing that lasts longer and feels great. Today, we work with sustainable suppliers and share values with our customers. We believe fashion should be good for people and the planet.",
+          "score": 75
+        },
+        "gemini": {
+          "strength": "Creative variety, experimental ideas, fun angles",
+          "sample": "What if your clothes had a secret life? Before they reached your closet, each piece was hand-crafted by a maker in a small village, using materials from ethical farms. Your shirt isn't just a shirt—it's a story of real people, real craftsmanship, and a real commitment to the planet. Wear it, love it, pass it on.",
+          "score": 82
+        }
+      },
+      "winner": "claude",
+      "why": "Claude nails emotional narrative with specificity. Mentions actual artisans (proof), gives founding story (authenticity), ends with philosophy (memorable). ChatGPT is good but generic. Gemini is creative but wordy.",
+      "lesson": "For brand storytelling, Claude wins because it balances emotion with credibility. Great stories feel specific, not like they were written for everyone.",
+      "xp": 75,
+      "achievement": "story-judge"
+    },
+    {
+      "id": 2,
+      "title": "Technical Explanation Round",
+      "difficulty": "easy",
+      "prompt": "Explain what API authentication is to a non-technical founder",
+      "tools": {
+        "claude": {
+          "strength": "Clear analogies, beginner-friendly explanations, context",
+          "sample": "Imagine your app is a nightclub. Authentication is like checking ID at the door—it confirms 'you are who you say you are.' An API is like a waiter—it takes requests and fulfills them. Authentication is what prevents random people from using the waiter to sneak into the VIP section. It's security between systems.",
+          "score": 90
+        },
+        "chatgpt": {
+          "strength": "Comprehensive, covers multiple angles, balanced",
+          "sample": "API authentication is the security method that confirms your identity when using an API. When your app sends a request to another service (like Stripe for payments), that service needs to verify you're authorized. Common methods include tokens and keys. It prevents unauthorized access to private data.",
+          "score": 78
+        },
+        "gemini": {
+          "strength": "Engaging, conversational, uses real-world examples",
+          "sample": "Think of it like your Netflix password. When you log in, Netflix verifies who you are before showing your watchlist. APIs work the same way—your app 'logs in' to another service using a special key (token). That key proves 'this is the real XYZ app, not a hacker pretending to be XYZ.'",
+          "score": 85
+        }
+      },
+      "winner": "claude",
+      "why": "Claude uses familiar analogy (nightclub) that founders actually connect with. Defines both API and authentication separately, then shows relationship. ChatGPT is accurate but jargony. Gemini is good (Netflix example) but less precise on what authentication actually prevents.",
+      "lesson": "Technical explanations: Use analogies from their world. Non-tech founders care about risk/security. State one clear purpose before explaining how.",
+      "xp": 75,
+      "achievement": "translator"
+    },
+    {
+      "id": 3,
+      "title": "Code Review Round",
+      "difficulty": "medium",
+      "prompt": "Review this code and suggest improvements. [Includes sample code]",
+      "tools": {
+        "claude": {
+          "strength": "Detailed feedback, explains WHY not just what, security-focused",
+          "sample": "This code works but has 3 issues: (1) No error handling—if the API fails, app crashes. (2) API key is hardcoded—never do this, use environment variables. (3) No rate limiting—you'll hit API limits. Fix these and it's solid.",
+          "score": 92
+        },
+        "chatgpt": {
+          "strength": "Good code suggestions, refactoring tips, performance angle",
+          "sample": "Your code is functional. Improvements: use try-catch for error handling, move API key to config file, add request timeout, consider caching to reduce API calls, use async/await for cleaner syntax.",
+          "score": 85
+        },
+        "gemini": {
+          "strength": "Creative alternative approaches, experimental suggestions",
+          "sample": "This works! You could also try: using a service wrapper to abstract the API, implementing exponential backoff for retries, or using observables instead of promises for more reactive flow.",
+          "score": 72
+        }
+      },
+      "winner": "claude",
+      "why": "Claude prioritizes security (API key in code is critical), explains impact of each issue (app crashes, limits hit), gives clear fixes. ChatGPT is comprehensive but misses security priority. Gemini suggests advanced patterns but misses basic issues.",
+      "lesson": "Code reviews: Prioritize security > performance > style. Explain the business impact, not just technical cleanness.",
+      "xp": 100,
+      "achievement": "code-reviewer"
+    },
+    {
+      "id": 4,
+      "title": "Customer Support Round",
+      "difficulty": "medium",
+      "prompt": "Customer says: 'Your product is too expensive compared to [competitor]. Why should I pay more?'",
+      "tools": {
+        "claude": {
+          "strength": "Nuanced objection handling, validates concern, reframes value",
+          "sample": "Great question. Here's what we hear often: [competitor] is $50/mo, we're $99/mo. The difference? We save you 5+ hours weekly—[competitor] needs manual setup weekly. On your salary, that's worth $500+. Plus our support responds in 1 hour vs their 24hr email. If your time is worth money, we're actually the cheaper option.",
+          "score": 93
+        },
+        "chatgpt": {
+          "strength": "Balanced response, lists benefits clearly, shows understanding",
+          "sample": "We understand budget concerns. Our product offers better support, more integrations, and faster implementation compared to competitors. While we cost more, customers report 40% productivity gains. Would a 14-day free trial help you see the value firsthand?",
+          "score": 80
+        },
+        "gemini": {
+          "strength": "Empathetic, conversational, builds rapport",
+          "sample": "I totally get it—price is important! But here's what makes us different: we actually save you time every single day, not just at setup. Think of it as investing in your time back. Most customers tell us within 2 weeks it pays for itself. Want to run the numbers together?",
+          "score": 83
+        }
+      },
+      "winner": "claude",
+      "why": "Claude quantifies the value (5+ hours = $500 worth), shows how competitor's weakness becomes advantage (manual setup), validates concern first. ChatGPT is professional but generic. Gemini is warm but doesn't attack the real objection (ROI math).",
+      "lesson": "Objection handling: Convert their concern into your advantage. Use their time/salary to show ROI. Proof beats persuasion.",
+      "xp": 100,
+      "achievement": "sales-pro"
+    },
+    {
+      "id": 5,
+      "title": "Product Launch Plan Round",
+      "difficulty": "hard",
+      "prompt": "Create a 30-day launch plan for a new project management tool",
+      "tools": {
+        "claude": {
+          "strength": "Strategic thinking, phased rollout, measurable milestones",
+          "sample": "Days 1-7: Beta tester onboarding + feedback loops. Days 8-14: Iterate based on feedback, record 3 testimonial videos. Days 15-21: Launch email campaign (7 emails over 3 weeks), social media push (daily posts), press outreach. Days 22-30: Full public launch, paid ads targeting competitors' keywords, celebrate wins with early users. Success metric: 500 active users by day 30.",
+          "score": 94
+        },
+        "chatgpt": {
+          "strength": "Comprehensive coverage, practical checklist approach, resource allocation",
+          "sample": "Week 1: Internal testing, marketing materials prep, press release draft. Week 2: Beta launch to 100 users, support team training. Week 3: Gather feedback, optimize onboarding, plan paid ads. Week 4: Full launch, ads go live, community outreach, performance tracking. Assign: Product (testing), Marketing (content), Sales (early customers).",
+          "score": 86
+        },
+        "gemini": {
+          "strength": "Creative marketing angles, viral/organic growth focus, engagement tactics",
+          "sample": "Days 1-10: Tease campaign on Twitter/LinkedIn with behind-the-scenes content. Days 11-15: Influencer reviews from 5 micro-influencers in space. Days 16-22: Launch party event (virtual or in-person) with live demo. Days 23-30: Challenge/competition for early users (leaderboard, prizes). Growth through FOMO and community, not just ads.",
+          "score": 82
+        }
+      },
+      "winner": "claude",
+      "why": "Claude's plan is strategic (phased rollout protects brand if issues arise), measurable (500 users by day 30), and balanced (feedback loops before big push). ChatGPT is thorough but generic. Gemini is creative but risky (depends on influencer goodwill, less reliable than data-driven approach).",
+      "lesson": "Launch plans: Phase it (test small, expand carefully). Get proof before big spend. Set ONE clear success metric.",
+      "xp": 125,
+      "achievement": "launch-strategist"
+    },
+    {
+      "id": 6,
+      "title": "Edge Case Handling Round",
+      "difficulty": "hard",
+      "prompt": "What could go wrong with this plan? [Includes multi-step business/product plan]",
+      "tools": {
+        "claude": {
+          "strength": "Identifies systemic risks, second-order effects, failure modes",
+          "sample": "3 major risks: (1) Early users might expect 24/7 support but you only have 1 support person—hire or set expectations now. (2) If all launch traffic hits on day 1, servers crash—stress test first. (3) Influencers get paid/featured, then endorse competitor next month—this builds no moat. Build actual product moat instead.",
+          "score": 91
+        },
+        "chatgpt": {
+          "strength": "Balanced risk assessment, mitigation strategies, contingency planning",
+          "sample": "Potential issues: insufficient server capacity (mitigation: stress test), unclear ROI on influencer spend (track conversion), customer acquisition cost too high (diversify channels), limited support team (hire or automation). Have backup plans for each.",
+          "score": 84
+        },
+        "gemini": {
+          "strength": "Creative failure scenarios, thinks outside the box, second-order effects",
+          "sample": "What if you get 10x more users than expected? Support breaks, product becomes slow, reputation damaged. What if influencers ghost? Plan b: organic community instead. What if competitors launch similar product same week? You need differentiation story ready NOW, not day 30.",
+          "score": 87
+        }
+      },
+      "winner": "claude",
+      "why": "Claude identifies real consequences (support crisis), tests assumptions (stress test), and calls out vanity metrics (influencers). Prioritizes what actually matters. ChatGPT is safe/thorough. Gemini is creative but less actionable.",
+      "lesson": "Risk analysis: What fails first under pressure? What assumptions are fragile? What's your actual competitive advantage?",
+      "xp": 125,
+      "achievement": "risk-analyzer"
+    },
+    {
+      "id": 7,
+      "title": "Brand Voice Development Round",
+      "difficulty": "hard",
+      "prompt": "Develop a distinct brand voice for a data analytics company targeting developers",
+      "tools": {
+        "claude": {
+          "strength": "Defines voice with patterns, gives writing examples, stays consistent",
+          "sample": "Voice: Honest, technical, no BS. Skip jargon, show the data. Examples: [Shows 3 short samples that sound like same author]. Avoid: overly casual, trendy slang, false urgency. Use: short sentences, active voice, specific numbers, 'we' not 'you should.' Tone shifts for platform: Developer docs = direct. Twitter = witty-sarcastic. Landing page = confident.",
+          "score": 92
+        },
+        "chatgpt": {
+          "strength": "Comprehensive voice guidelines, tone shifts by channel, practical application",
+          "sample": "Brand Voice: Direct, technical, credible. We explain complex data in simple terms. Avoid: hype, jargon, assumptions. Key traits: honest (admit limitations), precise (use exact metrics), helpful (developers are busy, respect their time). LinkedIn (professional), Twitter (personality), blog (educational), support (empathetic). Here's a voice guide document.",
+          "score": 85
+        },
+        "gemini": {
+          "strength": "Engaging voice, memorable personality, distinct style",
+          "sample": "We sound like the engineer you trust who doesn't overcomplicate things. Casual but competent. Funny without trying. We say what we mean and back it up with data. 'This thing is broken and here's why' > 'we're experiencing degraded service.' Be that friend who explains things clearly.",
+          "score": 83
+        }
+      },
+      "winner": "claude",
+      "why": "Claude gives writing examples (lets team hear the voice), defines voice rules clearly (what to avoid), explains platform shifts (developers speak different language on Twitter vs docs). ChatGPT is good but more 'guide' than 'voice.' Gemini is memorable but less actionable for team consistency.",
+      "lesson": "Brand voice: Show samples (not just describe), explain the WHY behind the voice, give platform-specific guidance.",
+      "xp": 125,
+      "achievement": "voice-stylist"
+    },
+    {
+      "id": 8,
+      "title": "Crisis Communication Round",
+      "difficulty": "expert",
+      "prompt": "Your app just went down for 3 hours. How do you communicate?",
+      "tools": {
+        "claude": {
+          "strength": "Speed, honesty, action-oriented, rebuilds trust",
+          "sample": "Immediate (within 15 min): 'We're experiencing an outage. ETA for fix: 2 hours. We'll update every 30 min.' After: 'Outage resolved. Root cause: database connection pool exhausted. We've scaled it 3x. This won't happen again.' Next: 'We're giving all affected users $50 credit + extending trial 1 month. We messed up.'",
+          "score": 95
+        },
+        "chatgpt": {
+          "strength": "Professional tone, acknowledges impact, provides information",
+          "sample": "We're aware of the service interruption affecting users. Our team is investigating and working on a fix. We apologize for the inconvenience. We'll provide updates every hour. Updates will be posted to our status page. Thank you for your patience.",
+          "score": 78
+        },
+        "gemini": {
+          "strength": "Empathetic, transparent, builds community",
+          "sample": "We're down and it sucks—we get it. Our team is heads-down fixing it right now. Here's what happened: [honest explanation]. We don't know exact ETA yet but we'll post updates every 20 min. Seriously, we're sorry. We'll make this right.",
+          "score": 87
+        }
+      },
+      "winner": "claude",
+      "why": "Claude gives specific timeline (builds confidence), explains root cause + fix (we've learned), and offers compensation (rebuilds trust). ChatGPT is corporate/safe but rebuilds nothing. Gemini is honest but less structured in response.",
+      "lesson": "Crisis communication: Speed > perfection. Honesty > spin. Specific timeline > 'working on it.' Then make it right (credit, compensation).",
+      "xp": 150,
+      "achievement": "crisis-handler"
+    },
+    {
+      "id": 9,
+      "title": "Complex Problem-Solving Round",
+      "difficulty": "expert",
+      "prompt": "We're a SaaS with $100K MRR but growing only 2% monthly. How do we get to $500K MRR? [Scenario includes product details, market size, team size]",
+      "tools": {
+        "claude": {
+          "strength": "Systems thinking, identifies the real constraint, prioritizes ruthlessly",
+          "sample": "At 2% growth, you'll never hit $500K. Three scenarios: (1) Expand to adjacent market (cost: 2 months, risk: medium, upside: 50% revenue). (2) Increase prices 20% + improve retention (cost: 1 month, risk: low, upside: 20% revenue). (3) Build enterprise tier (cost: 6 months, risk: high, upside: 100%+ revenue). Best path: Do #2 immediately (cash boost + validate quality), then parallelize #1 and #3. You need experimentation velocity more than any single bet.",
+          "score": 93
+        },
+        "chatgpt": {
+          "strength": "Structured analysis, multiple options, clear trade-offs",
+          "sample": "Options to explore: (1) Increase customer LTV through upsells and add-ons. (2) Expand to new customer segments. (3) Reduce churn through better onboarding. (4) Raise prices (analyze price elasticity first). (5) Expand geographically. For each: estimate effort, timeline, risk, upside. Start with highest ROI options. Measure everything.",
+          "score": 86
+        },
+        "gemini": {
+          "strength": "Creative options, contrarian thinking, market insights",
+          "sample": "You're thinking too small. At 2% growth, it's not an execution problem—it's a positioning problem. Competitors own your space. Options: (1) Specialize (become #1 in vertical instead of generic). (2) Partner (white-label for bigger platforms). (3) Acquire (buy competitor, consolidate market). (4) Go open-source (build community around free product, monetize premium). Think bigger.",
+          "score": 84
+        }
+      },
+      "winner": "claude",
+      "why": "Claude diagnoses the real constraint (2% growth is unsustainable, need systematic solutions), prioritizes (quick wins first to fund bets), and gives specific metrics for each option. ChatGPT is thorough but generic. Gemini is creative but suggests risky pivots without data.",
+      "lesson": "Complex problems: Diagnose the constraint first. Sequence bets (quick wins fund risky bets). Measure before committing.",
+      "xp": 150,
+      "achievement": "strategist-elite"
+    },
+    {
+      "id": 10,
+      "title": "Choose Your Champion",
+      "difficulty": "expert",
+      "challenge": "Based on the competition, which tool would you hire and why?",
+      "options": [
+        "ChatGPT - it's balanced and safe across all categories",
+        "Claude - it wins on storytelling, technical explanations, customer support, and complex strategy. Best for marketing, customer-facing work, and strategic decisions.",
+        "Gemini - it's creative and engaging, best for brainstorming and novel ideas",
+        "All three together - use each for their strengths"
+      ],
+      "correctAnswer": 3,
+      "explanation": "The real answer: Use all three, but for different jobs. Claude for strategy, customer communication, and brand voice (it's the best thinker). ChatGPT for thorough analysis and comprehensive coverage. Gemini for brainstorming and creative angles. But if you had to pick ONE tool for a marketing/growth role? Claude. Best for most business-critical decisions.",
+      "lesson": "AI tools are specialists, not generalists. Claude excels at reasoning and communication. ChatGPT excels at comprehensive coverage. Gemini excels at creative ideation. Your job: Know which tool for which task.",
+      "xp": 200,
+      "achievement": "tool-master"
+    }
+  ]
+}

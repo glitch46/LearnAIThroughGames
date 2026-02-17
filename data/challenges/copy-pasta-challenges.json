@@ -1,0 +1,191 @@
+{
+  "challenges": [
+    {
+      "id": "easy-1",
+      "difficulty": "easy",
+      "type": "evaluateOutput",
+      "title": "Landing Page Headline",
+      "prompt": "Generate a catchy headline for a productivity app landing page",
+      "aiOutput": "Streamline your workflow and maximize your productivity potential with our innovative solution.",
+      "question": "How would you rate this headline for a landing page?",
+      "options": [
+        "Excellent - memorable and specific",
+        "Good - clear but generic and forgettable",
+        "Poor - sounds like corporate jargon"
+      ],
+      "correctAnswer": 2,
+      "explanation": "This headline is full of buzzwords ('innovative', 'maximize potential', 'streamline'). A better one would be specific and memorable, like 'Stop switching apps. Start shipping.' A good headline tells you what the app does and why it matters.",
+      "xp": 20
+    },
+    {
+      "id": "easy-2",
+      "difficulty": "easy",
+      "type": "improvementNeeded",
+      "title": "Product Description",
+      "prompt": "Write a product description for headphones",
+      "aiOutput": "These headphones feature high-quality audio reproduction with noise cancellation technology and extended battery life for all-day listening.",
+      "question": "What's missing from this description?",
+      "options": [
+        "Emotional appeal - who cares HOW it works, tell them what they FEEL",
+        "Better technical specs",
+        "More features listed"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Generic specs don't sell products. Emotions do. Better: 'Disappear into your music. All-day battery means you're never without your sound.' Focus on the EXPERIENCE, not the features.",
+      "xp": 20
+    },
+    {
+      "id": "easy-3",
+      "difficulty": "easy",
+      "type": "toneCheck",
+      "title": "Email Subject Line",
+      "prompt": "Write an email subject line for a product launch",
+      "aiOutput": "Announcing Our New Product Launch Available Now",
+      "question": "What's the main problem with this subject line?",
+      "options": [
+        "It's boring and doesn't create curiosity or urgency",
+        "It's too long",
+        "It uses too many capital letters"
+      ],
+      "correctAnswer": 0,
+      "explanation": "No one wants to open 'Announcing...'. Better subject lines create curiosity or urgency: 'You've been asking for this...' or 'Finally, the tool we've all needed'",
+      "xp": 20
+    },
+    {
+      "id": "medium-1",
+      "difficulty": "medium",
+      "type": "qualityAnalysis",
+      "title": "Social Media Caption",
+      "prompt": "Write a Twitter caption for a coffee shop",
+      "aiOutput": "We are proud to introduce our new seasonal menu featuring locally-sourced, ethically-sourced beans from sustainable coffee farms around the world.",
+      "question": "What's wrong with this caption?",
+      "options": [
+        "It's too formal and corporate for Twitter's vibe",
+        "The audience doesn't care about sourcing",
+        "Coffee shops don't use Twitter"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Twitter is conversational. This sounds like a press release. Better: 'New season = new blends. We're obsessed 🤎☕' Social media should sound human, not corporate.",
+      "xp": 30
+    },
+    {
+      "id": "medium-2",
+      "difficulty": "medium",
+      "type": "promptFeedback",
+      "title": "Marketing Copy - Improvement Round",
+      "prompt": "Write marketing copy for a task management app",
+      "aiOutput": "Our task management application provides comprehensive solutions for organizational efficiency and workflow optimization.",
+      "question": "If you got this output, what's your FIRST improvement prompt?",
+      "options": [
+        "Strip out buzzwords and make it specific. What does it actually DO? And who's it for?",
+        "Add more features",
+        "Make it longer and more detailed"
+      ],
+      "correctAnswer": 0,
+      "explanation": "When AI output is generic, your follow-up should be: 'Remove buzzwords. This is for busy entrepreneurs. Tell me what they FEEL, not what it DOES.'",
+      "xp": 40
+    },
+    {
+      "id": "medium-3",
+      "difficulty": "medium",
+      "type": "voiceConsistency",
+      "title": "Brand Voice Check",
+      "prompt": "Three captions for a startup's Instagram",
+      "aiOutput": "1) 'Elevate your professional endeavors'\n2) 'Yo, we're shipping something spicy'\n3) 'Join thousands of satisfied users'",
+      "question": "What's the problem here?",
+      "options": [
+        "The tone is inconsistent - they don't sound like the same brand",
+        "They're all too long",
+        "None of them include emojis"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Your AI output is only as good as your input. If you don't specify brand voice consistently, you get mush. Better prompt: 'All captions should sound like we're texting a friend. Startup energy. Smart but not serious.'",
+      "xp": 40
+    },
+    {
+      "id": "hard-1",
+      "difficulty": "hard",
+      "type": "deepAnalysis",
+      "title": "Email Campaign Audit",
+      "prompt": "Create an email for a SaaS launch",
+      "aiOutput": "Subject: Revolutionary Software Solution Now Available\nBody: We are excited to announce our new software platform that will transform your business efficiency. With advanced features and seamless integration, you'll experience unprecedented productivity gains.",
+      "question": "What are the TOP 3 issues with this email?",
+      "options": [
+        "Vague subject, generic body, no urgency/scarcity, missing specific benefit",
+        "Too short",
+        "Doesn't have a call-to-action button"
+      ],
+      "correctAnswer": 0,
+      "explanation": "This email has multiple problems: (1) Subject line doesn't create curiosity (2) Body lists features, not benefits (3) No reason to act NOW. Better subject: 'Early access closes Friday' with body focused on ONE key benefit.",
+      "xp": 50
+    },
+    {
+      "id": "hard-2",
+      "difficulty": "hard",
+      "type": "outputRedirection",
+      "title": "When AI Goes Off Rails",
+      "prompt": "Create a product description for a fitness app",
+      "aiOutput": "This fitness application utilizes cutting-edge artificial intelligence and machine learning algorithms to provide personalized workout recommendations based on your fitness level and goals.",
+      "question": "This is way too technical. How would you redirect the AI?",
+      "options": [
+        "Tell it the audience (busy parents) and what they FEEL (motivated, energized, proud) - remove all technical jargon",
+        "Ask for more features",
+        "Ask it to make it longer"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Redirect: 'This is for busy parents who want to feel STRONG again. Forget tech jargon. Focus on the win: 20-min workouts that actually work. How do they feel after?'",
+      "xp": 50
+    },
+    {
+      "id": "expert-1",
+      "difficulty": "expert",
+      "type": "fullCampaignReview",
+      "title": "Complete Campaign Assessment",
+      "prompt": "Create a full email campaign (subject + 3 paragraphs + CTA)",
+      "aiOutput": "Subject: Important Update\n\nDear Valued Customer,\n\nWe are writing to inform you of a significant enhancement to our product offerings that will provide you with added value and improved functionality.\n\nOur team has worked tirelessly to develop features that address customer feedback and industry standards. These innovative solutions represent a commitment to excellence.\n\nWe look forward to your continued partnership and support as we move forward together.\n\nCTA: Learn More",
+      "question": "Rate this email. What's the CORE problem?",
+      "options": [
+        "No connection to reader - it's all about 'we' and 'us', never 'you'. No emotion, no specifics, no reason to care.",
+        "It's too long",
+        "The CTA button color is wrong"
+      ],
+      "correctAnswer": 0,
+      "explanation": "This email violates the basic rule: readers only care about themselves. EVERYTHING should be about THEM: what they'll save, what they'll achieve, how they'll feel. This email is completely self-focused.",
+      "xp": 75
+    },
+    {
+      "id": "expert-2",
+      "difficulty": "expert",
+      "type": "masterYourPrompt",
+      "title": "The Prompt Prompt",
+      "prompt": "Write the PERFECT prompt that will generate the PERFECT email",
+      "aiOutput": "Write an email",
+      "question": "What's HILARIOUSLY wrong with this prompt?",
+      "options": [
+        "It's insanely vague - no context, no examples, no constraints, no tone",
+        "It's too direct",
+        "Emails can't be written by AI"
+      ],
+      "correctAnswer": 0,
+      "explanation": "This proves the golden rule: GARBAGE PROMPT = GARBAGE OUTPUT. Bad prompt = blank stare from AI. Your prompting skills matter MORE than AI's intelligence. The better your prompt, the better your output.",
+      "xp": 100
+    },
+    {
+      "id": "expert-3",
+      "difficulty": "expert",
+      "type": "mindsetShift",
+      "title": "The Real Skill",
+      "prompt": "Multiple AI-generated versions of copy",
+      "aiOutput": "Version A: Corporate, vague, buzzword-filled\nVersion B: Emotional, specific, action-oriented\nVersion C: Generic, safe, boring",
+      "question": "You're using Claude to generate copy. Which output matters most?",
+      "options": [
+        "Your ABILITY TO JUDGE WHICH ONE IS BEST and know HOW TO REDIRECT for better results",
+        "The original AI output - it should be perfect first time",
+        "How many versions it generates"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The REAL skill isn't writing code or copy. It's JUDGMENT: knowing what good looks like, recognizing what's missing, and knowing how to redirect AI to fix it. That's what separates vibe coders from script-followers.",
+      "xp": 125
+    }
+  ]
+}

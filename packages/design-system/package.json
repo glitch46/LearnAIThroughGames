@@ -1,0 +1,10 @@
+{
+  "name": "@learn-ai-games/design-system",
+  "version": "1.0.0",
+  "description": "Shared CSS design system for Learn AI Through Games",
+  "private": true,
+  "main": "css/global.css",
+  "files": [
+    "css"
+  ]
+}

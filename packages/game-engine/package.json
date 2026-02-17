@@ -1,0 +1,10 @@
+{
+  "name": "@learn-ai-games/game-engine",
+  "version": "1.0.0",
+  "description": "Shared game engine - XP system, achievements, progress tracking",
+  "private": true,
+  "main": "src/game-engine.js",
+  "files": [
+    "src"
+  ]
+}

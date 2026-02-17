@@ -1,0 +1,184 @@
+{
+  "races": [
+    {
+      "id": 1,
+      "title": "Landing Page Sprint",
+      "difficulty": "easy",
+      "timeLimit": 300,
+      "goal": "Build a landing page headline section that converts",
+      "startingPoint": "You have a SaaS tool for scheduling social media posts",
+      "milestones": [
+        {"time": 60, "task": "Write the main headline", "bonus": 25},
+        {"time": 120, "task": "Add subheadline with specific benefit", "bonus": 25},
+        {"time": 180, "task": "Add social proof (user count + statistic)", "bonus": 50},
+        {"time": 300, "task": "Add CTA button with urgency", "bonus": 100}
+      ],
+      "winCondition": "All 4 elements complete, plus at least one includes specific number/metric",
+      "tips": "Use AIDA framework. Lead with benefit, not feature. Include proof. Make CTA action-oriented.",
+      "xp": 75,
+      "achievement": "landing-page-builder"
+    },
+    {
+      "id": 2,
+      "title": "Email Copy Championship",
+      "difficulty": "easy",
+      "timeLimit": 240,
+      "goal": "Write an email that gets clicks",
+      "startingPoint": "You're announcing a new feature to existing users",
+      "milestones": [
+        {"time": 60, "task": "Write subject line with curiosity/urgency", "bonus": 25},
+        {"time": 120, "task": "Write email body that answers: What is it? Why should I care?", "bonus": 50},
+        {"time": 180, "task": "Add specific benefit statement (saves X time, earns $Y)", "bonus": 50},
+        {"time": 240, "task": "Add CTA with single, clear action", "bonus": 75}
+      ],
+      "winCondition": "Subject line under 50 chars, body under 150 words, includes 1 metric, CTA is obvious",
+      "tips": "Subject lines that work: curiosity, urgency, specificity, or benefit. Keep email scannable with short sentences.",
+      "xp": 75,
+      "achievement": "email-champion"
+    },
+    {
+      "id": 3,
+      "title": "Product Description Dash",
+      "difficulty": "medium",
+      "timeLimit": 360,
+      "goal": "Write complete product description for an e-commerce item",
+      "startingPoint": "You're selling wireless noise-canceling earbuds",
+      "milestones": [
+        {"time": 90, "task": "Write headline emphasizing #1 benefit (not feature)", "bonus": 30},
+        {"time": 180, "task": "Write 2-3 sentence benefit section", "bonus": 50},
+        {"time": 270, "task": "List 3-5 key features with benefits (not just specs)", "bonus": 50},
+        {"time": 360, "task": "Add social proof + CTA (Buy Now or Add to Cart)", "bonus": 100}
+      ],
+      "winCondition": "Benefits before features, includes proof (reviews/ratings/users), CTA is prominent",
+      "tips": "Features = what it has. Benefits = what it DOES for you. Always lead with benefit. Proof kills doubt.",
+      "xp": 100,
+      "achievement": "product-master"
+    },
+    {
+      "id": 4,
+      "title": "Social Media Content Blitz",
+      "difficulty": "medium",
+      "timeLimit": 300,
+      "goal": "Create 5 social posts for a coffee brand in 5 minutes",
+      "startingPoint": "You need posts for Instagram, TikTok, LinkedIn, Twitter, and Pinterest",
+      "milestones": [
+        {"time": 60, "task": "Instagram post (visual description + caption with emoji)", "bonus": 25},
+        {"time": 120, "task": "TikTok trend-based post idea (in-the-moment, casual)", "bonus": 25},
+        {"time": 180, "task": "LinkedIn thought leadership post (professional, insightful)", "bonus": 50},
+        {"time": 240, "task": "Twitter hot take or stat about coffee culture", "bonus": 50},
+        {"time": 300, "task": "Pinterest pin copy (inspirational, SEO-friendly)", "bonus": 75}
+      ],
+      "winCondition": "All 5 complete, each fits platform tone, at least 3 include CTAs or engagement hooks",
+      "tips": "Each platform has a different tone. Instagram = lifestyle. TikTok = authentic. LinkedIn = insights. Twitter = hot takes. Pinterest = inspiration.",
+      "xp": 100,
+      "achievement": "social-speed-demon"
+    },
+    {
+      "id": 5,
+      "title": "Sales Page Power Run",
+      "difficulty": "hard",
+      "timeLimit": 600,
+      "goal": "Build a complete sales page structure",
+      "startingPoint": "You're selling an online course on freelance pricing",
+      "milestones": [
+        {"time": 120, "task": "Hero section (headline + subheader + CTA)", "bonus": 50},
+        {"time": 240, "task": "Problem/Solution section (what's wrong, how you fix it)", "bonus": 50},
+        {"time": 360, "task": "Features/Benefits section (what they get, why it matters)", "bonus": 75},
+        {"time": 480, "task": "Social proof section (testimonials, stats, results)", "bonus": 75},
+        {"time": 600, "task": "Final CTA section with objection handling + urgency", "bonus": 100}
+      ],
+      "winCondition": "All sections complete, includes metrics, at least 2 objections addressed, CTA in multiple places",
+      "tips": "Sales page formula: Pain → Awareness of solution → How it works → Proof → Remove doubts → Ask for sale. Repeat CTA.",
+      "xp": 150,
+      "achievement": "sales-page-guru"
+    },
+    {
+      "id": 6,
+      "title": "Ad Copy Velocity",
+      "difficulty": "hard",
+      "timeLimit": 480,
+      "goal": "Write ad copy variations that increase CTR",
+      "startingPoint": "You're running ads for a project management tool",
+      "milestones": [
+        {"time": 120, "task": "Write Ad Copy A: Benefit-driven angle", "bonus": 40},
+        {"time": 240, "task": "Write Ad Copy B: FOMO/Urgency angle", "bonus": 40},
+        {"time": 360, "task": "Write Ad Copy C: Social proof angle", "bonus": 60},
+        {"time": 480, "task": "Write Ad Copy D: Free trial/low commitment angle", "bonus": 80}
+      ],
+      "winCondition": "4 variations complete, each under 60 characters for headline, each uses different psychology trigger",
+      "tips": "A/B testing wins when you change ONE variable at a time. Different angles: benefit, urgency, proof, low-barrier entry.",
+      "xp": 125,
+      "achievement": "ad-copy-specialist"
+    },
+    {
+      "id": 7,
+      "title": "Content Outline Sprint",
+      "difficulty": "hard",
+      "timeLimit": 420,
+      "goal": "Create detailed outline for blog post that ranks",
+      "startingPoint": "Write outline for: 'How to Negotiate Your First Freelance Project'",
+      "milestones": [
+        {"time": 120, "task": "Hook/Intro (why people care, what they'll learn)", "bonus": 50},
+        {"time": 180, "task": "Main sections (3-5 key concepts with subpoints)", "bonus": 50},
+        {"time": 300, "task": "Add data points / stats to research for each section", "bonus": 75},
+        {"time": 420, "task": "CTA + resource section (checklist, template, tool recommendations)", "bonus": 100}
+      ],
+      "winCondition": "Includes 1-2 stats to verify, main sections have actionable subpoints, has downloadable resource",
+      "tips": "Good outlines: hook readers immediately, break complex topics into digestible chunks, include data, and provide actionable takeaway.",
+      "xp": 125,
+      "achievement": "content-architect"
+    },
+    {
+      "id": 8,
+      "title": "Marketing Campaign Blitz",
+      "difficulty": "expert",
+      "timeLimit": 600,
+      "goal": "Design complete marketing campaign for product launch",
+      "startingPoint": "You're launching a new AI tool for managing team workflows",
+      "milestones": [
+        {"time": 150, "task": "Positioning statement (who, what, why, unique angle)", "bonus": 75},
+        {"time": 250, "task": "Launch email sequence plan (3 emails, each with purpose)", "bonus": 75},
+        {"time": 350, "task": "Social media content calendar (7 days of posts)", "bonus": 75},
+        {"time": 450, "task": "Press release or PR angle + influencer pitch approach", "bonus": 100},
+        {"time": 600, "task": "Measure success framework (what metrics = success?)", "bonus": 150}
+      ],
+      "winCondition": "All parts complete, campaign is cohesive (same messaging), includes both awareness + conversion tactics, metrics aligned to business goal",
+      "tips": "Best campaigns use multiple channels but one core message. Position once, repeat everywhere. Measure everything.",
+      "xp": 200,
+      "achievement": "campaign-commander"
+    },
+    {
+      "id": 9,
+      "title": "Rebrand the Company",
+      "difficulty": "expert",
+      "timeLimit": 720,
+      "goal": "Create complete brand messaging for a rebrand",
+      "startingPoint": "Tech consultancy 'TechSolutions Inc' rebranding to appeal to Gen-Z startups",
+      "milestones": [
+        {"time": 180, "task": "New brand name ideas + tagline options (at least 3)", "bonus": 100},
+        {"time": 300, "task": "Brand voice/tone guide (how they talk, what they value)", "bonus": 75},
+        {"time": 420, "task": "Value proposition + mission statement", "bonus": 100},
+        {"time": 540, "task": "Website homepage copy (hero + value sections)", "bonus": 100},
+        {"time": 720, "task": "Brand launch announcement + press materials", "bonus": 150}
+      ],
+      "winCondition": "New brand is coherent (name/tagline/voice all align), appeals to target (Gen-Z startups), messaging is consistent across all materials",
+      "tips": "Strong rebrands: pick ONE strategic shift (were boring, now cool) and execute that everywhere. Consistency beats perfection.",
+      "xp": 250,
+      "achievement": "brand-architect"
+    },
+    {
+      "id": 10,
+      "title": "The Ultimate Race",
+      "difficulty": "expert",
+      "timeLimit": 60,
+      "goal": "Prove you're a copy ninja: Quick prompt, quick output, high quality",
+      "startingPoint": "Write the BEST headline for a new AI coding tool (60 seconds)",
+      "challenge": "Your headline must include: (1) Specific benefit, (2) Create curiosity or urgency, (3) Use power word, (4) Be under 10 words",
+      "winCondition": "Headline meets all 4 criteria and is genuinely compelling",
+      "tips": "Best headlines: Show benefit (why should I care?), create intrigue or urgency (why now?), use power words (best, guaranteed, finally, secret), keep it short (under 10 words).",
+      "examples": "❌ 'New coding AI tool' (no benefit, no urgency, boring)\n✅ 'Finally, the AI that actually writes YOUR code (not templates)' (benefit, urgency, proof angle, power word)",
+      "xp": 300,
+      "achievement": "copy-ninja"
+    }
+  ]
+}

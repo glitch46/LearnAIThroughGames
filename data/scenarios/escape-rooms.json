@@ -1,0 +1,117 @@
+{
+  "rooms": [
+    {
+      "id": "basics-chamber",
+      "name": "The Copywriting Studio",
+      "difficulty": "Beginner",
+      "story": "You're in a bright studio. A prompt appears: 'CREATE MAGNETIC LANDING PAGE COPY.' Your goal: write a prompt that makes Claude generate irresistible marketing copy.",
+      "task": "Write a prompt to generate a landing page headline and tagline for a coffee shop that emphasizes quality and community",
+      "evaluationCriteria": {
+        "keywords": ["creative", "engaging", "headline", "tagline", "tone", "brand", "appeal"],
+        "bonusKeywords": ["emotional", "target audience", "benefit", "call to action", "compelling"],
+        "antiPatterns": ["generic", "boring", "standard business"],
+        "minLength": 30,
+        "maxLength": 300
+      },
+      "hints": [
+        "What's the vibe? (Cozy, premium, hip?)",
+        "Who's your audience?",
+        "What makes this coffee shop special?"
+      ],
+      "perfectExample": "Create an engaging, creative landing page headline and tagline for a specialty coffee shop called 'Brew Haven'. The brand emphasizes artisanal quality, local sourcing, and community gathering. Make it feel premium but welcoming. Target coffee enthusiasts aged 25-45.",
+      "passingScore": 60,
+      "xpReward": 50
+    },
+    {
+      "id": "content-factory",
+      "name": "The Content Factory",
+      "difficulty": "Intermediate",
+      "story": "You're in a factory that generates endless content. Your challenge: write ONE prompt that generates THREE compelling product descriptions with consistent voice.",
+      "task": "Write a prompt to generate 3 unique product descriptions for an e-commerce bookstore",
+      "evaluationCriteria": {
+        "keywords": ["quantity", "unique", "consistent", "tone", "benefit", "appeal"],
+        "bonusKeywords": ["example", "style guide", "call to action", "target emotion"],
+        "antiPatterns": ["generic", "samey", "boring product copy"],
+        "minLength": 50,
+        "maxLength": 350
+      },
+      "hints": [
+        "Specify how many you want",
+        "Show an example of the tone you want",
+        "Give variety guidance (don't make them all the same)"
+      ],
+      "perfectExample": "Generate 3 unique product descriptions for vintage science fiction books. Each should be 2-3 sentences, highlight why readers love them, and include an emotional hook. Example tone: 'Escape into futures that shaped our world. These aren't just stories—they're portals.' Make each description different in style but consistent in brand voice.",
+      "passingScore": 65,
+      "xpReward": 75
+    },
+    {
+      "id": "email-vault",
+      "name": "The Email Vault",
+      "difficulty": "Intermediate",
+      "story": "Email campaigns await. Your mission: write a SCOPE-based prompt for marketing copy that converts.",
+      "task": "Write a SCOPE-based prompt for an email campaign targeting remote teams",
+      "evaluationCriteria": {
+        "keywords": ["role", "context", "output", "parameters", "examples", "target", "pain point"],
+        "bonusKeywords": ["SCOPE structure", "constraints", "tone", "specific metrics"],
+        "antiPatterns": ["vague", "missing SCOPE elements", "no examples"],
+        "minLength": 80,
+        "maxLength": 400
+      },
+      "hints": [
+        "What role should AI play? (Copywriter, strategist, etc.)",
+        "What's the business context?",
+        "What exact output do you want?",
+        "What are your constraints?",
+        "Show an example of good copy"
+      ],
+      "perfectExample": "S - Expert SaaS email copywriter\nC - Project management tool for remote teams, launching next month\nO - Subject line + 3-paragraph email\nP - Max 150 words, focus on time wasted in Slack vs. productivity\nE - 'Stop ping-ponging. Start shipping.' (punchy, action-focused)\n\nGenerate an email that makes team leads want to try us.",
+      "passingScore": 70,
+      "xpReward": 100
+    },
+    {
+      "id": "social-studio",
+      "name": "The Social Media Studio",
+      "difficulty": "Advanced",
+      "story": "Social platforms await your content. Your challenge: write a prompt that generates Instagram captions with personality and punch.",
+      "task": "Write a prompt for Instagram captions that feel authentic and conversational",
+      "evaluationCriteria": {
+        "keywords": ["personality", "tone", "authentic", "conversational", "emoji", "style"],
+        "bonusKeywords": ["brand voice", "relatable", "engagement hook", "emoji strategy"],
+        "antiPatterns": ["corporate", "salesy", "robotic", "generic"],
+        "minLength": 60,
+        "maxLength": 350
+      },
+      "hints": [
+        "Show the brand personality (sarcastic? warm? bold?)",
+        "Give an example caption",
+        "Specify emoji style",
+        "Make it feel human, not AI"
+      ],
+      "perfectExample": "Write 5 Instagram captions for a coffee brand. Make them feel like they're from a friend, not a company. Use 1-2 emojis per caption, keep them short (2-3 sentences max). Example: 'Plot twist: your Tuesday just got better ☕✨ New single-origin drop is live.' Tone should be witty, relatable, never salesy.",
+      "passingScore": 70,
+      "xpReward": 100
+    },
+    {
+      "id": "iteration-chamber",
+      "name": "The Iteration Chamber",
+      "difficulty": "Advanced",
+      "story": "You've got 80% there. Now it's time to master refinement: rewriting prompts to get the final 20% that makes outputs SHIP-READY.",
+      "task": "Write a follow-up prompt that refines and improves previous AI output",
+      "evaluationCriteria": {
+        "keywords": ["refine", "improve", "specific feedback", "direction", "tone", "different"],
+        "bonusKeywords": ["iterate", "better", "clearer", "more", "remove"],
+        "antiPatterns": ["just say 'better'", "vague feedback", "unclear changes"],
+        "minLength": 40,
+        "maxLength": 300
+      },
+      "hints": [
+        "What specifically didn't work?",
+        "What exact change do you want?",
+        "Show the direction with examples"
+      ],
+      "perfectExample": "That's close! But make it edgier and less corporate. Add 1-2 emojis per line. Cut the length by 40%. Sound like you're texting a friend, not writing for marketing. Remove all buzzwords like 'innovative' and 'cutting-edge'.",
+      "passingScore": 65,
+      "xpReward": 100
+    }
+  ]
+}

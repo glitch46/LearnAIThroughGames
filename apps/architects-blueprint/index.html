@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architect's Blueprint | AI Mastery Bootcamp</title>
+    <link rel="stylesheet" href="/css/global.css">
+    <style>
+        body {
+            padding: 80px 20px 40px;
+        }
+
+        .game-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 30px;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .game-title h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            background: linear-gradient(135deg, #ff6b35, #ffd60a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .game-stats {
+            display: flex;
+            gap: 25px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--accent-orange);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .challenge-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .challenge-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .difficulty-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .diff-easy { background: var(--accent-green-dim); color: var(--accent-green); }
+        .diff-medium { background: var(--accent-orange-dim); color: var(--accent-orange); }
+        .diff-hard { background: var(--accent-purple-dim); color: var(--accent-purple); }
+        .diff-expert { background: var(--accent-pink); color: #000; }
+
+        .scenario-box {
+            background: var(--bg-elevated);
+            border-left: 4px solid var(--accent-blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .scenario-box h3 {
+            margin: 0 0 10px 0;
+            color: var(--accent-blue);
+        }
+
+        .framework-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .framework-section h4 {
+            margin: 0 0 15px 0;
+            color: var(--accent-orange);
+            font-size: 1rem;
+        }
+
+        .framework-item {
+            background: var(--bg-card);
+            border-left: 3px solid var(--accent-blue);
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .framework-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .framework-label {
+            font-weight: 700;
+            color: var(--accent-blue);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .framework-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .example-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .example-label {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .example-weak {
+            color: var(--error);
+        }
+
+        .example-strong {
+            color: var(--accent-green);
+        }
+
+        .example-content {
+            background: #1a1a1a;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px;
+            color: #00ff88;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .input-section {
+            margin: 20px 0;
+        }
+
+        .input-section label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            background: #1a1a1a;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            color: #00ff88;
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+        }
+
+        .submit-btn {
+            margin-top: 20px;
+        }
+
+        .feedback-box {
+            display: none;
+            background: var(--bg-elevated);
+            border-left: 4px solid var(--accent-blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .feedback-box.visible {
+            display: block;
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+        }
+
+        .result-message {
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .result-message.good {
+            background: var(--accent-green-dim);
+            color: var(--accent-green);
+        }
+
+        .result-message.thinking {
+            background: var(--accent-orange-dim);
+            color: var(--accent-orange);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b35, #ffd60a);
+            transition: width 0.3s;
+        }
+
+        .completion-screen {
+            display: none;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .completion-screen.visible {
+            display: block;
+        }
+
+        .completion-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px auto;
+            max-width: 400px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+    <a href="/games" class="btn btn-secondary" style="position: fixed; top: 20px; left: 20px; z-index: 200;">← Back</a>
+
+    <div class="game-header">
+        <div class="game-title">
+            <h1>🏗️ ARCHITECT'S BLUEPRINT</h1>
+        </div>
+        <div class="game-stats">
+            <div class="stat">
+                <div class="stat-value" id="score-display">0</div>
+                <div class="stat-label">XP</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="blueprints-display">0</div>
+                <div class="stat-label">Built</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+
+        <div id="challenge-container">
+            <!-- Populated dynamically -->
+        </div>
+
+        <div class="completion-screen" id="completion-screen">
+            <div class="completion-icon">✨</div>
+            <h1>All Blueprints Complete!</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">
+                You're ready to architect your own products and features!
+            </p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="final-score">0</div>
+                    <div class="stat-label">Total XP</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="final-blueprints">0</div>
+                    <div class="stat-label">Blueprints</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="final-quality">0%</div>
+                    <div class="stat-label">Avg Quality</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="final-best">—</div>
+                    <div class="stat-label">Best Blueprint</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <a href="/games" class="btn btn-primary">Back to Games</a>
+                <button class="btn btn-secondary" onclick="location.reload()">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/game-engine.js"></script>
+    <script src="/js/progress-tracker.js"></script>
+    <script>
+        let challenges = [];
+        let currentIndex = 0;
+        let score = 0;
+        let blueprints = 0;
+        let qualityScores = [];
+
+        fetch('/data/challenges/architects-blueprint.json')
+            .then(res => res.json())
+            .then(data => {
+                challenges = shuffleArray(data.blueprints);
+                showChallenge();
+            });
+
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function showChallenge() {
+            if (currentIndex >= challenges.length) {
+                showCompletion();
+                return;
+            }
+
+            const challenge = challenges[currentIndex];
+            const container = document.getElementById('challenge-container');
+            
+            const diffClass = `diff-${challenge.difficulty}`;
+            
+            let frameworkHtml = '';
+            if (challenge.framework) {
+                frameworkHtml = `
+                    <div class="framework-section">
+                        <h4>📐 Framework</h4>
+                        <p style="margin: 0 0 15px 0; color: var(--text-secondary);">${challenge.framework}</p>
+                    </div>
+                `;
+            }
+            
+            let stagesHtml = '';
+            if (challenge.stages) {
+                stagesHtml = challenge.stages.map(stage => `
+                    <div class="framework-item">
+                        <div class="framework-label">${stage.name}: ${stage.question}</div>
+                        <div class="framework-content">${stage.example}</div>
+                    </div>
+                `).join('');
+            }
+            
+            let examplesHtml = '';
+            if (challenge.exampleWeak || challenge.exampleStrong) {
+                examplesHtml = `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                        ${challenge.exampleWeak ? `
+                            <div class="example-box">
+                                <div class="example-label example-weak">❌ Weak Example</div>
+                                <div class="example-content">${challenge.exampleWeak}</div>
+                            </div>
+                        ` : ''}
+                        ${challenge.exampleStrong ? `
+                            <div class="example-box">
+                                <div class="example-label example-strong">✅ Strong Example</div>
+                                <div class="example-content">${challenge.exampleStrong}</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+            
+            let channelsHtml = '';
+            if (challenge.channels) {
+                channelsHtml = challenge.channels.map(ch => `
+                    <div class="framework-item">
+                        <div class="framework-label">${ch.channel}</div>
+                        <div class="framework-content">
+                            <strong>Effort:</strong> ${ch.effort} | 
+                            <strong>Cost:</strong> ${ch.cost} | 
+                            <strong>Timeline:</strong> ${ch.timeline}<br>
+                            <em>Best for: ${ch.bestFor}</em>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            let slidesHtml = '';
+            if (challenge.slides) {
+                slidesHtml = `
+                    <div class="framework-section">
+                        <h4>📊 Pitch Deck Structure</h4>
+                        ${challenge.slides.map(slide => `
+                            <div class="framework-item">
+                                <div class="framework-label">Slide ${slide.num}: ${slide.title}</div>
+                                <div class="framework-content">${slide.content}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = `
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <h2>${challenge.title}</h2>
+                        <span class="difficulty-badge ${diffClass}">${challenge.difficulty}</span>
+                    </div>
+                    
+                    <div class="scenario-box">
+                        <h3>📍 Scenario</h3>
+                        <p style="margin: 0; color: var(--text-secondary);">${challenge.scenario}</p>
+                    </div>
+                    
+                    ${challenge.context ? `
+                        <div class="scenario-box">
+                            <h3>📋 Context</h3>
+                            <p style="margin: 0; color: var(--text-secondary);">${challenge.context}</p>
+                        </div>
+                    ` : ''}
+                    
+                    ${frameworkHtml}
+                    
+                    ${stagesHtml ? `<div class="framework-section"><h4>🎯 Journey Stages</h4>${stagesHtml}</div>` : ''}
+                    
+                    ${challenge.options ? `
+                        <div class="framework-section">
+                            <h4>🔍 Options to Consider</h4>
+                            ${challenge.options.map(opt => `
+                                <div class="framework-item">
+                                    <div class="framework-label">${opt.model}</div>
+                                    <div class="framework-content">
+                                        <strong>Pros:</strong> ${opt.pros}<br>
+                                        <strong>Cons:</strong> ${opt.cons}<br>
+                                        <strong>Best for:</strong> ${opt.bestFor}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                    
+                    ${channelsHtml ? `<div class="framework-section"><h4>📡 Available Channels</h4>${channelsHtml}</div>` : ''}
+                    
+                    ${examplesHtml}
+                    
+                    ${slidesHtml}
+                    
+                    <div class="input-section">
+                        <label for="blueprint-input">${challenge.task}</label>
+                        <textarea id="blueprint-input" placeholder="Share your blueprint thinking..."></textarea>
+                    </div>
+                    
+                    <button class="btn btn-primary submit-btn" id="submit-btn" onclick="submitBlueprint()">
+                        Submit Blueprint
+                    </button>
+                    
+                    <div class="feedback-box" id="feedback">
+                        <div class="feedback-header">
+                            <span>🎓</span>
+                            <span>Feedback</span>
+                        </div>
+                        <div id="feedback-content" style="color: var(--text-secondary); line-height: 1.6;"></div>
+                    </div>
+                </div>
+            `;
+
+            updateProgress();
+        }
+
+        function submitBlueprint() {
+            const challenge = challenges[currentIndex];
+            const input = document.getElementById('blueprint-input').value.trim();
+            
+            if (!input) {
+                alert('Please write your blueprint!');
+                return;
+            }
+            
+            // Evaluate quality based on length and content
+            let quality = 50; // Base score
+            
+            // Length quality
+            if (input.length >= 100) quality += 20;
+            if (input.length >= 200) quality += 15;
+            
+            // Content quality signals
+            if (input.toLowerCase().includes('because') || input.toLowerCase().includes('why')) quality += 10;
+            if (input.toLowerCase().includes('metrics') || input.toLowerCase().includes('measure')) quality += 10;
+            if (input.toLowerCase().includes('users') || input.toLowerCase().includes('customers')) quality += 5;
+            
+            quality = Math.min(100, quality); // Cap at 100
+            qualityScores.push(quality);
+            
+            const xp = challenge.xp || 100;
+            score += xp;
+            blueprints++;
+            
+            // Show feedback
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'result-message thinking';
+            
+            if (quality >= 80) {
+                resultDiv.innerHTML = `✅ Excellent blueprint! +${xp} XP (Quality: ${quality}%)`;
+                GameEngine.awardXP(xp, `Architect's Blueprint: ${challenge.title}`);
+            } else if (quality >= 60) {
+                resultDiv.innerHTML = `👍 Good thinking! +${xp} XP (Quality: ${quality}%)`;
+                GameEngine.awardXP(xp, `Architect's Blueprint: ${challenge.title}`);
+            } else {
+                resultDiv.innerHTML = `💭 You're thinking! +${xp} XP (Quality: ${quality}%)`;
+                GameEngine.awardXP(xp, `Architect's Blueprint: ${challenge.title}`);
+            }
+            
+            document.querySelector('.challenge-card').insertBefore(
+                resultDiv,
+                document.getElementById('feedback')
+            );
+            
+            // Show feedback
+            const feedbackContent = document.getElementById('feedback-content');
+            feedbackContent.innerHTML = `
+                <p><strong>Your Thinking Quality:</strong> ${quality}%</p>
+                <p>You considered the key aspects of this blueprint challenge. The best decisions come from understanding WHO you're building for, WHAT problem you're solving, and HOW you'll measure success.</p>
+                <p><strong>Remember:</strong> Product architecture isn't about having the perfect answer—it's about asking the right questions and thinking systematically.</p>
+            `;
+            
+            document.getElementById('feedback').classList.add('visible');
+            
+            // Update stats
+            document.getElementById('score-display').textContent = score;
+            document.getElementById('blueprints-display').textContent = blueprints;
+            
+            // Disable input and change button
+            document.getElementById('blueprint-input').disabled = true;
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.textContent = currentIndex === challenges.length - 1 ? 'Finish' : 'Next Blueprint';
+            submitBtn.onclick = nextChallenge;
+        }
+
+        function nextChallenge() {
+            currentIndex++;
+            showChallenge();
+        }
+
+        function showCompletion() {
+            document.getElementById('challenge-container').style.display = 'none';
+            document.getElementById('completion-screen').classList.add('visible');
+            
+            const avgQuality = qualityScores.length > 0 
+                ? Math.round(qualityScores.reduce((a, b) => a + b, 0) / qualityScores.length)
+                : 0;
+            const bestQuality = qualityScores.length > 0 
+                ? Math.max(...qualityScores)
+                : 0;
+            
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('final-blueprints').textContent = blueprints;
+            document.getElementById('final-quality').textContent = avgQuality + '%';
+            document.getElementById('final-best').textContent = bestQuality + '%';
+            
+            GameEngine.completeGame('architects-blueprint', score);
+            GameEngine.unlockAchievement('master-architect');
+        }
+
+        function updateProgress() {
+            const percent = ((currentIndex + 1) / challenges.length) * 100;
+            document.getElementById('progress-fill').style.width = percent + '%';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+{
+  "levels": [
+    {
+      "level": 1,
+      "title": "Navigate Home",
+      "story": "You're in /var/log. You need to get back home. Use 'pwd' to see where you are, then navigate to your home directory.",
+      "objective": "Navigate to /home/user (your home directory)",
+      "startDirectory": "/var/log",
+      "command": "cd /home/user",
+      "acceptCommands": ["cd /home/user", "cd ~"],
+      "response": "✓ Welcome home! You're now in /home/user",
+      "hint": "Use 'cd' (change directory) to navigate. You can use ~ as shortcut for home.",
+      "xp": 50,
+      "lesson": "cd = navigate between folders"
+    },
+    {
+      "level": 2,
+      "title": "Hidden Files Revealed",
+      "story": "You're in /home/user. Your boss hid the .SAASApp directory (it starts with a dot so it's hidden). Find it using ls with the right flag.",
+      "objective": "List all files including hidden ones",
+      "startDirectory": "/home/user",
+      "command": "ls -a",
+      "acceptCommands": ["ls -a", "ls -la", "ls -lah"],
+      "response": "✓ Found it! .SAASApp is revealed (along with .bashrc, .profile, .cache, etc.)",
+      "hint": "The flag -a shows ALL files (including hidden ones that start with .)",
+      "xp": 75,
+      "lesson": "ls -a = see hidden files"
+    },
+    {
+      "level": 3,
+      "title": "Enter the Hidden Directory",
+      "story": "Now that you see .SAASApp, navigate into it. You'll find your project there.",
+      "objective": "Enter the .SAASApp directory",
+      "startDirectory": "/home/user",
+      "command": "cd .SAASApp",
+      "acceptCommands": ["cd .SAASApp", "cd /home/user/.SAASApp"],
+      "response": "✓ You're now inside .SAASApp. Time to get to work!",
+      "hint": "You can use relative path (cd .SAASApp) or absolute path (cd /home/user/.SAASApp)",
+      "xp": 50,
+      "lesson": "Relative vs absolute paths"
+    },
+    {
+      "level": 4,
+      "title": "What's in This Directory?",
+      "story": "You're in .SAASApp. List the files to see what's here. Your project has package.json, src folder, and a README.",
+      "objective": "List files in detail format",
+      "startDirectory": "/home/user/.SAASApp",
+      "command": "ls -l",
+      "acceptCommands": ["ls -l", "ls -lah"],
+      "response": "✓ You see the project structure!",
+      "hint": "Use ls -l to see detailed info: permissions, size, date modified, etc.",
+      "xp": 75,
+      "lesson": "ls -l = detailed file listing"
+    },
+    {
+      "level": 5,
+      "title": "Go Back One Directory",
+      "story": "You went too deep into a nested folder. Get back to parent directory using 'cd ..'",
+      "objective": "Navigate to parent directory",
+      "startDirectory": "/home/user/.SAASApp/src",
+      "command": "cd ..",
+      "acceptCommands": ["cd ..", "cd ../"],
+      "response": "✓ You're back in /home/user/.SAASApp. Parent directory reached!",
+      "hint": "cd .. = go up one level. cd ../.. = go up two levels. cd - = go back to previous directory",
+      "xp": 50,
+      "lesson": "cd .. = go to parent directory"
+    },
+    {
+      "level": 6,
+      "title": "Create a New Folder",
+      "story": "You need to create a new folder called 'languageapp' for your next project.",
+      "objective": "Create a new directory called languageapp",
+      "startDirectory": "/home/user",
+      "command": "mkdir languageapp",
+      "acceptCommands": ["mkdir languageapp", "mkdir -p languageapp"],
+      "response": "✓ Created directory: languageapp",
+      "hint": "mkdir = make directory. Use mkdir -p to create nested folders automatically.",
+      "xp": 75,
+      "lesson": "mkdir = create folders"
+    },
+    {
+      "level": 7,
+      "title": "Install Dependencies",
+      "story": "You're in a new project folder that has package.json. Install the dependencies using npm.",
+      "objective": "Install npm dependencies",
+      "startDirectory": "/home/user/languageapp",
+      "command": "npm install",
+      "acceptCommands": ["npm install", "npm i"],
+      "response": "✓ Dependencies installed successfully!",
+      "hint": "npm install = read package.json and download all dependencies. npm i is shorthand.",
+      "xp": 100,
+      "lesson": "npm install = download project dependencies"
+    },
+    {
+      "level": 8,
+      "title": "Check Git Status",
+      "story": "You've made changes to your project. Check git status to see what's changed.",
+      "objective": "View current git status",
+      "startDirectory": "/home/user/languageapp",
+      "command": "git status",
+      "acceptCommands": ["git status"],
+      "response": "✓ Git status checked!",
+      "hint": "git status = see what files have changed, what's staged, what's untracked",
+      "xp": 100,
+      "lesson": "git status = see your changes"
+    },
+    {
+      "level": 9,
+      "title": "Set Git Remote",
+      "story": "Time to push to GitHub! First, set your remote origin to your GitHub repo. Use git remote add origin [URL]",
+      "objective": "Add remote origin for GitHub push",
+      "startDirectory": "/home/user/languageapp",
+      "command": "git remote add origin https://github.com/yourname/languageapp.git",
+      "acceptCommands": [
+        "git remote add origin https://github.com/yourname/languageapp.git",
+        "git remote add origin git@github.com:yourname/languageapp.git"
+      ],
+      "response": "✓ Remote origin configured successfully",
+      "hint": "git remote add origin [URL] = connect to GitHub. Check your GitHub repo for the exact URL.",
+      "xp": 125,
+      "lesson": "git remote = connect to GitHub"
+    },
+    {
+      "level": 10,
+      "title": "Push to GitHub",
+      "story": "Your changes are committed. Now push them to GitHub using git push. This is the final step to ship!",
+      "objective": "Push code to GitHub",
+      "startDirectory": "/home/user/languageapp",
+      "command": "git push -u origin main",
+      "acceptCommands": ["git push -u origin main", "git push origin main", "git push"],
+      "response": "✓ Code pushed to GitHub successfully! Your project is now live!",
+      "hint": "git push = send commits to GitHub. -u flag sets upstream. After first push, just 'git push' works.",
+      "xp": 150,
+      "easterEgg": "shipped-it",
+      "lesson": "git push = ship your code to the world"
+    }
+  ],
+  "filesystem": {
+    "/": {
+      "dirs": ["bin", "boot", "dev", "etc", "home", "lib", "media", "mnt", "opt", "proc", "root", "run", "sbin", "srv", "sys", "tmp", "usr", "var"],
+      "files": [],
+      "permissions": "drwxr-xr-x"
+    },
+    "/home": {
+      "dirs": ["user"],
+      "files": []
+    },
+    "/home/user": {
+      "dirs": [".cache", ".config", ".git", ".ssh", ".SAASApp", "Desktop", "Documents", "Downloads"],
+      "files": [".bashrc", ".profile", ".gitconfig"],
+      "hidden": [".bashrc", ".profile", ".gitconfig", ".cache", ".config", ".git", ".ssh"]
+    },
+    "/home/user/.SAASApp": {
+      "dirs": ["src", "tests", "public"],
+      "files": ["package.json", "README.md", ".env.example", ".gitignore"],
+      "hidden": [".env.example", ".gitignore"]
+    },
+    "/home/user/.SAASApp/src": {
+      "dirs": ["components", "utils"],
+      "files": ["app.js", "index.js", "styles.css"]
+    },
+    "/home/user/languageapp": {
+      "dirs": ["src", "public", "node_modules"],
+      "files": ["package.json", "README.md", ".gitignore", ".env"],
+      "hidden": [".gitignore", ".env"]
+    },
+    "/var/log": {
+      "dirs": [],
+      "files": ["auth.log", "syslog", "kernel.log", "apt.log", "btmp", "wtmp"]
+    }
+  },
+  "fileListing": {
+    "/": {
+      "normal": "bin  boot  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var",
+      "detailed": "total 87\ndrwxr-xr-x   2 root root  4096 Feb 10 14:30 bin\ndrwxr-xr-x   3 root root  4096 Feb 10 14:25 boot\ndrwxr-xr-x  19 root root  3900 Feb 10 14:20 dev\ndrwxr-xr-x   4 root root  4096 Feb 10 14:15 etc\ndrwxr-xr-x   3 root root  4096 Feb 10 14:10 home\ndrwxr-xr-x  14 root root 12288 Feb 10 14:05 lib\ndrwxr-xr-x   2 root root  4096 Feb 10 14:00 media\ndrwxr-xr-x   2 root root  4096 Feb 09 13:55 mnt\ndrwxr-xr-x   5 root root  4096 Feb 09 13:50 opt\ndr-xr-xr-x  13 root root     0 Feb 09 13:45 proc\ndrwx------   3 root root  4096 Feb 09 13:40 root\ndrwxr-xr-x  33 root root  1260 Feb 09 13:35 run\ndrwxr-xr-x   2 root root 12288 Feb 09 13:30 sbin\ndrwxr-xr-x   7 root root  4096 Feb 09 13:25 srv\ndr-xr-xr-x  13 root root     0 Feb 09 13:20 sys\ndrwxrwxrwt  14 root root  4096 Feb 10 14:30 tmp\ndrwxr-xr-x  13 root root  4096 Feb 09 13:15 usr\ndrwxr-xr-x  20 root root  4096 Feb 09 13:10 var",
+      "all": ".  ..  bin  boot  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var"
+    },
+    "/home": {
+      "normal": "user",
+      "detailed": "total 4\ndrwxr-xr-x  2 user user 4096 Feb 10 14:30 user",
+      "all": ".  ..  user"
+    },
+    "/var/log": {
+      "normal": "auth.log  apt.log  btmp  kernel.log  syslog  wtmp",
+      "detailed": "total 64\n-rw-r--r--  1 root root  12288 Feb 10 14:30 auth.log\n-rw-r--r--  1 root root   4096 Feb 10 14:25 apt.log\n-rw-r--r--  1 root root   8192 Feb 10 14:20 btmp\n-rw-r--r--  1 root root   6144 Feb 10 14:15 kernel.log\n-rw-r--r--  1 root root  16384 Feb 10 14:10 syslog\n-rw-r--r--  1 root root   2048 Feb 10 14:05 wtmp",
+      "all": ".  ..  auth.log  apt.log  btmp  kernel.log  syslog  wtmp"
+    },
+     "/home/user": {
+       "normal": "Desktop  Documents  Downloads  .SAASApp",
+       "detailed": "total 32\ndrwxr-xr-x  2 user user  4096 Feb  8 09:15 Desktop\ndrwxr-xr-x  2 user user  4096 Feb  8 09:15 Documents\ndrwxr-xr-x  2 user user  4096 Feb  8 09:15 Downloads\ndrwxr-xr-x  3 user user  4096 Feb 10 14:20 .SAASApp\n-rw-r--r--  1 user user   220 Feb  5 10:30 .bashrc\n-rw-r--r--  1 user user   655 Feb  5 10:30 .profile\n-rw-r--r--  1 user user   128 Feb  5 10:30 .gitconfig",
+       "all": ".  ..  .bashrc  .cache  .config  .git  .gitconfig  .profile  .ssh  .SAASApp  Desktop  Documents  Downloads",
+       "all_long": "total 48\ndrwxr-xr-x  2 user user  4096 Feb  8 09:15 Desktop\ndrwxr-xr-x  2 user user  4096 Feb  8 09:15 Documents\ndrwxr-xr-x  2 user user  4096 Feb  8 09:15 Downloads\ndrwx------  2 user user  4096 Feb 10 14:20 .cache\ndrwxr-xr-x  2 user user  4096 Feb 10 14:20 .config\ndrwxr-xr-x  3 user user  4096 Feb 10 14:20 .git\ndrwx------  2 user user  4096 Feb 10 14:20 .ssh\ndrwxr-xr-x  3 user user  4096 Feb 10 14:20 .SAASApp\n-rw-r--r--  1 user user   220 Feb  5 10:30 .bashrc\n-rw-r--r--  1 user user   128 Feb  5 10:30 .gitconfig\n-rw-r--r--  1 user user   655 Feb  5 10:30 .profile",
+       "all_long_human": "total 48K\ndrwxr-xr-x  2 user user 4.0K Feb  8 09:15 Desktop\ndrwxr-xr-x  2 user user 4.0K Feb  8 09:15 Documents\ndrwxr-xr-x  2 user user 4.0K Feb  8 09:15 Downloads\ndrwx------  2 user user 4.0K Feb 10 14:20 .cache\ndrwxr-xr-x  2 user user 4.0K Feb 10 14:20 .config\ndrwxr-xr-x  3 user user 4.0K Feb 10 14:20 .git\ndrwx------  2 user user 4.0K Feb 10 14:20 .ssh\ndrwxr-xr-x  3 user user 4.0K Feb 10 14:20 .SAASApp\n-rw-r--r--  1 user user 220 Feb  5 10:30 .bashrc\n-rw-r--r--  1 user user 128 Feb  5 10:30 .gitconfig\n-rw-r--r--  1 user user 655 Feb  5 10:30 .profile"
+     },
+     "/home/user/.SAASApp": {
+       "normal": "README.md  package.json  public/  src/  tests/",
+       "detailed": "total 48\ndrwxr-xr-x  3 user user  4096 Feb 10 14:23 public\ndrwxr-xr-x  3 user user  4096 Feb 10 14:23 src\ndrwxr-xr-x  2 user user  4096 Feb 10 14:23 tests\n-rw-r--r--  1 user user  2048 Feb 10 13:45 package.json\n-rw-r--r--  1 user user  5120 Feb 10 13:45 README.md\n-rw-r--r--  1 user user  1024 Feb 10 12:30 .env.example\n-rw-r--r--  1 user user   512 Feb 10 12:30 .gitignore",
+       "all": ".  ..  .env.example  .gitignore  README.md  package.json  public/  src/  tests/",
+       "all_long": "total 56\ndrwxr-xr-x  3 user user  4096 Feb 10 14:23 public\ndrwxr-xr-x  3 user user  4096 Feb 10 14:23 src\ndrwxr-xr-x  2 user user  4096 Feb 10 14:23 tests\n-rw-r--r--  1 user user  2048 Feb 10 13:45 package.json\n-rw-r--r--  1 user user  5120 Feb 10 13:45 README.md\n-rw-r--r--  1 user user  1024 Feb 10 12:30 .env.example\n-rw-r--r--  1 user user   512 Feb 10 12:30 .gitignore",
+       "all_long_human": "total 56K\ndrwxr-xr-x  3 user user 4.0K Feb 10 14:23 public\ndrwxr-xr-x  3 user user 4.0K Feb 10 14:23 src\ndrwxr-xr-x  2 user user 4.0K Feb 10 14:23 tests\n-rw-r--r--  1 user user 5.0K Feb 10 13:45 README.md\n-rw-r--r--  1 user user 2.0K Feb 10 13:45 package.json\n-rw-r--r--  1 user user 1.0K Feb 10 12:30 .env.example\n-rw-r--r--  1 user user 512 Feb 10 12:30 .gitignore"
+     },
+    "/home/user/.SAASApp/src": {
+      "normal": "app.js  components/  index.js  styles.css  utils/",
+      "detailed": "total 24\ndrwxr-xr-x  2 user user  4096 Feb 10 14:23 components\ndrwxr-xr-x  2 user user  4096 Feb 10 14:23 utils\n-rw-r--r--  1 user user  3456 Feb 10 13:30 app.js\n-rw-r--r--  1 user user  2048 Feb 10 13:25 index.js\n-rw-r--r--  1 user user  1024 Feb 10 13:20 styles.css",
+      "all": ".  ..  app.js  components/  index.js  styles.css  utils/"
+    },
+     "/home/user/languageapp": {
+       "normal": "README.md  package.json  public/  src/",
+       "detailed": "total 32\ndrwxr-xr-x  3 user user  4096 Feb 10 14:30 node_modules\ndrwxr-xr-x  2 user user  4096 Feb 10 14:20 public\ndrwxr-xr-x  2 user user  4096 Feb 10 14:20 src\n-rw-r--r--  1 user user  2048 Feb 10 14:15 package.json\n-rw-r--r--  1 user user  3072 Feb 10 14:10 README.md\n-rw-r--r--  1 user user   256 Feb 10 14:05 .env\n-rw-r--r--  1 user user   512 Feb 10 14:05 .gitignore",
+       "all": ".  ..  .env  .gitignore  README.md  package.json  node_modules/  public/  src/"
+     }
+   },
+   "commandHelp": {
+     "ls": "ls - list directory contents\n\nSYNOPSIS\n  ls [OPTION]... [FILE]...\n\nDESCRIPTION\n  List information about the FILEs (the current directory by default).\n\nOPTIONS\n  -a, --all              Do not ignore hidden files (those starting with .)\n  -A, --almost-all       Like -a, but do not list implied . and ..\n  -l                     Use a long listing format\n  -h, --human-readable   Print human readable file sizes (1K 2M 1G)\n  -S                     Sort by file size, largest first\n  -t                     Sort by time modified, most recently modified first\n  -r, --reverse          Reverse order while sorting\n  -R, --recursive        List subdirectories recursively\n  -d, --directory        List directory entries instead of contents\n  --group-directories-first  Group directories first, before files\n  -v, --version          Output version information and exit\n  --help                 Display this help and exit\n\nEXAMPLES\n  ls                    List files in current directory\n  ls -a                 List all files including hidden\n  ls -la                List all files in long format\n  ls -lah               List all files in long format with human-readable sizes\n  ls -lS                List files sorted by size\n  ls -lt                List files sorted by modification time\n  ls -R                 List subdirectories recursively"
+   },
+  "fileContents": {
+    "/home/user/.SAASApp/package.json": "{\n  \"name\": \"saasapp\",\n  \"version\": \"1.0.0\",\n  \"description\": \"A SaaS application\",\n  \"main\": \"src/index.js\",\n  \"scripts\": {\n    \"start\": \"node src/index.js\",\n    \"dev\": \"nodemon src/index.js\",\n    \"test\": \"jest\"\n  },\n  \"dependencies\": {\n    \"express\": \"^4.18.2\",\n    \"cors\": \"^2.8.5\",\n    \"dotenv\": \"^16.0.3\"\n  }\n}",
+    "/home/user/languageapp/package.json": "{\n  \"name\": \"languageapp\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Learn languages with AI\",\n  \"main\": \"src/index.js\",\n  \"scripts\": {\n    \"start\": \"react-scripts start\",\n    \"build\": \"react-scripts build\",\n    \"test\": \"react-scripts test\"\n  },\n  \"dependencies\": {\n    \"react\": \"^18.2.0\",\n    \"react-dom\": \"^18.2.0\",\n    \"axios\": \"^1.4.0\"\n  }\n}"
+  },
+  "gitResponses": {
+    "status": "On branch main\n\nChanges not staged for commit:\n  modified:   src/app.js\n  new file:   src/components/Header.jsx\n\nUntracked files:\n  .env\n\nnothing added to commit but untracked files present",
+    "log": "commit 7a8f9c2d5e1b3f4a9c8e2d1f0a3b5c6\nAuthor: You <you@example.com>\nDate:   Wed Feb 10 14:25:30 2025 +0000\n\n    Updated components\n\ncommit 5f1b3a9d2c8e4f1a7b9c2e5d1f3a6b8\nAuthor: You <you@example.com>\nDate:   Tue Feb 9 10:15:45 2025 +0000\n\n    Initial setup",
+    "add": "✓ Files staged for commit",
+    "commit": "✓ Commit created successfully",
+    "push": "✓ Code pushed to remote",
+    "pull": "✓ Latest changes pulled"
+  },
+  "npmResponses": {
+    "install": "up to date, audited 156 packages in 2.4s\n\nadded 156 packages, and audited 156 packages in 4.2s\n\n42 vulnerabilities (39 low, 2 moderate, 1 high)",
+    "start": "✓ Application started on port 3000",
+    "test": "✓ All tests passed"
+  },
+  "easterEggs": [
+    {
+      "command": "whoami",
+      "response": "user",
+      "explanation": "Shows current user",
+      "xp": 25
+    },
+    {
+      "command": "man cd",
+      "response": "cd: Change the shell working directory.\n\nUsage: cd [-L] [dir]\n  options:\n    -L: Follow symbolic links\n\nYou've already learned this one!",
+      "explanation": "Manual page for cd command",
+      "xp": 20
+    },
+    {
+      "command": "ls -R",
+      "response": "Shows entire directory tree structure",
+      "explanation": "Recursively list all subdirectories",
+      "xp": 30
+    }
+  ],
+  "keyboardShortcuts": {
+    "Ctrl+C": "Interrupt/stop current command",
+    "Ctrl+D": "Exit terminal",
+    "Ctrl+L": "Clear screen",
+    "Ctrl+A": "Move to beginning of line",
+    "Ctrl+E": "Move to end of line",
+    "Ctrl+K": "Delete from cursor to end",
+    "Ctrl+U": "Delete from cursor to beginning",
+    "Tab": "Auto-complete",
+    "Up": "Previous command",
+    "Down": "Next command"
+  }
+}
