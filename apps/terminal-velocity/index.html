@@ -664,10 +664,25 @@
             if (baseCommand === 'mkdir') {
                 if (args.length === 0) {
                     addOutput('mkdir: missing operand', 'error');
+                    enableInput();
+                } else if (level.level === 6 && args[0] === 'languageapp') {
+                    addOutput(`✓ Created directory: ${args[0]}`, 'success');
+                    addOutput(level.response, 'success');
+                    totalXP += level.xp;
+                    document.getElementById('xp-display').textContent = totalXP;
+                    GameEngine.awardXP(level.xp, `Level ${currentLevel}: ${level.title}`);
+                    setTimeout(() => {
+                        if (currentLevel < 10) {
+                            addOutput('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n', '');
+                            startLevel(currentLevel + 1);
+                        } else {
+                            completeGame();
+                        }
+                    }, 1500);
                 } else {
                     addOutput(`✓ Created directory: ${args[0]}`, 'success');
+                    enableInput();
                 }
-                enableInput();
                 return;
             }
 
