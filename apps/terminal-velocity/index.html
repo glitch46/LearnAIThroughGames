@@ -425,14 +425,83 @@
         let currentDirectory = '/var/log';
         let commandHistory = [];
         let historyIndex = -1;
+        let completedLevels = [];
+        let savedXP = 0;
+
+        // Progress save/load functions
+        function saveProgress() {
+            const progress = {
+                currentLevel: currentLevel,
+                totalXP: totalXP,
+                completedLevels: completedLevels,
+                commandsUsed: commandsUsed,
+                lastPlayed: Date.now()
+            };
+            localStorage.setItem('terminalVelocityProgress', JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('terminalVelocityProgress');
+            if (saved) {
+                const progress = JSON.parse(saved);
+                return progress;
+            }
+            return null;
+        }
+
+        function resetProgress() {
+            localStorage.removeItem('terminalVelocityProgress');
+            totalXP = 0;
+            completedLevels = [];
+            commandsUsed = 0;
+            currentLevel = 1;
+            document.getElementById('xp-display').textContent = '0';
+            document.getElementById('commands-display').textContent = '0';
+        }
 
         // Load game data
         fetch('/data/commands/cli-commands.json')
             .then(res => res.json())
             .then(data => {
                 gameData = data;
-                startLevel(1);
+                const saved = loadProgress();
+                if (saved && saved.completedLevels.length > 0) {
+                    completedLevels = saved.completedLevels;
+                    totalXP = saved.totalXP;
+                    commandsUsed = saved.commandsUsed || 0;
+                    document.getElementById('xp-display').textContent = totalXP;
+                    document.getElementById('commands-display').textContent = commandsUsed;
+                    showWelcomeBack();
+                } else {
+                    showNewGameInfo();
+                }
             });
+
+        function showWelcomeBack() {
+            addOutput('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'story');
+            addOutput('Welcome back, Commander!', 'story');
+            addOutput(`\nProgress: Level ${completedLevels.length}/10 completed | ${totalXP} XP`, 'success');
+            addOutput('\nAvailable commands:', 'objective');
+            addOutput('  /revisit <level> - Replay any completed level (1-10)', 'success');
+            addOutput('  /new-game        - Reset all progress and start fresh', 'error');
+            addOutput('\n  WARNING: /new-game will erase ALL your progress, XP, and stats!', 'error');
+            addOutput('  /continue        - Continue from where you left off', 'success');
+            addOutput('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n', '');
+            startLevel(completedLevels.length + 1);
+        }
+
+        function showNewGameInfo() {
+            addOutput('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'story');
+            addOutput('Terminal Velocity - CLI Command Training', 'story');
+            addOutput('\nLearn essential CLI commands through hands-on challenges.', 'objective');
+            addOutput('\nGame Commands:', 'success');
+            addOutput('  /revisit <level> - Replay any completed level', 'success');
+            addOutput('  /new-game        - Reset all progress', 'error');
+            addOutput('  /help            - Show available commands', 'success');
+            addOutput('  hint             - Get a hint for the current level', 'success');
+            addOutput('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n', '');
+            startLevel(1);
+        }
 
         function startLevel(levelNum) {
             const level = gameData.levels.find(l => l.level === levelNum);
@@ -450,7 +519,8 @@
             hintsUsed = 0;
 
             // Display level info
-            addOutput(`\n[Level ${levelNum}/10] ${level.title}`, 'story');
+            const isRevisit = completedLevels.includes(levelNum);
+            addOutput(`\n[Level ${levelNum}/10] ${level.title}${isRevisit ? ' (Revisit)' : ''}`, 'story');
             addOutput(`\n${level.story}`, 'story');
             addOutput(`\nObjective: ${level.objective}`, 'objective');
             addOutput(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`, '');
@@ -540,6 +610,79 @@
             const parts = command.trim().split(/\s+/);
             const baseCommand = parts[0].toLowerCase();
             const args = parts.slice(1);
+            
+            // Game management commands (start with /)
+            if (command.startsWith('/revisit')) {
+                const levelArg = parseInt(command.split(' ')[1]);
+                if (isNaN(levelArg) || levelArg < 1 || levelArg > 10) {
+                    addOutput('Usage: /revisit <level 1-10>', 'error');
+                    addOutput('Example: /revisit 3', 'success');
+                } else if (!completedLevels.includes(levelArg) && levelArg > completedLevels.length + 1) {
+                    addOutput(`You haven't unlocked Level ${levelArg} yet.`, 'error');
+                    addOutput(`You can revisit levels 1-${completedLevels.length}`, 'success');
+                } else {
+                    addOutput(`\nRevisiting Level ${levelArg}...`, 'success');
+                    startLevel(levelArg);
+                }
+                enableInput();
+                return;
+            }
+
+            if (command === '/new-game') {
+                addOutput('\nWARNING: This will reset ALL your progress!', 'error');
+                addOutput('All XP, completed levels, and stats will be lost.', 'error');
+                addOutput('\nType /confirm-new-game to proceed, or any other command to cancel.', 'objective');
+                enableInput();
+                return;
+            }
+
+            if (command === '/confirm-new-game') {
+                resetProgress();
+                addOutput('\nProgress reset. Starting new game...', 'success');
+                showNewGameInfo();
+                return;
+            }
+
+            if (command === '/continue') {
+                if (completedLevels.length > 0) {
+                    const nextLevel = completedLevels.length + 1;
+                    if (nextLevel <= 10) {
+                        addOutput(`\nContinuing from Level ${nextLevel}...`, 'success');
+                        startLevel(nextLevel);
+                    } else {
+                        addOutput('You have completed all levels! Use /revisit to replay.', 'success');
+                        enableInput();
+                    }
+                } else {
+                    addOutput('No saved progress found. Starting new game...', 'success');
+                    startLevel(1);
+                }
+                return;
+            }
+
+            if (command === '/help') {
+                addOutput('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'story');
+                addOutput('TERMINAL VELOCITY - Game Commands', 'story');
+                addOutput('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', '');
+                addOutput('\nGame Management:', 'objective');
+                addOutput('  /revisit <level>  - Replay a completed level (1-10)', 'success');
+                addOutput('  /new-game         - Reset ALL progress (with confirmation)', 'error');
+                addOutput('  /continue         - Continue from your last level', 'success');
+                addOutput('\nCLI Commands:', 'objective');
+                addOutput('  pwd    - Print working directory', 'success');
+                addOutput('  ls     - List directory contents', 'success');
+                addOutput('  cd     - Change directory', 'success');
+                addOutput('  mkdir  - Create directory', 'success');
+                addOutput('  cat    - View file contents', 'success');
+                addOutput('  git    - Git commands', 'success');
+                addOutput('  npm    - NPM commands', 'success');
+                addOutput('\nHelp:', 'objective');
+                addOutput('  hint   - Get a hint for current level', 'success');
+                addOutput('  clear  - Clear terminal screen', 'success');
+                addOutput('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n', '');
+                enableInput();
+                return;
+            }
             
             // Built-in bootcamp commands
             if (baseCommand === 'help') {
@@ -643,6 +786,12 @@
                     document.getElementById('xp-display').textContent = totalXP;
                     GameEngine.awardXP(level.xp, `Level ${currentLevel}: ${level.title}`);
 
+                    // Mark level as completed and save
+                    if (!completedLevels.includes(currentLevel)) {
+                        completedLevels.push(currentLevel);
+                    }
+                    saveProgress();
+
                     // Wait then go to next level
                     setTimeout(() => {
                         if (currentLevel < 10) {
@@ -671,6 +820,10 @@
                     totalXP += level.xp;
                     document.getElementById('xp-display').textContent = totalXP;
                     GameEngine.awardXP(level.xp, `Level ${currentLevel}: ${level.title}`);
+                    if (!completedLevels.includes(currentLevel)) {
+                        completedLevels.push(currentLevel);
+                    }
+                    saveProgress();
                     setTimeout(() => {
                         if (currentLevel < 10) {
                             addOutput('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n', '');
@@ -873,6 +1026,10 @@
                     totalXP += level.xp;
                     document.getElementById('xp-display').textContent = totalXP;
                     GameEngine.awardXP(level.xp, `Level ${currentLevel}: ${level.title}`);
+                    if (!completedLevels.includes(currentLevel)) {
+                        completedLevels.push(currentLevel);
+                    }
+                    saveProgress();
                     
                     // Wait then go to next level
                     setTimeout(() => {
@@ -986,6 +1143,10 @@
                     totalXP += level.xp;
                     document.getElementById('xp-display').textContent = totalXP;
                     GameEngine.awardXP(level.xp, `Level ${currentLevel}: ${level.title}`);
+                    if (!completedLevels.includes(currentLevel)) {
+                        completedLevels.push(currentLevel);
+                    }
+                    saveProgress();
                     setTimeout(() => {
                         if (currentLevel < 10) {
                             addOutput('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n', '');
@@ -1021,6 +1182,10 @@
                 totalXP += level.xp;
                 document.getElementById('xp-display').textContent = totalXP;
                 GameEngine.awardXP(level.xp, `Level ${currentLevel}: ${level.title}`);
+                if (!completedLevels.includes(currentLevel)) {
+                    completedLevels.push(currentLevel);
+                }
+                saveProgress();
                 setTimeout(() => {
                     if (currentLevel < 10) {
                         addOutput('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n', '');
@@ -1051,6 +1216,14 @@
             const minutes = Math.floor(elapsedTime / 60);
             const seconds = elapsedTime % 60;
             
+            // Ensure all levels marked complete and save
+            for (let i = 1; i <= 10; i++) {
+                if (!completedLevels.includes(i)) {
+                    completedLevels.push(i);
+                }
+            }
+            saveProgress();
+
             // Show victory screen
             document.getElementById('victory-screen').style.display = 'flex';
             document.getElementById('final-xp').textContent = totalXP;
