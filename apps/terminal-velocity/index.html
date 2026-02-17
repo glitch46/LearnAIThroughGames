@@ -966,6 +966,35 @@
                 addOutput(response, 'success');
             } else {
                 addOutput(`git: '${subcommand}' is not a git command`, 'error');
+                return;
+            }
+
+            // Check for level completion (levels 8, 9, 10)
+            const level = gameData.levels.find(l => l.level === currentLevel);
+            if (level) {
+                let levelComplete = false;
+                if (currentLevel === 8 && subcommand === 'status') {
+                    levelComplete = true;
+                } else if (currentLevel === 9 && subcommand === 'remote' && args[1] === 'add' && args[2] === 'origin') {
+                    levelComplete = true;
+                } else if (currentLevel === 10 && subcommand === 'push') {
+                    levelComplete = true;
+                }
+
+                if (levelComplete) {
+                    addOutput(level.response, 'success');
+                    totalXP += level.xp;
+                    document.getElementById('xp-display').textContent = totalXP;
+                    GameEngine.awardXP(level.xp, `Level ${currentLevel}: ${level.title}`);
+                    setTimeout(() => {
+                        if (currentLevel < 10) {
+                            addOutput('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n', '');
+                            startLevel(currentLevel + 1);
+                        } else {
+                            completeGame();
+                        }
+                    }, 1500);
+                }
             }
         }
 
@@ -982,6 +1011,24 @@
                 addOutput(response, 'success');
             } else {
                 addOutput(`npm: '${subcommand}' is not an npm command`, 'error');
+                return;
+            }
+
+            // Check for level completion (level 7)
+            const level = gameData.levels.find(l => l.level === currentLevel);
+            if (level && currentLevel === 7 && (subcommand === 'install' || subcommand === 'i')) {
+                addOutput(level.response, 'success');
+                totalXP += level.xp;
+                document.getElementById('xp-display').textContent = totalXP;
+                GameEngine.awardXP(level.xp, `Level ${currentLevel}: ${level.title}`);
+                setTimeout(() => {
+                    if (currentLevel < 10) {
+                        addOutput('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n', '');
+                        startLevel(currentLevel + 1);
+                    } else {
+                        completeGame();
+                    }
+                }, 1500);
             }
         }
 
