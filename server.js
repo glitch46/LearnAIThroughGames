@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const app = express();
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3003;
 
 // Middleware
 app.use(express.json());
@@ -132,7 +132,7 @@ app.listen(PORT, '0.0.0.0', () => {
 ║                                                           ║
 ╠═══════════════════════════════════════════════════════════╣
 ║                                                           ║
-║   Server: http://localhost:${PORT}                          ║
+║   Server: http://localhost:${PORT}                         ║
 ║                                                           ║
 ║   Games Hub:           /                                  ║
 ║   Terminal Velocity:   /games/terminal-velocity           ║
