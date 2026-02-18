@@ -1117,16 +1117,35 @@
             }
 
             const subcommand = args[0].toLowerCase();
-            const response = gameData.gitResponses[subcommand];
-
-            if (response) {
-                addOutput(response, 'success');
+            
+            // Handle git remote specially - needs proper syntax
+            if (subcommand === 'remote') {
+                if (args[1] === 'add' && args[2] && args[3]) {
+                    // Valid: git remote add <name> <url>
+                    addOutput(`✓ Remote '${args[2]}' added: ${args[3]}`, 'success');
+                } else if (args[1] === 'add') {
+                    addOutput('usage: git remote add <name> <url>', 'error');
+                    return;
+                } else if (args[1] === '-v' || args[1] === '--verbose') {
+                    addOutput('origin\thttps://github.com/neo/.SAASApp.git (fetch)\norigin\thttps://github.com/neo/.SAASApp.git (push)', 'success');
+                } else if (!args[1]) {
+                    addOutput('origin', 'success');
+                } else {
+                    addOutput(`error: Unknown subcommand: ${args[1]}`, 'error');
+                    addOutput('usage: git remote add <name> <url>', 'error');
+                    return;
+                }
             } else {
-                addOutput(`git: '${subcommand}' is not a git command`, 'error');
-                return;
+                const response = gameData.gitResponses[subcommand];
+                if (response) {
+                    addOutput(response, 'success');
+                } else {
+                    addOutput(`git: '${subcommand}' is not a git command`, 'error');
+                    return;
+                }
             }
 
-            // Check for level completion (levels 8, 9, 10)
+            // Check for level completion (levels 8, 9, 10, 11)
             const level = gameData.levels.find(l => l.level === currentLevel);
             if (level) {
                 let levelComplete = false;
