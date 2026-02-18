@@ -657,28 +657,222 @@
         }
         
         /* ================================
+           MUSIC TOGGLE - 80s RETRO STYLE
+           ================================ */
+        
+        .music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            background: rgba(10, 0, 20, 0.85);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .music-toggle:hover {
+            border-color: var(--neon-magenta);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5), 
+                        0 0 40px rgba(255, 0, 255, 0.2),
+                        inset 0 0 15px rgba(255, 0, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .music-toggle svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: var(--neon-cyan);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 4px rgba(0, 255, 255, 0.6));
+            transition: all 0.3s ease;
+        }
+
+        .music-toggle:hover svg {
+            stroke: var(--neon-magenta);
+            filter: drop-shadow(0 0 8px rgba(255, 0, 255, 0.8));
+        }
+
+        /* Icon visibility states */
+        .music-toggle .icon-muted { display: block; }
+        .music-toggle .icon-playing { display: none; }
+        .music-toggle.playing .icon-muted { display: none; }
+        .music-toggle.playing .icon-playing { display: block; }
+
+        /* Pulse animation when playing */
+        .music-toggle.playing {
+            animation: music-pulse 2s ease-in-out infinite;
+            border-color: var(--neon-magenta);
+        }
+
+        .music-toggle.playing svg {
+            stroke: var(--neon-magenta);
+            filter: drop-shadow(0 0 6px rgba(255, 0, 255, 0.8));
+        }
+
+        @keyframes music-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 10px rgba(255, 0, 255, 0.3),
+                            0 0 20px rgba(255, 0, 255, 0.1);
+            }
+            50% { 
+                box-shadow: 0 0 20px rgba(255, 0, 255, 0.6),
+                            0 0 40px rgba(255, 0, 255, 0.3),
+                            0 0 60px rgba(255, 0, 255, 0.1);
+            }
+        }
+
+        /* Scanline effect on button */
+        .music-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 255, 0.03) 2px,
+                rgba(0, 255, 255, 0.03) 4px
+            );
+            pointer-events: none;
+            border-radius: 6px;
+        }
+        
+        /* ================================
            RESPONSIVE
            ================================ */
         
         @media (max-width: 768px) {
             .game-header {
                 flex-direction: column;
-                gap: 16px;
-                padding: 16px;
+                gap: 12px;
+                padding: 12px;
+            }
+            
+            .game-title {
+                gap: 4px;
+            }
+            
+            .game-title h1.vectro {
+                font-size: 1.4rem;
+            }
+            
+            .game-title p {
+                font-size: 0.6rem;
             }
             
             .game-stats {
                 position: static;
-                gap: 24px;
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .stat-value {
+                font-size: 1.2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.55rem;
             }
             
             .back-button {
                 position: static;
-                margin-bottom: 10px;
+                margin-bottom: 8px;
+                font-size: 0.7rem;
+                padding: 6px 12px;
             }
             
             .terminal-container {
+                padding: 8px;
+            }
+            
+            .terminal {
+                min-height: 50vh;
+            }
+            
+            .terminal-header {
+                padding: 8px 12px;
+            }
+            
+            .terminal-title {
+                font-size: 0.65rem;
+            }
+            
+            .terminal-body {
+                padding: 12px;
+                font-size: 0.8rem;
+            }
+            
+            .terminal-input {
+                font-size: 0.8rem;
+            }
+            
+            .game-container {
+                padding: 8px;
+            }
+            
+            /* Reduce canvas animation complexity on mobile */
+            #mainCanvas {
+                opacity: 0.5;
+            }
+            
+            /* Reduce CRT effect intensity on mobile for performance */
+            .crt-overlay {
+                opacity: 0.3;
+            }
+            
+            /* Music toggle positioning */
+            .music-toggle {
+                width: 36px;
+                height: 36px;
+                top: 10px;
+                right: 10px;
+            }
+            
+            .music-toggle svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .game-title h1.vectro {
+                font-size: 1.1rem;
+            }
+            
+            .game-stats {
+                gap: 16px;
+            }
+            
+            .stat {
+                min-width: 60px;
+            }
+            
+            .terminal-body {
+                font-size: 0.75rem;
                 padding: 10px;
+            }
+            
+            .terminal-input {
+                font-size: 0.75rem;
+            }
+            
+            .victory-screen h1 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -690,6 +884,27 @@
     <!-- CRT Effects -->
     <div class="crt-warp"></div>
     <div class="crt-overlay"></div>
+    
+    <!-- Background Music (shared with dashboard) -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="/audio/neon-gaming.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Music Toggle Button - 80s Retro Style -->
+    <button id="music-toggle" class="music-toggle" aria-label="Toggle music" title="Toggle Music">
+        <!-- Muted Icon - Speaker with X -->
+        <svg class="icon-muted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+        </svg>
+        <!-- Playing Icon - Speaker with Sound Waves -->
+        <svg class="icon-playing" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+        </svg>
+    </button>
     
     <a href="/games" class="back-button">← BACK TO GAMES</a>
 
@@ -1729,6 +1944,63 @@
             GameEngine.unlockAchievement('cli-master');
             GameEngine.completeGame('terminal-velocity', totalXP);
         }
+    </script>
+    
+    <!-- Music Control Script (shared state with dashboard) -->
+    <script>
+        (function() {
+            const music = document.getElementById('bg-music');
+            const toggle = document.getElementById('music-toggle');
+            let isPlaying = false;
+            
+            music.volume = 0.4; // 40% volume
+            
+            // Update button state based on actual playing status
+            function updateToggleState() {
+                if (isPlaying && !music.muted) {
+                    toggle.classList.add('playing');
+                } else {
+                    toggle.classList.remove('playing');
+                }
+            }
+            
+            // Start playing music
+            function startMusic() {
+                music.muted = false;
+                music.play().then(function() {
+                    isPlaying = true;
+                    localStorage.setItem('musicPlaying', 'true');
+                    updateToggleState();
+                }).catch(function(err) {
+                    console.log('Autoplay blocked, waiting for user interaction:', err);
+                });
+            }
+            
+            // Stop/mute music
+            function stopMusic() {
+                music.pause();
+                isPlaying = false;
+                localStorage.setItem('musicPlaying', 'false');
+                updateToggleState();
+            }
+            
+            // Toggle music on button click
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (isPlaying) {
+                    stopMusic();
+                } else {
+                    startMusic();
+                }
+            });
+            
+            // Check if music was playing on previous page (shared state)
+            if (localStorage.getItem('musicPlaying') === 'true') {
+                startMusic();
+            }
+            
+            updateToggleState();
+        })();
     </script>
 </body>
 </html>
