@@ -505,11 +505,127 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* ================================
+           MUSIC TOGGLE - 80s RETRO STYLE
+           ================================ */
+        
+        .music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            background: rgba(10, 0, 20, 0.85);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .music-toggle:hover {
+            border-color: var(--neon-magenta);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5), 
+                        0 0 40px rgba(255, 0, 255, 0.2),
+                        inset 0 0 15px rgba(255, 0, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .music-toggle svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: var(--neon-cyan);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 4px rgba(0, 255, 255, 0.6));
+            transition: all 0.3s ease;
+        }
+
+        .music-toggle:hover svg {
+            stroke: var(--neon-magenta);
+            filter: drop-shadow(0 0 8px rgba(255, 0, 255, 0.8));
+        }
+
+        /* Icon visibility states */
+        .music-toggle .icon-muted { display: block; }
+        .music-toggle .icon-playing { display: none; }
+        .music-toggle.playing .icon-muted { display: none; }
+        .music-toggle.playing .icon-playing { display: block; }
+
+        /* Pulse animation when playing */
+        .music-toggle.playing {
+            animation: music-pulse 2s ease-in-out infinite;
+            border-color: var(--neon-magenta);
+        }
+
+        .music-toggle.playing svg {
+            stroke: var(--neon-magenta);
+            filter: drop-shadow(0 0 6px rgba(255, 0, 255, 0.8));
+        }
+
+        @keyframes music-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 10px rgba(255, 0, 255, 0.3),
+                            0 0 20px rgba(255, 0, 255, 0.1);
+            }
+            50% { 
+                box-shadow: 0 0 20px rgba(255, 0, 255, 0.6),
+                            0 0 40px rgba(255, 0, 255, 0.3),
+                            0 0 60px rgba(255, 0, 255, 0.1);
+            }
+        }
+
+        /* Scanline effect on button */
+        .music-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 255, 0.03) 2px,
+                rgba(0, 255, 255, 0.03) 4px
+            );
+            pointer-events: none;
+            border-radius: 6px;
+        }
     </style>
 </head>
 <body>
     <!-- Canvas Grid Background -->
     <canvas id="mainCanvas"></canvas>
+    
+    <!-- Background Music -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="/audio/neon-gaming.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Music Toggle Button - 80s Retro Style -->
+    <button id="music-toggle" class="music-toggle" aria-label="Toggle music" title="Toggle Music">
+        <!-- Muted Icon - Speaker with X -->
+        <svg class="icon-muted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+        </svg>
+        <!-- Playing Icon - Speaker with Sound Waves -->
+        <svg class="icon-playing" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+        </svg>
+    </button>
     
     <div class="container">
         <header class="hero">
@@ -870,6 +986,57 @@
 
         render();
         window.setInterval(render, renderPeriod);
+    </script>
+    
+    <!-- Music Control Script -->
+    <script>
+        (function() {
+            const music = document.getElementById('bg-music');
+            const toggle = document.getElementById('music-toggle');
+            
+            // Always start muted (browser autoplay policy)
+            music.muted = true;
+            music.volume = 0.4; // 40% volume when unmuted
+            
+            // Update button state
+            function updateToggleState() {
+                if (music.muted || music.paused) {
+                    toggle.classList.remove('playing');
+                } else {
+                    toggle.classList.add('playing');
+                }
+            }
+            
+            // Toggle music on click
+            toggle.addEventListener('click', function() {
+                if (music.paused) {
+                    music.play().then(function() {
+                        music.muted = false;
+                        localStorage.setItem('musicMuted', 'false');
+                        updateToggleState();
+                    }).catch(function(err) {
+                        console.log('Audio play failed:', err);
+                    });
+                } else {
+                    music.muted = !music.muted;
+                    localStorage.setItem('musicMuted', music.muted ? 'true' : 'false');
+                    updateToggleState();
+                }
+            });
+            
+            // Try to autoplay muted
+            music.play().catch(function() {
+                // Autoplay blocked - user will need to click
+            });
+            
+            // Check if user previously had music playing
+            if (localStorage.getItem('musicMuted') === 'false') {
+                // User had music on - show visual hint that music is available
+                toggle.style.animation = 'music-pulse 1s ease-in-out 3';
+            }
+            
+            updateToggleState();
+        })();
     </script>
 </body>
 </html>

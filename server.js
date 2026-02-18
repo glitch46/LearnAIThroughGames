@@ -11,6 +11,9 @@ app.use(express.json());
 // Serve fonts
 app.use('/fonts', express.static(path.join(__dirname, 'tools')));
 
+// Serve audio files
+app.use('/audio', express.static(path.join(__dirname, 'tools', 'audio')));
+
 // Serve shared design system CSS
 app.use('/css', express.static(path.join(__dirname, 'packages', 'design-system', 'css')));
 
