@@ -669,13 +669,14 @@
         }
 
         /* ================================
-           CRT POWER TRANSITION
+           RGB GLITCH SPLIT TRANSITION
            ================================ */
 
         body.transition-enter {
             overflow: hidden;
         }
 
+        body.transition-enter::before,
         body.transition-enter::after {
             content: '';
             position: fixed;
@@ -684,35 +685,76 @@
             width: 100vw;
             height: 100vh;
             background: #000;
-            z-index: 9998;
+            z-index: 9999;
             pointer-events: none;
-            clip-path: circle(0% at 50% 50%);
-            animation: crt-power-on 0.6s ease-out forwards;
         }
 
-        .crt-transition {
+        body.transition-enter::before {
+            animation: rgb-glitch-enter 0.4s ease-out forwards;
+        }
+
+        .rgb-transition {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #000;
             z-index: 9999;
             pointer-events: none;
             opacity: 0;
-            clip-path: circle(150% at 50% 50%);
-            transition: clip-path 0.6s ease-in-out, opacity 0.3s ease;
+            background: #000;
         }
 
-        .crt-transition.active {
+        .rgb-transition.active {
             opacity: 1;
             pointer-events: all;
-            clip-path: circle(0% at 50% 50%);
+            animation: rgb-glitch-exit 0.3s ease-in forwards;
         }
 
-        @keyframes crt-power-on {
-            0% { clip-path: circle(0% at 50% 50%); }
-            100% { clip-path: circle(150% at 50% 50%); }
+        @keyframes rgb-glitch-exit {
+            0% { clip-path: inset(0 0 0 0); transform: translateX(0); }
+            20% { 
+                clip-path: inset(20% 0 60% 0); 
+                transform: translateX(-5px);
+                background: linear-gradient(90deg, rgba(255,0,0,0.8) 0%, transparent 30%, transparent 70%, rgba(0,100,255,0.8) 100%);
+            }
+            40% { 
+                clip-path: inset(60% 0 10% 0); 
+                transform: translateX(5px);
+                background: linear-gradient(90deg, rgba(0,255,255,0.6) 0%, transparent 40%, transparent 60%, rgba(255,0,255,0.6) 100%);
+            }
+            60% { 
+                clip-path: inset(40% 0 30% 0); 
+                transform: translateX(-3px);
+            }
+            80% { 
+                clip-path: inset(10% 0 70% 0); 
+                transform: translateX(3px);
+            }
+            100% { 
+                clip-path: inset(50% 0 50% 0); 
+                transform: translateX(0);
+                background: #000;
+            }
+        }
+
+        @keyframes rgb-glitch-enter {
+            0% { 
+                clip-path: inset(50% 0 50% 0);
+                background: #000;
+            }
+            30% { 
+                clip-path: inset(30% 0 40% 0);
+                background: linear-gradient(90deg, rgba(255,0,0,0.3) 0%, transparent 20%, transparent 80%, rgba(0,100,255,0.3) 100%);
+            }
+            60% { 
+                clip-path: inset(10% 0 20% 0);
+                background: rgba(0,0,0,0.8);
+            }
+            100% { 
+                clip-path: inset(0 0 0 0);
+                opacity: 0;
+            }
         }
         
         /* ================================
@@ -1336,21 +1378,21 @@
         })();
     </script>
 
-    <!-- CRT Power Transition Script -->
+    <!-- RGB Glitch Split Transition Script -->
     <script>
         (function() {
             const overlay = document.createElement('div');
-            overlay.className = 'crt-transition';
+            overlay.className = 'rgb-transition';
             document.body.appendChild(overlay);
 
             document.body.classList.add('transition-enter');
             window.addEventListener('load', function() {
                 setTimeout(function() {
                     document.body.classList.remove('transition-enter');
-                }, 650);
+                }, 450);
             });
 
-            function navigateWithCRT(url) {
+            function navigateWithGlitch(url) {
                 const music = document.getElementById('bg-music');
                 if (music) {
                     localStorage.setItem('musicTime', music.currentTime.toString());
@@ -1359,14 +1401,14 @@
                 overlay.classList.add('active');
                 setTimeout(function() {
                     window.location.href = url;
-                }, 600);
+                }, 300);
             }
 
             document.querySelectorAll('a[href^="/"]').forEach(function(link) {
                 if (link.target === '_blank') return;
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    navigateWithCRT(link.href);
+                    navigateWithGlitch(link.href);
                 });
             });
         })();
