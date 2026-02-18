@@ -28,6 +28,68 @@
             font-display: swap;
         }
     </style>
+    <!-- VECTRO Font Import -->
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <style>
+        /* ================================
+           VECTRO FONT STYLE
+           ================================ */
+        
+        .vectro {
+            position: relative;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 0.1px #f1f1f1;
+            font-family: 'Righteous', cursive;
+            font-size: 48px;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .vectro:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, rgba(255,255,255,0) 1px, rgba(255,255,255,0) 2px);
+        }
+
+        .windows .vectro {
+            -webkit-text-stroke: 4px #f1f1f1;
+        }
+
+        .vectro-body {
+            -webkit-background-clip: text;
+            background-image: -webkit-linear-gradient(#C3BFB4 0%, #FDFCFA 50%, #E8E7E5 51%, #757172 52%, #E8E9DB 100%);
+            -webkit-filter: drop-shadow(2px 2px 15px #3F59F4);
+        }
+
+        .vectro-red {
+            color: #F10C20;
+            -webkit-text-fill-color: #F10C20;
+            -webkit-text-stroke: 0;
+            -webkit-filter: drop-shadow(2px 2px 15px #F10C20);
+            font-style: italic;
+        }
+
+        .vectro-green {
+            color: #6BFF2B;
+            -webkit-text-fill-color: #6BFF2B;
+            -webkit-filter: drop-shadow(2px 2px 15px #6BFF2B);
+            -webkit-text-stroke: 0;
+            font-style: italic;
+        }
+
+        .vectro-blue {
+            color: #3F59F4;
+            -webkit-text-fill-color: #3F59F4;
+            -webkit-filter: drop-shadow(2px 2px 15px #3F59F4);
+            -webkit-text-stroke: 0;
+            font-style: italic;
+        }
+    </style>
     <style>
         /* ================================
            RETROWAVE DESIGN SYSTEM
@@ -616,7 +678,7 @@
         <div class="game-header">
             <div class="game-title">
                 <div>
-                    <h1>TERMINAL VELOCITY</h1>
+                    <h1 class="vectro"><span class="vectro-body">TERMINAL VELOCI</span><span class="vectro-red">T</span><span class="vectro-green">Y</span></h1>
                     <p>Master CLI commands to build real projects</p>
                 </div>
             </div>
