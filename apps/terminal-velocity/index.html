@@ -4,228 +4,463 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terminal Velocity | AI Mastery Bootcamp</title>
-    <link rel="stylesheet" href="/css/global.css">
     <style>
-        body {
-            padding: 0;
-            margin: 0;
-            overflow: hidden;
-            background: #000;
+        /* Font faces from dashboard */
+        @font-face {
+            font-family: 'Pixelmax';
+            src: url('/fonts/pixelmax-font/Pixelmax-vnR7A.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
         }
-
+        @font-face {
+            font-family: 'Chrome Engine';
+            src: url('/fonts/chrome-engine-font/ChromeEngineRegular-m27AG.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Cyberway Riders';
+            src: url('/fonts/cyberway-riders-font/CyberwayRiders-lg97d.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+    <style>
+        /* ================================
+           RETROWAVE DESIGN SYSTEM
+           ================================ */
+        
+        :root {
+            /* Neon Palette */
+            --neon-cyan: #00FFFF;
+            --neon-magenta: #FF00FF;
+            --neon-pink: #FF2D92;
+            --neon-yellow: #FFE600;
+            --neon-green: #39FF14;
+            --hot-pink: #FF1493;
+            
+            /* Terminal colors - keep original for readability */
+            --term-green: #00ff88;
+            --term-cyan: #00d4ff;
+            --term-yellow: #ffd700;
+            --term-red: #ff4757;
+            --term-white: #ffffff;
+            
+            /* Darks */
+            --void: #000000;
+            --panel-bg: rgba(10, 0, 20, 0.85);
+            
+            /* Text */
+            --text-primary: #E0D0FF;
+            --text-muted: #8070A0;
+            --text-dim: #5A4D7A;
+            
+            /* Glow Effects */
+            --glow-cyan: 0 0 20px rgba(0, 255, 255, 0.4), 0 0 40px rgba(0, 255, 255, 0.1);
+            --glow-magenta: 0 0 20px rgba(255, 0, 255, 0.4), 0 0 40px rgba(255, 0, 255, 0.1);
+            --glow-green: 0 0 10px rgba(0, 255, 136, 0.5), 0 0 20px rgba(0, 255, 136, 0.2);
+            
+            /* Fonts */
+            --font-display: 'Cyberway Riders', sans-serif;
+            --font-ui: 'Pixelmax', monospace;
+            --font-stats: 'Chrome Engine', monospace;
+            --font-mono: 'Courier New', 'Consolas', monospace;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-ui);
+            background: var(--void);
+            color: var(--text-primary);
+            overflow: hidden;
+            min-height: 100vh;
+        }
+        
+        /* ================================
+           CANVAS GRID BACKGROUND
+           ================================ */
+        
+        #mainCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* ================================
+           CRT MONITOR EFFECTS
+           ================================ */
+        
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        /* Scanlines */
+        .crt-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+        }
+        
+        /* Screen flicker */
+        .crt-overlay::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(18, 16, 16, 0);
+            animation: flicker 0.15s infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 0.27861; }
+            5% { opacity: 0.34769; }
+            10% { opacity: 0.23604; }
+            15% { opacity: 0.90626; }
+            20% { opacity: 0.18128; }
+            25% { opacity: 0.83891; }
+            30% { opacity: 0.65583; }
+            35% { opacity: 0.67807; }
+            40% { opacity: 0.26559; }
+            45% { opacity: 0.84693; }
+            50% { opacity: 0.96019; }
+            55% { opacity: 0.08594; }
+            60% { opacity: 0.20313; }
+            65% { opacity: 0.71988; }
+            70% { opacity: 0.53455; }
+            75% { opacity: 0.37288; }
+            80% { opacity: 0.71428; }
+            85% { opacity: 0.70419; }
+            90% { opacity: 0.7003; }
+            95% { opacity: 0.36108; }
+            100% { opacity: 0.24387; }
+        }
+        
+        /* Subtle screen warp/curvature effect */
+        .crt-warp {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            background: radial-gradient(
+                ellipse at center,
+                transparent 0%,
+                transparent 70%,
+                rgba(0, 0, 0, 0.3) 100%
+            );
+        }
+        
+        /* ================================
+           LAYOUT
+           ================================ */
+        
         .game-container {
             display: flex;
             flex-direction: column;
             height: 100vh;
+            position: relative;
+            z-index: 1;
         }
-
+        
+        /* ================================
+           HEADER
+           ================================ */
+        
         .game-header {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px 30px;
-            background: #1a1a1a;
-            border-bottom: 1px solid #333;
+            padding: 16px 30px;
+            background: transparent;
+            border-bottom: 1px solid rgba(255, 0, 255, 0.15);
             position: relative;
         }
-
+        
         .game-title {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-
+        
         .game-title h1 {
-            font-size: 1.5rem;
+            font-family: var(--font-display);
+            font-size: 1.8rem;
             margin: 0;
-            background: linear-gradient(135deg, #00ff88, #00ff00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--neon-magenta);
+            text-shadow: var(--glow-magenta);
+            letter-spacing: 0.1em;
         }
-
+        
+        .game-title p {
+            font-family: var(--font-ui);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        
         .game-stats {
             display: flex;
-            gap: 30px;
+            gap: 40px;
             align-items: center;
             position: absolute;
             right: 30px;
         }
-
+        
         .stat {
             text-align: center;
         }
-
+        
         .stat-value {
-            font-size: 1.8rem;
+            font-family: var(--font-stats);
+            font-size: 1.6rem;
             font-weight: 700;
-            font-family: var(--font-mono);
-            color: #00ff88;
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
         }
-
+        
         .stat-label {
-            font-size: 0.75rem;
+            font-family: var(--font-ui);
+            font-size: 0.6rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #666;
+            letter-spacing: 0.2em;
+            color: var(--text-dim);
+            margin-top: 4px;
         }
-
+        
+        /* ================================
+           BACK BUTTON
+           ================================ */
+        
+        .back-button {
+            position: absolute;
+            top: 16px;
+            left: 20px;
+            z-index: 100;
+            font-family: var(--font-ui);
+            font-size: 0.7rem;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 2px;
+            letter-spacing: 0.1em;
+            transition: all 0.2s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(0, 255, 255, 0.1);
+            border-color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+        }
+        
+        /* ================================
+           TERMINAL
+           ================================ */
+        
         .terminal-container {
             flex: 1;
             padding: 20px 30px;
             overflow-y: auto;
-            background: #000;
         }
-
+        
         .terminal {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            background: #0a0a0a;
-            border: 1px solid #333;
-            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 4px;
             overflow: hidden;
             font-family: var(--font-mono);
             display: flex;
             flex-direction: column;
             height: 100%;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.1), inset 0 0 60px rgba(0, 0, 0, 0.5);
         }
-
+        
         .terminal-header {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 12px 16px;
-            background: #1a1a1a;
-            border-bottom: 1px solid #333;
+            padding: 10px 16px;
+            background: rgba(20, 20, 30, 0.9);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.15);
         }
-
+        
         .terminal-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
         }
-
-        .terminal-dot.red { background: #ff5f56; }
-        .terminal-dot.yellow { background: #ffbd2e; }
-        .terminal-dot.green { background: #27c93f; }
-
+        
+        .terminal-dot.red { background: #ff5f56; box-shadow: 0 0 6px #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; box-shadow: 0 0 6px #ffbd2e; }
+        .terminal-dot.green { background: #27c93f; box-shadow: 0 0 6px #27c93f; }
+        
         .terminal-title {
             flex: 1;
             text-align: center;
-            font-size: 0.9rem;
-            color: #666;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            font-family: var(--font-ui);
+            letter-spacing: 0.1em;
         }
-
+        
         .terminal-body {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #00ff88;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--term-green);
             white-space: pre-wrap;
             word-wrap: break-word;
+            text-shadow: var(--glow-green);
         }
-
+        
         .output {
             margin-bottom: 8px;
             white-space: pre-wrap;
             word-wrap: break-word;
         }
-
+        
         .output.story {
-            color: #00d4ff;
+            color: var(--term-cyan);
             font-style: italic;
             margin-bottom: 12px;
         }
-
+        
         .output.objective {
-            color: #ffd700;
+            color: var(--term-yellow);
             font-weight: bold;
             margin-bottom: 12px;
         }
-
+        
         .output.error {
-            color: #ff4757;
+            color: var(--term-red);
         }
-
+        
         .output.success {
-            color: #00ff88;
+            color: var(--term-green);
             font-weight: bold;
         }
-
+        
         .output.command {
-            color: #fff;
+            color: var(--term-white);
         }
-
+        
         .input-wrapper {
             display: flex;
             align-items: flex-start;
             margin-top: 8px;
-            padding: 0 20px;
+            padding: 12px 20px;
             gap: 8px;
+            background: rgba(0, 20, 10, 0.3);
+            border-top: 1px solid rgba(0, 255, 136, 0.1);
         }
-
+        
         .prompt {
-            color: #00ff88;
+            color: var(--term-green);
             user-select: none;
             flex-shrink: 0;
+            text-shadow: var(--glow-green);
         }
-
+        
         .input-container {
             flex: 1;
             display: flex;
             align-items: center;
             flex-wrap: wrap;
         }
-
+        
         #command-input {
             background: transparent;
             border: none;
-            color: #fff;
+            color: var(--term-white);
             font-family: var(--font-mono);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             outline: none;
             width: 100%;
             padding: 0;
             margin: 0;
             min-height: 1.5em;
+            caret-color: var(--term-green);
         }
-
+        
         #command-input::placeholder {
-            color: #444;
+            color: rgba(0, 255, 136, 0.3);
         }
-
+        
         #command-input:disabled {
             color: #666;
         }
-
-        .cursor {
-            display: none;
-        }
-
+        
+        /* ================================
+           HINT BOX
+           ================================ */
+        
         .hint-box {
-            margin-top: 20px;
-            margin-left: 20px;
-            margin-right: 20px;
+            margin: 16px 20px;
             padding: 15px;
-            background: #1a2a1a;
-            border-left: 4px solid #ffd700;
-            border-radius: 4px;
+            background: rgba(255, 215, 0, 0.05);
+            border-left: 3px solid var(--term-yellow);
+            border-radius: 2px;
             display: none;
         }
-
+        
         .hint-box h3 {
-            color: #ffd700;
-            margin: 0 0 10px 0;
-            font-size: 0.9rem;
+            font-family: var(--font-ui);
+            color: var(--term-yellow);
+            margin: 0 0 8px 0;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
         }
-
+        
         .hint-box p {
             margin: 0;
-            color: #00ff88;
+            color: var(--term-green);
             font-size: 0.85rem;
+            font-family: var(--font-mono);
         }
-
+        
+        /* ================================
+           VICTORY SCREEN
+           ================================ */
+        
         .victory-screen {
             display: none;
             position: fixed;
@@ -235,105 +470,154 @@
             bottom: 0;
             background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
-            z-index: 1000;
+            z-index: 1001;
             align-items: center;
             justify-content: center;
         }
-
+        
         .victory-content {
             text-align: center;
             padding: 50px;
             max-width: 600px;
         }
-
+        
         .victory-content h1 {
-            font-size: 3rem;
+            font-family: var(--font-display);
+            font-size: 2.5rem;
             margin-bottom: 20px;
-            animation: glow 2s ease-in-out infinite;
-            color: #00ff88;
+            color: var(--neon-magenta);
+            text-shadow: var(--glow-magenta);
+            animation: victoryGlow 2s ease-in-out infinite;
         }
-
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 20px #00ff88; }
-            50% { text-shadow: 0 0 40px #00ff88, 0 0 60px #00ff88; }
+        
+        @keyframes victoryGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 0, 255, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(255, 0, 255, 0.8), 0 0 60px rgba(255, 0, 255, 0.4); }
         }
-
+        
+        .victory-content > p {
+            font-family: var(--font-ui);
+            font-size: 1rem;
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+        }
+        
         .victory-stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 16px;
             margin: 30px 0;
         }
-
+        
         .victory-stat {
-            background: var(--bg-card);
+            background: transparent;
             padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #333;
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            border-radius: 2px;
         }
-
+        
         .victory-stat-value {
+            font-family: var(--font-stats);
             font-size: 2rem;
             font-weight: 700;
-            font-family: var(--font-mono);
-            color: #00ff88;
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
         }
-
+        
         .victory-stat-label {
-            font-size: 0.8rem;
-            color: #666;
+            font-family: var(--font-ui);
+            font-size: 0.65rem;
+            color: var(--text-dim);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 5px;
+            letter-spacing: 0.15em;
+            margin-top: 8px;
         }
-
-        .back-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            z-index: 100;
-        }
-
-        .level-indicator {
+        
+        .victory-buttons {
             display: flex;
-            gap: 8px;
-            font-size: 0.8rem;
-        }
-
-        .level-step {
-            width: 20px;
-            height: 20px;
-            border: 1px solid #333;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
+            gap: 15px;
             justify-content: center;
-            color: #666;
+            margin-top: 30px;
         }
-
-        .level-step.current {
-            background: #00ff88;
-            color: #000;
-            border-color: #00ff88;
+        
+        .btn {
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            padding: 12px 24px;
+            border: 1px solid;
+            border-radius: 2px;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
         }
-
-        .level-step.completed {
-            background: #00ff00;
-            color: #000;
-            border-color: #00ff00;
+        
+        .btn-primary {
+            background: transparent;
+            border-color: var(--neon-magenta);
+            color: var(--neon-magenta);
+        }
+        
+        .btn-primary:hover {
+            background: rgba(255, 0, 255, 0.15);
+            box-shadow: var(--glow-magenta);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 255, 255, 0.15);
+            box-shadow: var(--glow-cyan);
+        }
+        
+        /* ================================
+           RESPONSIVE
+           ================================ */
+        
+        @media (max-width: 768px) {
+            .game-header {
+                flex-direction: column;
+                gap: 16px;
+                padding: 16px;
+            }
+            
+            .game-stats {
+                position: static;
+                gap: 24px;
+            }
+            
+            .back-button {
+                position: static;
+                margin-bottom: 10px;
+            }
+            
+            .terminal-container {
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <a href="/games" class="btn btn-secondary back-button">← Back to Games</a>
+    <!-- Canvas Grid Background -->
+    <canvas id="mainCanvas"></canvas>
+    
+    <!-- CRT Effects -->
+    <div class="crt-warp"></div>
+    <div class="crt-overlay"></div>
+    
+    <a href="/games" class="back-button">← BACK TO GAMES</a>
 
     <div class="game-container">
         <div class="game-header">
             <div class="game-title">
-                <span style="font-size: 2rem;">⚡</span>
                 <div>
                     <h1>TERMINAL VELOCITY</h1>
-                    <p style="margin: 0; font-size: 0.9rem; color: #666;">Master CLI commands to build real projects</p>
+                    <p>Master CLI commands to build real projects</p>
                 </div>
             </div>
             <div class="game-stats">
@@ -366,14 +650,13 @@
                     <div class="output" style="color: #666;">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
                 </div>
                 <div class="hint-box" id="hint-box">
-                    <h3>💡 Hint:</h3>
+                    <h3>HINT:</h3>
                     <p id="hint-text"></p>
                 </div>
                 <div class="input-wrapper">
                     <span class="prompt" id="prompt">user@bootcamp /var/log $ </span>
                     <div class="input-container">
                         <input type="text" id="command-input" autofocus autocomplete="off" placeholder="Enter command and press Enter...">
-                        <span class="cursor"></span>
                     </div>
                 </div>
             </div>
@@ -382,36 +665,145 @@
 
     <div class="victory-screen" id="victory-screen">
         <div class="victory-content">
-            <h1>🎉 TERMINAL MASTERED! 🎉</h1>
-            <p style="font-size: 1.2rem; color: #00ff88;">
-                You've learned real CLI skills. Now you can build and ship projects from the command line!
-            </p>
+            <h1>TERMINAL MASTERED</h1>
+            <p>You've learned real CLI skills. Now you can build and ship projects from the command line!</p>
             
             <div class="victory-stats">
-                <div>
+                <div class="victory-stat">
                     <div class="victory-stat-value" id="final-xp">0</div>
                     <div class="victory-stat-label">Total XP</div>
                 </div>
-                <div>
+                <div class="victory-stat">
                     <div class="victory-stat-value" id="final-commands">0</div>
                     <div class="victory-stat-label">Commands Learned</div>
                 </div>
-                <div>
+                <div class="victory-stat">
                     <div class="victory-stat-value" id="final-time">0:00</div>
                     <div class="victory-stat-label">Time</div>
                 </div>
-                <div>
-                    <div class="victory-stat-value" id="final-level">10</div>
+                <div class="victory-stat">
+                    <div class="victory-stat-value" id="final-level">11</div>
                     <div class="victory-stat-label">Levels</div>
                 </div>
             </div>
 
-            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px;">
+            <div class="victory-buttons">
                 <a href="/games" class="btn btn-primary">Back to Games</a>
                 <button class="btn btn-secondary" onclick="location.reload()">Play Again</button>
             </div>
         </div>
     </div>
+
+    <!-- Canvas Grid Background Script -->
+    <script>
+        const bgcolor = "rgba(30,00,20,100)";
+        const linecolor = "#fa00ff";
+        var currentFrame = 0;
+        const canvasName = "mainCanvas";
+
+        const squaresize = 50;
+        const renderPeriod = 15;
+        const gridEnd = .6;
+        var eyePos = {
+            x: 0,
+            y: 0,
+            z: 400
+        };
+
+        function render() {
+            currentFrame += 1;
+            var offset = currentFrame % squaresize;
+            var colOffset = (currentFrame % 360) / 360;
+            var currentRGB = HSVtoRGB(colOffset, 1, 1);
+            var currentColor = makeColorString(currentRGB.r, currentRGB.g, currentRGB.b);
+            var canvas = document.getElementById(canvasName);
+            canvas.width = getDimensions().width;
+            canvas.height = getDimensions().height;
+            eyePos.x = canvas.width / 2;
+            eyePos.y = canvas.height / 2;
+            var end = gridEnd * canvas.height * 2;
+            var cx = canvas.getContext("2d");
+            drawBg();
+            for (var i = -100; i < end; i += squaresize) {
+                var currentz = i - offset;
+                drawLine3D(cx, -0.5 * canvas.width, 50, currentz, 1.5 * canvas.width, 50, currentz, currentColor);
+            }
+            for (var i = -0.5 * canvas.width; i < 1.5 * canvas.width; i += squaresize) {
+                drawLine3D(cx, i, 50, -200, i, 50, end, currentColor);
+            }
+            drawLine3D(cx, -.5 * canvas.width, 50, end, canvas.width * 1.5, 50, end, "#0000ff");
+        }
+
+        function drawBg() {
+            var canvas = document.getElementById("mainCanvas");
+            var cx = canvas.getContext("2d");
+            var dim = getDimensions();
+            cx.fillStyle = bgcolor;
+            cx.fillRect(0, 0, dim.width, dim.height);
+        }
+
+        function getDimensions() {
+            var w = document.documentElement.clientWidth;
+            var h = document.documentElement.clientHeight;
+            return { width: w, height: h };
+        }
+
+        function get3DCoords(x, y, z, ex, ey, ez) {
+            var vy = getDimensions().height;
+            var sx = ((ez * (x - ex)) / (ez + z)) + ex;
+            var sy = vy - (((ez * (y - ey)) / (ez + z)) + ey);
+            return { x: Math.round(sx), y: Math.round(sy) };
+        }
+
+        function drawLine3D(context, x1, y1, z1, x2, y2, z2, color) {
+            var ex = eyePos.x;
+            var ey = eyePos.y;
+            var ez = eyePos.z;
+            var cx = context;
+            var p1 = get3DCoords(x1, y1, z1, ex, ey, ez);
+            var p2 = get3DCoords(x2, y2, z2, ex, ey, ez);
+            cx.beginPath();
+            cx.strokeStyle = color;
+            cx.moveTo(p1.x, p1.y);
+            cx.lineTo(p2.x, p2.y);
+            cx.stroke();
+        }
+
+        function makeColorString(r, g, b) {
+            var rs = r < 16 ? "0" + r.toString(16) : r.toString(16);
+            var gs = g < 16 ? "0" + g.toString(16) : g.toString(16);
+            var bs = b < 16 ? "0" + b.toString(16) : b.toString(16);
+            return "#" + rs + gs + bs;
+        }
+
+        function HSVtoRGB(h, s, v) {
+            var r, g, b, i, f, p, q, t;
+            if (arguments.length === 1) {
+                s = h.s; v = h.v; h = h.h;
+            }
+            i = Math.floor(h * 6);
+            f = h * 6 - i;
+            p = v * (1 - s);
+            q = v * (1 - f * s);
+            t = v * (1 - (1 - f) * s);
+            switch (i % 6) {
+                case 0: r = v; g = t; b = p; break;
+                case 1: r = q; g = v; b = p; break;
+                case 2: r = p; g = v; b = t; break;
+                case 3: r = p; g = q; b = v; break;
+                case 4: r = t; g = p; b = v; break;
+                case 5: r = v; g = p; b = q; break;
+            }
+            return {
+                r: Math.round(r * 255),
+                g: Math.round(g * 255),
+                b: Math.round(b * 255)
+            };
+        }
+
+        render();
+        window.setInterval(render, renderPeriod);
+    </script>
 
     <script src="/js/game-engine.js"></script>
     <script src="/js/progress-tracker.js"></script>
