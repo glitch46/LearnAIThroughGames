@@ -274,8 +274,9 @@
         
         .game-title {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 8px;
         }
         
         .game-title h1 {
@@ -287,10 +288,21 @@
         /* VECTRO font override - must override default h1 */
         .game-title h1.vectro {
             font-family: 'Righteous', cursive !important;
-            font-size: 2.2rem;
+            font-size: 2.4rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .game-title h1.vectro .vectro-body {
+            background-image: -webkit-linear-gradient(#C3BFB4 0%, #FDFCFA 50%, #E8E7E5 51%, #757172 52%, #E8E9DB 100%);
+            background-image: linear-gradient(to bottom, #C3BFB4 0%, #FDFCFA 50%, #E8E7E5 51%, #757172 52%, #E8E9DB 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             -webkit-text-stroke: 0.5px #f1f1f1;
-            color: transparent;
+            -webkit-filter: drop-shadow(2px 2px 15px #3F59F4);
+            filter: drop-shadow(2px 2px 15px #3F59F4);
         }
         
         .game-title p {
@@ -299,6 +311,7 @@
             color: var(--text-muted);
             letter-spacing: 0.15em;
             text-transform: uppercase;
+            text-align: center;
         }
         
         .game-stats {
@@ -684,8 +697,8 @@
         <div class="game-header">
             <div class="game-title">
                 <div>
-                    <h1 class="vectro"><span class="vectro-body">TERMINAL VELOCI</span><span class="vectro-red">T</span><span class="vectro-green">Y</span></h1>
-                    <p>Master CLI commands to build real projects</p>
+<p>Master CLI commands to build real projects</p>
+                    <h1 class="vectro"><span class="vectro-body">TERMINAL VELOCITY</span><span class="vectro-red">/</span><span class="vectro-green">/</span><span class="vectro-blue">/</span></h1>
                 </div>
             </div>
             <div class="game-stats">
