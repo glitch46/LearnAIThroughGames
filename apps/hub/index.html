@@ -35,7 +35,7 @@
         }
     </style>
     <!-- Chrome Dreams Font Imports -->
-    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@900&family=Mr+Dafoe&family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@900&family=Mr+Dafoe&family=Righteous&family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
         /* ================================
            CHROME DREAMS FONT STYLES
@@ -124,6 +124,24 @@
             -webkit-text-fill-color: #3F59F4;
             font-style: italic;
             filter: drop-shadow(1px 1px 8px #3F59F4);
+        }
+        
+        /* ================================
+           VICTORY FONT STYLE (for Prompt Escape Rooms)
+           ================================ */
+        
+        .victory-title {
+            font-family: 'Permanent Marker', cursive !important;
+            font-variant: small-caps;
+            font-size: 1.2em;
+            -webkit-transform: skew(-15deg, -15deg);
+            transform: skew(-15deg, -15deg);
+            background-image: -webkit-linear-gradient(#FF0FF8 0%, #F9F9F7 100%);
+            background-image: linear-gradient(#FF0FF8 0%, #F9F9F7 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(1px 1px 10px #f008b7);
         }
     </style>
     <style>
@@ -865,7 +883,7 @@
                     <span class="game-card__category">Prompting</span>
                     <span class="game-card__badge">New</span>
                 </div>
-                <h2 class="game-card__title">Prompt Escape Rooms</h2>
+                <h2 class="game-card__title victory-title">Prompt Escape Rooms</h2>
                 <p class="game-card__description">Craft the perfect prompt to escape themed rooms. Master clarity, specificity, and context through scenario-based challenges.</p>
                 <div class="game-card__footer">
                     <div class="game-card__stat">

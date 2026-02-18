@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prompt Escape Rooms | AI Mastery Bootcamp</title>
     <link rel="stylesheet" href="/css/global.css">
+    <!-- Victory Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
         body {
             padding: 80px 20px 40px;
@@ -34,6 +36,20 @@
         .game-title h1 {
             font-size: 1.5rem;
             margin: 0;
+        }
+        
+        /* Victory Font Style */
+        .game-title h1.victory-title {
+            font-family: 'Permanent Marker', cursive !important;
+            font-variant: small-caps;
+            -webkit-transform: skew(-15deg, -15deg);
+            transform: skew(-15deg, -15deg);
+            background-image: -webkit-linear-gradient(#FF0FF8 0%, #F9F9F7 100%);
+            background-image: linear-gradient(#FF0FF8 0%, #F9F9F7 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(1px 1px 10px #f008b7);
         }
 
         .game-stats {
@@ -347,7 +363,7 @@
         <div class="game-title">
             <span style="font-size: 2rem;">🗝️</span>
             <div>
-                <h1>PROMPT ESCAPE ROOMS</h1>
+                <h1 class="victory-title">PROMPT ESCAPE ROOMS</h1>
                 <p style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);">Craft the perfect prompt to unlock each room</p>
             </div>
         </div>
