@@ -34,54 +34,72 @@
             font-display: swap;
         }
     </style>
-    <!-- Chrome Dreams Font Imports -->
-    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@900&family=Mr+Dafoe&family=Righteous&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <!-- Title Font Imports -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Yellowtail&family=Righteous&family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
         /* ================================
-           CHROME DREAMS FONT STYLES
+           BATHTUB THEORY TITLE STYLES
            ================================ */
         
-        /* Chrome Dreams Title Container */
-        .chrome-dreams-title {
+        .title-wrapper {
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            min-height: 280px;
             margin-bottom: 20px;
         }
 
-        .chrome {
-            position: relative;
-            background-image: -webkit-linear-gradient(#378DBC 0%, #B6E8F1 46%, #ffffff 50%, #32120E 54%, #FFC488 58%, #582C11 90%, #EC9B4E 100%);
-            background-image: linear-gradient(to bottom, #378DBC 0%, #B6E8F1 46%, #ffffff 50%, #32120E 54%, #FFC488 58%, #582C11 90%, #EC9B4E 100%);
+        .title-main {
+            color: #C6CBF5;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin: 0;
+            text-align: center;
+            text-transform: uppercase;
+            z-index: 11;
+            background: -webkit-linear-gradient(top, #151C60, #C6CBF5 40%, black 40%, #E1A0CE 65%, white);
+            background: linear-gradient(to bottom, #151C60, #C6CBF5 40%, black 40%, #E1A0CE 65%, white);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            -webkit-text-stroke: 2px #f5f5f5;
-            font-size: 80px;
-            font-family: 'Titillium Web', sans-serif;
-            font-weight: 900;
-            font-style: italic;
-            margin: 0;
-            line-height: 1;
-            display: block;
-            text-align: center;
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: white;
         }
 
-        .dreams {
-            position: relative;
-            font-family: 'Mr Dafoe', cursive;
-            font-size: 60px;
-            color: #F975F7;
-            transform: rotate(-8deg);
-            margin-top: -5px;
-            margin-left: 0;
-            -webkit-text-stroke: 1px #f008b7;
-            -webkit-filter: drop-shadow(0 0 15px #f008b7);
-            filter: drop-shadow(0 0 15px #f008b7);
-            z-index: 20;
+        .title-sub {
+            color: #d100b1;
             display: block;
+            font-family: 'Yellowtail', cursive;
+            font-size: 90px;
+            margin: 0;
+            text-shadow: 0 0 1px #d100b1, 0 -3px 3px rgba(255, 255, 255, 0.8), 0 3px 3px rgba(0, 0, 0, 0.5), 0 0 15px #d100b1, 0 0 45px rgba(209, 0, 177, 0.8);
             text-align: center;
+            text-decoration: underline;
+            -webkit-transform: skew(-10deg) rotate(-10deg);
+            transform: skew(-10deg) rotate(-10deg);
+            z-index: 11;
+        }
+
+        .logo-triangle {
+            fill: url(#grad1);
+            filter: url(#dropshadow);
+            position: absolute;
+            stroke: #36e2f8;
+            stroke-width: 3;
+            stroke-dasharray: 1200;
+            stroke-dashoffset: 1200;
+            z-index: 8;
+            animation: dash 6s linear forwards;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 0;
+            }
         }
         
         /* ================================
@@ -587,19 +605,22 @@
                 padding: 40px 0 24px;
             }
             
-            .hero-title {
-                font-size: 1.5rem;
+            .title-wrapper {
+                min-height: 200px;
             }
             
-            /* Scale down Chrome Dreams fonts for mobile */
-            .chrome {
-                font-size: 48px;
-                -webkit-text-stroke: 1px #f5f5f5;
+            .title-main {
+                font-size: 42px;
+                -webkit-text-stroke-width: 1px;
             }
             
-            .dreams {
-                font-size: 36px;
-                margin-top: 0;
+            .title-sub {
+                font-size: 52px;
+            }
+            
+            .logo-triangle {
+                height: 200px;
+                width: 280px;
             }
             
             .hero-subtitle {
@@ -663,12 +684,17 @@
         }
         
         @media (max-width: 480px) {
-            .chrome {
-                font-size: 36px;
+            .title-main {
+                font-size: 32px;
             }
             
-            .dreams {
-                font-size: 28px;
+            .title-sub {
+                font-size: 40px;
+            }
+            
+            .logo-triangle {
+                height: 160px;
+                width: 220px;
             }
             
             .hero-subtitle {
@@ -926,7 +952,27 @@
     <div class="container">
         <header class="hero">
             <div class="hero-eyebrow">// SYSTEM ONLINE &mdash; 8 PROGRAMS LOADED</div>
-            <h1 class="hero-title"><span class="chrome">LEARN AI</span><span class="dreams">through games</span></h1>
+            <div class="title-wrapper">
+                <h1 class="title-main">LEARN AI</h1>
+                <h2 class="title-sub">through games</h2>
+                <svg height="320" width="400" class="logo-triangle">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:rgb(50,50,50);stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:black;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="dropshadow" height="130%">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+                            <feOffset dx="2" dy="2" result="offsetblur" />
+                            <feMerge>
+                                <feMergeNode/>
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <polygon points="0,0 400,0 200,300" stroke="#36e2f8" stroke-width="3" />
+                </svg>
+            </div>
             <p class="hero-subtitle">Jack in. Master the machine. Each program teaches a skill you'll carry into the real grid.</p>
             <div class="hero-divider"></div>
         </header>
