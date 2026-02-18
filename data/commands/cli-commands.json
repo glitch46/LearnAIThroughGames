@@ -107,25 +107,37 @@
     {
       "level": 9,
       "title": "Set Git Remote",
-      "story": "Time to push to GitHub! First, set your remote origin to your GitHub repo. Use git remote add origin [URL]",
-      "objective": "Add remote origin for GitHub push",
-      "startDirectory": "/home/user/languageapp",
-      "command": "git remote add origin https://github.com/yourname/languageapp.git",
+      "story": "Time to connect to your GitHub repo! You need to set the remote origin so you can push/pull code.\n\nYour project repo is: https://github.com/neo/.SAASApp.git\n\nUse: git remote add origin https://github.com/neo/.SAASApp.git",
+      "objective": "Add remote origin: https://github.com/neo/.SAASApp.git",
+      "startDirectory": "/home/user/.SAASApp",
+      "command": "git remote add origin https://github.com/neo/.SAASApp.git",
       "acceptCommands": [
-        "git remote add origin https://github.com/yourname/languageapp.git",
-        "git remote add origin git@github.com:yourname/languageapp.git"
+        "git remote add origin https://github.com/neo/.SAASApp.git"
       ],
-      "response": "✓ Remote origin configured successfully",
-      "hint": "git remote add origin [URL] = connect to GitHub. Check your GitHub repo for the exact URL.",
+      "response": "✓ Remote origin configured: https://github.com/neo/.SAASApp.git",
+      "hint": "git remote add origin [URL] = connect to GitHub. The URL is https://github.com/neo/.SAASApp.git",
       "xp": 125,
       "lesson": "git remote = connect to GitHub"
     },
     {
       "level": 10,
+      "title": "Pull from Remote",
+      "story": "Your teammate pushed an updated README.md to the repo. Pull the latest changes to get the file.\n\nNavigate to .SAASApp if needed, then use: git pull origin main",
+      "objective": "Pull latest changes from origin/main",
+      "startDirectory": "/home/user",
+      "command": "git pull origin main",
+      "acceptCommands": ["git pull origin main", "git pull"],
+      "response": "✓ Pulled latest changes! README.md updated from remote.",
+      "hint": "git pull = download commits from GitHub. Use 'git pull origin main' to pull from your remote.",
+      "xp": 100,
+      "lesson": "git pull = get latest code from team"
+    },
+    {
+      "level": 11,
       "title": "Push to GitHub",
-      "story": "Your changes are committed. Now push them to GitHub using git push. This is the final step to ship!",
+      "story": "Your changes are committed and you've pulled the latest. Now push your work to GitHub! This is the final step to ship!\n\nMake sure you're in .SAASApp, then push to origin.",
       "objective": "Push code to GitHub",
-      "startDirectory": "/home/user/languageapp",
+      "startDirectory": "/home/user/.SAASApp",
       "command": "git push -u origin main",
       "acceptCommands": ["git push -u origin main", "git push origin main", "git push"],
       "response": "✓ Code pushed to GitHub successfully! Your project is now live!",
@@ -223,7 +235,8 @@
     "add": "✓ Files staged for commit",
     "commit": "✓ Commit created successfully",
     "push": "✓ Code pushed to remote",
-    "pull": "✓ Latest changes pulled"
+    "pull": "✓ Latest changes pulled from origin/main",
+    "remote": "✓ Remote configured"
   },
   "npmResponses": {
     "install": "up to date, audited 156 packages in 2.4s\n\nadded 156 packages, and audited 156 packages in 4.2s\n\n42 vulnerabilities (39 low, 2 moderate, 1 high)",
