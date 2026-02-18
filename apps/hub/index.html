@@ -525,6 +525,41 @@
         }
         
         /* ================================
+           FOOTER CREDIT
+           ================================ */
+        
+        .footer-credit {
+            text-align: center;
+            padding: 40px 20px 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 0, 255, 0.1);
+        }
+        
+        .footer-credit p {
+            font-family: var(--font-ui);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+        
+        .heart-neon {
+            display: inline-block;
+            animation: heart-pulse 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 6px rgba(255, 20, 147, 0.6));
+        }
+        
+        @keyframes heart-pulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 6px rgba(255, 20, 147, 0.6));
+            }
+            50% {
+                transform: scale(1.15);
+                filter: drop-shadow(0 0 12px rgba(255, 20, 147, 0.9));
+            }
+        }
+        
+        /* ================================
            RESPONSIVE
            ================================ */
         
@@ -966,13 +1001,17 @@
         </div>
         
         <div class="footer-banner">
-            <h3 class="footer-banner__title">All 8 Games Now Live</h3>
+            <h3 class="footer-banner__title">Tap in Hackers...2 of 8 Games Live - Stay Tuned for Updates!</h3>
             <p class="footer-banner__text">Master AI-assisted development through interactive gameplay.</p>
             <div class="footer-banner__xp">
                 <span>Total Available:</span>
                 <span>7,000 XP</span>
             </div>
         </div>
+        
+        <footer class="footer-credit">
+            <p>Made with <span class="heart-neon">❤️</span> by Papacito</p>
+        </footer>
     </div>
     
     <script src="/js/game-engine.js"></script>
