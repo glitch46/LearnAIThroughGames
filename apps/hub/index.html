@@ -87,174 +87,17 @@
         }
         
         /* ================================
-           RETROWAVE BACKGROUND
+           CANVAS GRID BACKGROUND
            ================================ */
         
-        #sky {
+        #mainCanvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 70vh;
-            background-image: linear-gradient(
-                to bottom,
-                #120032 0%, #120032 50%,
-                #2f074d 70%, #2f074d 80%,
-                #6c0b36 95%, #6c0b36 100%
-            );
-            z-index: 0;
-            pointer-events: none;
-        }
-        
-        #sun {
-            width: 550px;
-            height: 550px;
-            border-radius: 50%;
-            background-color: red;
-            position: fixed;
-            top: 35%;
-            left: 50%;
-            transform: translateX(-50%);
-            filter: blur(8px);
-            z-index: 0;
-            background-image: linear-gradient(
-                rgb(255, 0, 208),
-                rgb(255, 0, 157),
-                orangered,
-                red
-            );
-            pointer-events: none;
-        }
-        
-        #sun::before {
-            content: "";
-            width: 570px;
-            height: 570px;
-            border-radius: 50%;
-            background-image: linear-gradient(
-                rgb(255, 0, 208),
-                rgb(255, 0, 157),
-                orangered,
-                red
-            );
-            position: absolute;
-            z-index: -1;
-            opacity: 0.8;
-            filter: blur(8px);
-            top: -2%;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        #ground {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 55%;
-            background: repeating-linear-gradient(
-                    #ab0356 2px,
-                    transparent 3px,
-                    transparent 30px
-                ),
-                repeating-linear-gradient(
-                    90deg,
-                    #ab0356 2px,
-                    transparent 3px,
-                    transparent 40px
-                );
-            filter: drop-shadow(0 0 1px #ab0356)
-                drop-shadow(0 0 3px #ab0356)
-                drop-shadow(0 0 7px #ab0356);
-            animation: gridMove 20s linear infinite;
-        }
-        
-        @keyframes gridMove {
-            to {
-                background-position-y: 2000px;
-            }
-        }
-        
-        #bottom {
-            position: fixed;
-            z-index: 0;
             width: 100%;
             height: 100%;
-            transform: perspective(400px) rotateX(105deg);
-            bottom: -15%;
-            background: linear-gradient(
-                90deg,
-                hotpink -60%,
-                #040a24 40%,
-                #040a24 60%,
-                hotpink 140%
-            );
-            clip-path: polygon(0 100%, 0 55%, 100% 55%, 100% 100%);
-            pointer-events: none;
-        }
-        
-        .star {
-            background-color: #fff;
-            border-radius: 50%;
-            filter: blur(1px);
-            aspect-ratio: 1 / 1;
-            position: fixed;
             z-index: 0;
             pointer-events: none;
-        }
-        
-        /* Star blink animations */
-        .star-0 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0s; }
-        .star-1 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.05s; }
-        .star-2 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.1s; }
-        .star-3 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.15s; }
-        .star-4 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.2s; }
-        .star-5 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.25s; }
-        .star-6 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.3s; }
-        .star-7 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.35s; }
-        .star-8 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.4s; }
-        .star-9 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.45s; }
-        .star-10 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.5s; }
-        .star-11 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.55s; }
-        .star-12 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.6s; }
-        .star-13 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.65s; }
-        .star-14 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.7s; }
-        .star-15 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.75s; }
-        .star-16 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.8s; }
-        .star-17 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.85s; }
-        .star-18 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.9s; }
-        .star-19 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 0.95s; }
-        .star-20 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1s; }
-        .star-21 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.05s; }
-        .star-22 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.1s; }
-        .star-23 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.15s; }
-        .star-24 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.2s; }
-        .star-25 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.25s; }
-        .star-26 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.3s; }
-        .star-27 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.35s; }
-        .star-28 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.4s; }
-        .star-29 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.45s; }
-        .star-30 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.5s; }
-        .star-31 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.55s; }
-        .star-32 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.6s; }
-        .star-33 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.65s; }
-        .star-34 { opacity: 0; animation: blink 1s linear infinite alternate; animation-delay: 1.7s; }
-        
-        @keyframes blink {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @media (max-height: 1250px) {
-            #sun { top: 35%; }
-            #bottom { transform: perspective(400px) rotateX(105deg); }
-        }
-        @media (max-height: 800px) {
-            #sun { top: 25%; }
-            #bottom { transform: perspective(400px) rotateX(95deg); }
-        }
-        @media (max-height: 600px) {
-            #sun { top: 10%; }
-            #bottom { transform: perspective(400px) rotateX(85deg); }
         }
         
         /* ================================
@@ -619,12 +462,8 @@
     </style>
 </head>
 <body>
-    <!-- Retrowave Background -->
-    <div id="sky"></div>
-    <div id="sun"></div>
-    <div id="bottom">
-        <div id="ground"></div>
-    </div>
+    <!-- Canvas Grid Background -->
+    <canvas id="mainCanvas"></canvas>
     
     <div class="container">
         <header class="hero">
@@ -850,39 +689,141 @@
         }
     </script>
     
-    <!-- Create Stars -->
+    <!-- Canvas Grid Background -->
     <script>
-        const starsQuantity = 35;
+        const bgcolor = "rgba(30,00,20,100)";
+        const linecolor = "#fa00ff";
+        var currentFrame = 0;
+        const canvasName = "mainCanvas";
 
-        const createStars = (amount) => {
-            for (let i = 0; i < amount; i++) {
-                const newDiv = document.createElement("div");
-                newDiv.classList.add("star");
-                newDiv.classList.add(`star-${i}`);
-                document.body.appendChild(newDiv);
+        const squaresize = 50;
+        const renderPeriod = 15;
+        const gridEnd = .6;
+        var eyePos = {
+            x: 0,
+            y: 0,
+            z: 400
+        };
+        var mousePos = {
+            x: 0,
+            y: 0,
+            inCanvas: false
+        };
+
+        function render() {
+            currentFrame += 1;
+            var offset = currentFrame % squaresize;
+            var colOffset = (currentFrame % 360) / 360;
+            var currentRGB = HSVtoRGB(colOffset, 1, 1);
+            var currentColor = makeColorString(currentRGB.r, currentRGB.g, currentRGB.b);
+            var canvas = document.getElementById(canvasName);
+            canvas.width = getDimensions().width;
+            canvas.height = getDimensions().height;
+            eyePos.x = canvas.width / 2;
+            eyePos.y = canvas.height / 2;
+            var end = gridEnd * canvas.height * 2;
+            var cx = canvas.getContext("2d");
+            drawBg();
+            for (var i = -100; i < end; i += squaresize) {
+                var currentz = i - offset;
+                drawLine3D(cx, -0.5 * canvas.width, 50, currentz, 1.5 * canvas.width, 50, currentz, currentColor);
             }
+            for (var i = -0.5 * canvas.width; i < 1.5 * canvas.width; i += squaresize) {
+                drawLine3D(cx, i, 50, -200, i, 50, end, currentColor);
+            }
+            drawLine3D(cx, -.5 * canvas.width, 50, end, canvas.width * 1.5, 50, end, "#0000ff");
+        }
 
-            const stars = [...document.getElementsByClassName("star")];
-            const winWidth = window.innerWidth;
-            const winHeight = window.innerHeight;
+        function drawBg() {
+            var canvas = document.getElementById("mainCanvas");
+            var cx = canvas.getContext("2d");
+            var dim = getDimensions();
+            cx.fillStyle = bgcolor;
+            cx.fillRect(0, 0, dim.width, dim.height);
+        }
 
-            stars.forEach((div) => {
-                const randomTop = getRandomNumber(0, winHeight / 2);
-                const randomLeft = getRandomNumber(0, winWidth);
-                const divHeight = getRandomNumber(1, 5);
+        function getDimensions() {
+            var w = document.documentElement.clientWidth;
+            var h = document.documentElement.clientHeight;
+            return { width: w, height: h };
+        }
 
-                div.style.top = randomTop + "px";
-                div.style.left = randomLeft + "px";
-                div.style.height = divHeight + "px";
-                div.style.backgroundColor = "white";
-            });
-        };
+        function get3DCoords(x, y, z, ex, ey, ez) {
+            var vy = getDimensions().height;
+            var sx = ((ez * (x - ex)) / (ez + z)) + ex;
+            var sy = vy - (((ez * (y - ey)) / (ez + z)) + ey);
+            return { x: Math.round(sx), y: Math.round(sy) };
+        }
 
-        const getRandomNumber = (min, max) => {
-            return Math.random() * (max - min) + min;
-        };
+        function slope(p1, p2) {
+            return (p2.y - p1.y) / (p2.x - p1.x);
+        }
 
-        createStars(starsQuantity);
+        function drawLine3D(context, x1, y1, z1, x2, y2, z2, color) {
+            var ex = eyePos.x;
+            var ey = eyePos.y;
+            var ez = eyePos.z;
+            var cx = context;
+            var p1 = get3DCoords(x1, y1, z1, ex, ey, ez);
+            var p2 = get3DCoords(x2, y2, z2, ex, ey, ez);
+            cx.beginPath();
+            cx.strokeStyle = color;
+            cx.moveTo(p1.x, p1.y);
+            cx.lineTo(p2.x, p2.y);
+            cx.stroke();
+        }
+
+        function getMousePos(canvas, evt) {
+            var rect = canvas.getBoundingClientRect();
+            return {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        }
+
+        function makeColorString(r, g, b) {
+            var rs = r < 16 ? "0" + r.toString(16) : r.toString(16);
+            var gs = g < 16 ? "0" + g.toString(16) : g.toString(16);
+            var bs = b < 16 ? "0" + b.toString(16) : b.toString(16);
+            return "#" + rs + gs + bs;
+        }
+
+        function HSVtoRGB(h, s, v) {
+            var r, g, b, i, f, p, q, t;
+            if (arguments.length === 1) {
+                s = h.s; v = h.v; h = h.h;
+            }
+            i = Math.floor(h * 6);
+            f = h * 6 - i;
+            p = v * (1 - s);
+            q = v * (1 - f * s);
+            t = v * (1 - (1 - f) * s);
+            switch (i % 6) {
+                case 0: r = v; g = t; b = p; break;
+                case 1: r = q; g = v; b = p; break;
+                case 2: r = p; g = v; b = t; break;
+                case 3: r = p; g = q; b = v; break;
+                case 4: r = t; g = p; b = v; break;
+                case 5: r = v; g = p; b = q; break;
+            }
+            return {
+                r: Math.round(r * 255),
+                g: Math.round(g * 255),
+                b: Math.round(b * 255)
+            };
+        }
+
+        var canvas = document.getElementById(canvasName);
+        canvas.addEventListener('mousemove', function(evt) {
+            var mPos = getMousePos(canvas, evt);
+            mousePos = { x: mPos.x, y: mPos.y, inCanvas: true };
+        }, false);
+        canvas.addEventListener('mouseleave', function(evt) {
+            mousePos.inCanvas = false;
+        });
+
+        render();
+        window.setInterval(render, renderPeriod);
     </script>
 </body>
 </html>
