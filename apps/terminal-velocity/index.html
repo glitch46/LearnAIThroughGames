@@ -776,6 +776,53 @@
             pointer-events: none;
             border-radius: 6px;
         }
+
+        /* ================================
+           CRT POWER TRANSITION
+           ================================ */
+
+        body.transition-enter {
+            overflow: hidden;
+        }
+
+        body.transition-enter::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            z-index: 9998;
+            pointer-events: none;
+            clip-path: circle(0% at 50% 50%);
+            animation: crt-power-on 0.6s ease-out forwards;
+        }
+
+        .crt-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            clip-path: circle(150% at 50% 50%);
+            transition: clip-path 0.6s ease-in-out, opacity 0.3s ease;
+        }
+
+        .crt-transition.active {
+            opacity: 1;
+            pointer-events: all;
+            clip-path: circle(0% at 50% 50%);
+        }
+
+        @keyframes crt-power-on {
+            0% { clip-path: circle(0% at 50% 50%); }
+            100% { clip-path: circle(150% at 50% 50%); }
+        }
         
         /* ================================
            RESPONSIVE
@@ -2010,6 +2057,12 @@
                 startFadeTimer();
             }
             
+            // Restore saved playback time
+            const savedTime = parseFloat(localStorage.getItem('musicTime'));
+            if (!Number.isNaN(savedTime)) {
+                music.currentTime = savedTime;
+            }
+
             // Start playing music
             function startMusic() {
                 music.muted = false;
@@ -2048,16 +2101,58 @@
             // Also show on touch for mobile
             toggle.addEventListener('touchstart', showToggle);
             toggleZone.addEventListener('touchstart', showToggle);
-            
+
             // Check if music was playing on previous page (shared state)
             if (localStorage.getItem('musicPlaying') === 'true') {
                 startMusic();
             }
-            
+
             updateToggleState();
-            
+
             // Start initial fade timer
             startFadeTimer();
+
+            // Save music time on unload
+            window.addEventListener('beforeunload', function() {
+                localStorage.setItem('musicTime', music.currentTime.toString());
+                localStorage.setItem('musicPlaying', isPlaying ? 'true' : 'false');
+            });
+        })();
+    </script>
+    
+    <!-- CRT Power Transition Script -->
+    <script>
+        (function() {
+            const overlay = document.createElement('div');
+            overlay.className = 'crt-transition';
+            document.body.appendChild(overlay);
+
+            document.body.classList.add('transition-enter');
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    document.body.classList.remove('transition-enter');
+                }, 650);
+            });
+
+            function navigateWithCRT(url) {
+                const music = document.getElementById('bg-music');
+                if (music) {
+                    localStorage.setItem('musicTime', music.currentTime.toString());
+                    localStorage.setItem('musicPlaying', music.paused ? 'false' : 'true');
+                }
+                overlay.classList.add('active');
+                setTimeout(function() {
+                    window.location.href = url;
+                }, 600);
+            }
+
+            document.querySelectorAll('a[href^="/"]').forEach(function(link) {
+                if (link.target === '_blank') return;
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navigateWithCRT(link.href);
+                });
+            });
         })();
     </script>
 </body>
