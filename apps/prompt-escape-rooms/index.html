@@ -4,35 +4,176 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prompt Escape Room | AI Mastery Bootcamp</title>
-    <link rel="stylesheet" href="/css/global.css">
-    <!-- Victory Font -->
+    <!-- Font Faces -->
+    <style>
+        @font-face {
+            font-family: 'Pixelmax';
+            src: url('/fonts/pixelmax-font/Pixelmax-vnR7A.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Chrome Engine';
+            src: url('/fonts/chrome-engine-font/ChromeEngineRegular-m27AG.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Cyberway Riders';
+            src: url('/fonts/cyberway-riders-font/CyberwayRiders-lg97d.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
-        body {
-            padding: 80px 20px 40px;
-            min-height: 100vh;
+        /* ================================
+           RETROWAVE DESIGN SYSTEM
+           ================================ */
+        
+        :root {
+            /* Neon Palette */
+            --neon-cyan: #00FFFF;
+            --neon-magenta: #FF00FF;
+            --neon-pink: #FF2D92;
+            --neon-yellow: #FFE600;
+            --neon-green: #39FF14;
+            --hot-pink: #FF1493;
+            
+            /* Text colors */
+            --term-green: #00ff88;
+            --term-cyan: #00d4ff;
+            --term-yellow: #ffd700;
+            --term-red: #ff4757;
+            --term-white: #ffffff;
+            
+            /* Darks */
+            --void: #000000;
+            --panel-bg: rgba(10, 0, 20, 0.85);
+            
+            /* Text */
+            --text-primary: #E0D0FF;
+            --text-muted: #8070A0;
+            --text-dim: #5A4D7A;
+            
+            /* Glow Effects */
+            --glow-cyan: 0 0 20px rgba(0, 255, 255, 0.4), 0 0 40px rgba(0, 255, 255, 0.1);
+            --glow-magenta: 0 0 20px rgba(255, 0, 255, 0.4), 0 0 40px rgba(255, 0, 255, 0.1);
+            --glow-green: 0 0 10px rgba(0, 255, 136, 0.5), 0 0 20px rgba(0, 255, 136, 0.2);
+            
+            /* Fonts */
+            --font-display: 'Cyberway Riders', sans-serif;
+            --font-ui: 'Pixelmax', monospace;
+            --font-stats: 'Chrome Engine', monospace;
+            --font-mono: 'Courier New', 'Consolas', monospace;
         }
-
-        .game-header {
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-ui);
+            background: var(--void);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* ================================
+           CANVAS GRID BACKGROUND
+           ================================ */
+        
+        #mainCanvas {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 20px 30px;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
-
+        
+        /* ================================
+           CRT OVERLAY EFFECTS
+           ================================ */
+        
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+        }
+        
+        .crt-flicker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0.03;
+            animation: flicker 0.15s infinite;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 0.02; }
+            50% { opacity: 0.04; }
+            100% { opacity: 0.02; }
+        }
+        
+        /* ================================
+           GAME CONTAINER
+           ================================ */
+        
+        .game-container {
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* ================================
+           GAME HEADER
+           ================================ */
+        
+        .game-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 30px;
+            background: transparent;
+            border-bottom: 1px solid rgba(255, 0, 255, 0.2);
+            margin-bottom: 30px;
+        }
+        
         .game-title {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 8px;
+            text-align: center;
         }
-
+        
         .game-title h1 {
             font-size: 1.5rem;
             margin: 0;
@@ -42,42 +183,54 @@
         .game-title h1.victory-title {
             font-family: 'Permanent Marker', cursive !important;
             font-variant: small-caps;
-            font-size: 1.6rem;
+            font-size: 2rem;
             background-image: -webkit-linear-gradient(#FF0FF8 0%, #F9F9F7 100%);
             background-image: linear-gradient(#FF0FF8 0%, #F9F9F7 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(1px 1px 10px #f008b7);
+            filter: drop-shadow(2px 2px 15px #f008b7);
         }
-
+        
+        .game-title p {
+            font-family: var(--font-ui);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+        
         .game-stats {
             display: flex;
-            gap: 25px;
+            gap: 40px;
+            align-items: center;
+            margin-top: 20px;
         }
-
+        
         .stat {
             text-align: center;
         }
-
+        
         .stat-value {
-            font-size: 1.5rem;
+            font-family: var(--font-stats);
+            font-size: 1.8rem;
             font-weight: 700;
-            font-family: var(--font-mono);
-            color: var(--accent-purple);
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
         }
-
+        
         .stat-label {
+            font-family: var(--font-ui);
             font-size: 0.7rem;
             text-transform: uppercase;
             color: var(--text-muted);
+            letter-spacing: 0.1em;
         }
 
         .room-select {
             max-width: 1000px;
             margin: 0 auto 40px;
         }
-
+        
         .rooms-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -86,28 +239,29 @@
         }
 
         .room-card {
-            background: var(--bg-card);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
+            background: var(--panel-bg);
+            border: 2px solid rgba(255, 0, 255, 0.3);
+            border-radius: 8px;
             padding: 25px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
         .room-card:hover {
-            border-color: var(--accent-purple);
+            border-color: var(--neon-magenta);
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(157, 78, 221, 0.3);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.3), var(--glow-magenta);
         }
 
         .room-card.completed {
-            border-color: var(--accent-green);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
         }
 
         .room-card.locked {
-            opacity: 0.5;
+            opacity: 0.4;
             cursor: not-allowed;
         }
 
@@ -118,33 +272,38 @@
 
         .room-difficulty {
             display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: var(--font-ui);
+            font-size: 0.65rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.1em;
             margin-bottom: 10px;
         }
 
         .difficulty-beginner {
-            background: var(--accent-green-dim);
-            color: var(--accent-green);
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--neon-green);
+            border: 1px solid rgba(0, 255, 136, 0.3);
         }
 
         .difficulty-intermediate {
-            background: var(--accent-orange-dim);
-            color: var(--accent-orange);
+            background: rgba(255, 230, 0, 0.15);
+            color: var(--neon-yellow);
+            border: 1px solid rgba(255, 230, 0, 0.3);
         }
 
         .difficulty-advanced {
-            background: var(--accent-purple-dim);
-            color: var(--accent-purple);
+            background: rgba(255, 0, 255, 0.15);
+            color: var(--neon-magenta);
+            border: 1px solid rgba(255, 0, 255, 0.3);
         }
 
         .room-name {
+            font-family: var(--font-display);
             font-size: 1.2rem;
-            font-weight: 700;
+            color: var(--text-primary);
             margin-bottom: 8px;
         }
 
@@ -166,9 +325,9 @@
         }
 
         .story-panel {
-            background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
-            border: 2px solid var(--accent-purple);
-            border-radius: 16px;
+            background: var(--panel-bg);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 8px;
             padding: 30px;
             margin-bottom: 30px;
             position: relative;
@@ -181,12 +340,13 @@
             left: 50%;
             transform: translateX(-50%);
             font-size: 2.5rem;
-            background: var(--bg-primary);
+            background: var(--void);
             padding: 0 15px;
         }
 
         .story-text {
-            font-size: 1.1rem;
+            font-family: var(--font-ui);
+            font-size: 1rem;
             line-height: 1.8;
             color: var(--text-primary);
             margin-bottom: 20px;
@@ -194,53 +354,56 @@
         }
 
         .task-text {
-            background: var(--bg-elevated);
+            background: rgba(0, 255, 255, 0.05);
             padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-purple);
-            font-weight: 500;
+            border-radius: 8px;
+            border-left: 4px solid var(--neon-cyan);
+            font-family: var(--font-ui);
+            color: var(--term-cyan);
         }
 
         .prompt-panel {
-            background: var(--bg-card);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
+            background: var(--panel-bg);
+            border: 2px solid rgba(255, 0, 255, 0.3);
+            border-radius: 8px;
             padding: 30px;
             margin-bottom: 20px;
         }
 
         .prompt-label {
-            font-size: 1.1rem;
+            font-family: var(--font-ui);
+            font-size: 1rem;
             font-weight: 600;
             margin-bottom: 15px;
-            color: var(--accent-purple);
+            color: var(--neon-magenta);
+            text-shadow: var(--glow-magenta);
         }
 
         .prompt-textarea {
             width: 100%;
             min-height: 150px;
             padding: 15px;
-            background: var(--bg-secondary);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-family: var(--font-sans);
-            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 8px;
+            color: var(--term-white);
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
             line-height: 1.6;
             resize: vertical;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         .prompt-textarea:focus {
             outline: none;
-            border-color: var(--accent-purple);
-            box-shadow: 0 0 0 3px var(--accent-purple-dim);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
         }
 
         .char-count {
             text-align: right;
             margin-top: 8px;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             font-family: var(--font-mono);
         }
@@ -249,13 +412,48 @@
             display: flex;
             gap: 15px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: var(--font-ui);
+            padding: 12px 24px;
+            border-radius: 6px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-primary {
+            background: transparent;
+            border-color: var(--neon-magenta);
+            color: var(--neon-magenta);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 0, 255, 0.1);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
         }
 
         .hint-panel {
             display: none;
-            background: var(--accent-yellow-dim);
-            border: 2px solid var(--accent-yellow);
-            border-radius: 12px;
+            background: rgba(255, 230, 0, 0.1);
+            border: 2px solid var(--neon-yellow);
+            border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
         }
@@ -265,19 +463,21 @@
         }
 
         .hint-header {
-            color: var(--accent-yellow);
+            color: var(--neon-yellow);
+            font-family: var(--font-ui);
             font-weight: 700;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 10px;
+            text-shadow: 0 0 10px rgba(255, 230, 0, 0.5);
         }
 
         .results-panel {
             display: none;
-            background: var(--bg-card);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
+            background: var(--panel-bg);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 8px;
             padding: 30px;
             margin-bottom: 20px;
         }
@@ -303,16 +503,17 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 3rem;
+            font-family: var(--font-stats);
+            font-size: 2.5rem;
             font-weight: 700;
-            font-family: var(--font-mono);
         }
 
         .score-label {
-            font-size: 1rem;
-            color: var(--text-secondary);
+            font-family: var(--font-ui);
+            font-size: 0.9rem;
+            color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.1em;
         }
 
         .feedback-section {
@@ -324,9 +525,10 @@
             align-items: flex-start;
             gap: 12px;
             padding: 15px;
-            background: var(--bg-secondary);
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
             margin-bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .feedback-icon {
@@ -335,16 +537,18 @@
         }
 
         .perfect-example {
-            background: var(--bg-elevated);
-            border: 2px solid var(--accent-green);
-            border-radius: 12px;
+            background: rgba(0, 255, 136, 0.05);
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
             padding: 20px;
             margin-top: 20px;
         }
 
         .perfect-example h4 {
-            color: var(--accent-green);
+            font-family: var(--font-ui);
+            color: var(--neon-green);
             margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
         }
 
         .btn-back {
@@ -353,41 +557,218 @@
             left: 20px;
             z-index: 200;
         }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* ================================
+           MUSIC TOGGLE - 80s RETRO STYLE
+           ================================ */
+        
+        .music-toggle-zone {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            z-index: 999;
+            pointer-events: auto;
+        }
+        
+        .music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            background: rgba(10, 0, 20, 0.85);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease, opacity 0.5s ease;
+            padding: 0;
+            opacity: 1;
+        }
+        
+        .music-toggle.faded {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .music-toggle-zone:hover + .music-toggle,
+        .music-toggle-zone:hover ~ .music-toggle,
+        .music-toggle:hover {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .music-toggle:hover {
+            border-color: var(--neon-magenta);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        .music-toggle svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: var(--neon-cyan);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 4px rgba(0, 255, 255, 0.6));
+            transition: all 0.3s ease;
+        }
+
+        .music-toggle:hover svg {
+            stroke: var(--neon-magenta);
+            filter: drop-shadow(0 0 8px rgba(255, 0, 255, 0.8));
+        }
+
+        .music-toggle .icon-muted { display: block; }
+        .music-toggle .icon-playing { display: none; }
+        .music-toggle.playing .icon-muted { display: none; }
+        .music-toggle.playing .icon-playing { display: block; }
+
+        .music-toggle.playing {
+            animation: music-pulse 2s ease-in-out infinite;
+            border-color: var(--neon-magenta);
+        }
+
+        @keyframes music-pulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 0, 255, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(255, 0, 255, 0.6); }
+        }
+        
+        /* ================================
+           RESPONSIVE
+           ================================ */
+        
+        @media (max-width: 768px) {
+            .game-header {
+                padding: 16px;
+            }
+            
+            .game-title h1.victory-title {
+                font-size: 1.4rem;
+            }
+            
+            .game-stats {
+                gap: 24px;
+            }
+            
+            .stat-value {
+                font-size: 1.4rem;
+            }
+            
+            .rooms-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .game-container {
+                padding: 12px;
+            }
+            
+            .prompt-textarea {
+                min-height: 120px;
+            }
+            
+            #mainCanvas {
+                opacity: 0.5;
+            }
+            
+            .crt-overlay {
+                opacity: 0.3;
+            }
+            
+            .music-toggle {
+                width: 40px;
+                height: 40px;
+                top: 12px;
+                right: 12px;
+            }
+            
+            .music-toggle svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Canvas Grid Background -->
+    <canvas id="mainCanvas"></canvas>
+    
+    <!-- CRT Effects -->
+    <div class="crt-overlay"></div>
+    <div class="crt-flicker"></div>
+    
+    <!-- Background Music (shared with dashboard) -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="/audio/neon-gaming.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Hover zone to reveal music toggle -->
+    <div id="music-toggle-zone" class="music-toggle-zone"></div>
+    
+    <!-- Music Toggle Button - 80s Retro Style -->
+    <button id="music-toggle" class="music-toggle" aria-label="Toggle music" title="Toggle Music">
+        <svg class="icon-muted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+        </svg>
+        <svg class="icon-playing" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+        </svg>
+    </button>
+    
     <a href="/games" class="btn btn-secondary btn-back">← Back</a>
 
-    <div class="game-header">
-        <div class="game-title">
-            <span style="font-size: 2rem;">🗝️</span>
-            <div>
+    <div class="game-container">
+        <div class="game-header">
+            <div class="game-title">
+                <p>Craft the perfect prompt to unlock each room</p>
                 <h1 class="victory-title">PROMPT ESCAPE ROOM</h1>
-                <p style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);">Craft the perfect prompt to unlock each room</p>
+            </div>
+            <div class="game-stats">
+                <div class="stat">
+                    <div class="stat-value" id="rooms-completed">0</div>
+                    <div class="stat-label">Rooms</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="total-xp">0</div>
+                    <div class="stat-label">XP</div>
+                </div>
             </div>
         </div>
-        <div class="game-stats">
-            <div class="stat">
-                <div class="stat-value" id="rooms-completed">0</div>
-                <div class="stat-label">Rooms</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="total-xp">0</div>
-                <div class="stat-label">XP</div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Room Selection -->
-    <div class="room-select" id="room-select">
-        <h2 class="text-center">Choose Your Challenge</h2>
-        <p class="text-center" style="color: var(--text-secondary); margin-bottom: 30px;">
-            Each room tests a different aspect of prompt engineering. Can you escape them all?
-        </p>
-        <div class="rooms-grid" id="rooms-grid">
-            <!-- Populated dynamically -->
+        <!-- Room Selection -->
+        <div class="room-select" id="room-select">
+            <h2 class="text-center" style="font-family: var(--font-display); color: var(--neon-cyan); text-shadow: var(--glow-cyan);">Choose Your Challenge</h2>
+            <p class="text-center" style="color: var(--text-muted); margin-bottom: 30px; font-family: var(--font-ui);">
+                Each room tests a different aspect of prompt engineering. Can you escape them all?
+            </p>
+            <div class="rooms-grid" id="rooms-grid">
+                <!-- Populated dynamically -->
+            </div>
         </div>
-    </div>
 
     <!-- Room Challenge -->
     <div class="room-container" id="room-container">
@@ -639,9 +1020,9 @@
             scoreCircle.style.strokeDashoffset = offset;
             
             scoreValue.textContent = result.score;
-            scoreValue.style.color = result.passed ? 'var(--accent-green)' : 'var(--accent-orange)';
+            scoreValue.style.color = result.passed ? 'var(--neon-green)' : 'var(--neon-yellow)';
             scoreLabel.textContent = result.passed ? 'ESCAPED!' : 'KEEP TRYING';
-            scoreLabel.style.color = result.passed ? 'var(--accent-green)' : 'var(--accent-orange)';
+            scoreLabel.style.color = result.passed ? 'var(--neon-green)' : 'var(--neon-yellow)';
             
             // Render feedback
             feedbackSection.innerHTML = result.feedback.map(item => `
@@ -682,6 +1063,184 @@
             document.getElementById('prompt-input').value = '';
             document.getElementById('char-count').textContent = '0';
         }
+    </script>
+    </div>
+    
+    <!-- Canvas Grid Background Script -->
+    <script>
+        (function() {
+            const canvas = document.getElementById('mainCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            let width, height;
+            let hueOffset = 0;
+            const renderPeriod = 50;
+            let mousePos = { x: 0, y: 0, inCanvas: false };
+            
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            
+            function HSVtoRGB(h, s, v) {
+                let r, g, b, i, f, p, q, t;
+                i = Math.floor(h * 6);
+                f = h * 6 - i;
+                p = v * (1 - s);
+                q = v * (1 - f * s);
+                t = v * (1 - (1 - f) * s);
+                switch (i % 6) {
+                    case 0: r = v; g = t; b = p; break;
+                    case 1: r = q; g = v; b = p; break;
+                    case 2: r = p; g = v; b = t; break;
+                    case 3: r = p; g = q; b = v; break;
+                    case 4: r = t; g = p; b = v; break;
+                    case 5: r = v; g = p; b = q; break;
+                }
+                return {
+                    r: Math.round(r * 255),
+                    g: Math.round(g * 255),
+                    b: Math.round(b * 255)
+                };
+            }
+            
+            function render() {
+                hueOffset += 0.005;
+                if (hueOffset > 1) hueOffset -= 1;
+                
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, width, height);
+                
+                // Draw perspective grid
+                const horizonY = height * 0.35;
+                const gridSize = 50;
+                const numLines = 20;
+                
+                ctx.strokeStyle = 'rgba(255, 0, 255, 0.3)';
+                ctx.lineWidth = 1;
+                
+                // Vertical lines
+                for (let i = -numLines; i <= numLines; i++) {
+                    const x = width / 2 + i * gridSize;
+                    ctx.beginPath();
+                    ctx.moveTo(width / 2, horizonY);
+                    ctx.lineTo(x, height);
+                    ctx.stroke();
+                }
+                
+                // Horizontal lines with rainbow color
+                for (let i = 0; i < 15; i++) {
+                    const y = horizonY + (i * i * 3);
+                    if (y > height) break;
+                    
+                    const hue = (hueOffset + i * 0.05) % 1;
+                    const rgb = HSVtoRGB(hue, 0.8, 0.6);
+                    ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4)`;
+                    ctx.lineWidth = 1;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(width, y);
+                    ctx.stroke();
+                }
+            }
+            
+            function getMousePos(canvas, evt) {
+                const rect = canvas.getBoundingClientRect();
+                return {
+                    x: evt.clientX - rect.left,
+                    y: evt.clientY - rect.top
+                };
+            }
+            
+            canvas.addEventListener('mousemove', function(evt) {
+                const mPos = getMousePos(canvas, evt);
+                mousePos = { x: mPos.x, y: mPos.y, inCanvas: true };
+            }, false);
+            canvas.addEventListener('mouseleave', function(evt) {
+                mousePos.inCanvas = false;
+            });
+            
+            resize();
+            window.addEventListener('resize', resize);
+            
+            render();
+            window.setInterval(render, renderPeriod);
+        })();
+    </script>
+    
+    <!-- Music Control Script (shared state with dashboard) -->
+    <script>
+        (function() {
+            const music = document.getElementById('bg-music');
+            const toggle = document.getElementById('music-toggle');
+            const toggleZone = document.getElementById('music-toggle-zone');
+            let isPlaying = false;
+            let fadeTimeout = null;
+            const FADE_DELAY = 10000;
+            
+            music.volume = 0.4;
+            
+            function updateToggleState() {
+                if (isPlaying && !music.muted) {
+                    toggle.classList.add('playing');
+                } else {
+                    toggle.classList.remove('playing');
+                }
+            }
+            
+            function startFadeTimer() {
+                clearTimeout(fadeTimeout);
+                fadeTimeout = setTimeout(function() {
+                    toggle.classList.add('faded');
+                }, FADE_DELAY);
+            }
+            
+            function showToggle() {
+                toggle.classList.remove('faded');
+                startFadeTimer();
+            }
+            
+            function startMusic() {
+                music.muted = false;
+                music.play().then(function() {
+                    isPlaying = true;
+                    localStorage.setItem('musicPlaying', 'true');
+                    updateToggleState();
+                }).catch(function(err) {
+                    console.log('Autoplay blocked:', err);
+                });
+            }
+            
+            function stopMusic() {
+                music.pause();
+                isPlaying = false;
+                localStorage.setItem('musicPlaying', 'false');
+                updateToggleState();
+            }
+            
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                showToggle();
+                if (isPlaying) {
+                    stopMusic();
+                } else {
+                    startMusic();
+                }
+            });
+            
+            toggle.addEventListener('mouseenter', showToggle);
+            toggleZone.addEventListener('mouseenter', showToggle);
+            toggle.addEventListener('touchstart', showToggle);
+            toggleZone.addEventListener('touchstart', showToggle);
+            
+            if (localStorage.getItem('musicPlaying') === 'true') {
+                startMusic();
+            }
+            
+            updateToggleState();
+            startFadeTimer();
+        })();
     </script>
 </body>
 </html>
