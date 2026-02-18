@@ -266,8 +266,30 @@
         }
 
         .room-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 8px;
+        }
+        
+        /* Door images by difficulty */
+        .room-icon.door-beginner {
+            background-image: url('assets/doors/door-beginner.png');
+        }
+        .room-icon.door-intermediate-1 {
+            background-image: url('assets/doors/door-intermediate-1.png');
+        }
+        .room-icon.door-intermediate-2 {
+            background-image: url('assets/doors/door-intermediate-2.png');
+        }
+        .room-icon.door-advanced-1 {
+            background-image: url('assets/doors/door-advanced-1.png');
+        }
+        .room-icon.door-advanced-2 {
+            background-image: url('assets/doors/door-advanced-2.png');
         }
 
         .room-difficulty {
@@ -301,10 +323,11 @@
         }
 
         .room-name {
-            font-family: var(--font-display);
+            font-family: var(--font-ui);
             font-size: 1.2rem;
             color: var(--text-primary);
             margin-bottom: 8px;
+            letter-spacing: 0.02em;
         }
 
         .room-status {
@@ -871,17 +894,20 @@
 
         function renderRoomGrid() {
             const grid = document.getElementById('rooms-grid');
-            grid.innerHTML = rooms.map(room => {
+            const doorClasses = ['door-beginner', 'door-intermediate-1', 'door-intermediate-2', 'door-advanced-1', 'door-advanced-2'];
+            
+            grid.innerHTML = rooms.map((room, index) => {
                 const completed = completedRooms.has(room.id);
                 const diffClass = `difficulty-${room.difficulty.toLowerCase()}`;
+                const doorClass = doorClasses[index] || 'door-beginner';
                 
                 return `
                     <div class="room-card ${completed ? 'completed' : ''}" onclick="enterRoom('${room.id}')">
                         <div class="room-status">${completed ? '✅' : '🔒'}</div>
-                        <div class="room-icon">🚪</div>
+                        <div class="room-icon ${doorClass}"></div>
                         <div class="room-difficulty ${diffClass}">${room.difficulty}</div>
                         <div class="room-name">${room.name}</div>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 10px 0 0 0;">
+                        <p style="color: var(--text-muted); font-family: var(--font-ui); font-size: 0.8rem; margin: 10px 0 0 0;">
                             ${completed ? 'Escaped! ✨' : `+${room.xpReward} XP`}
                         </p>
                     </div>
