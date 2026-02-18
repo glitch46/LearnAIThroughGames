@@ -571,6 +571,23 @@
             animation: victoryGlow 2s ease-in-out infinite;
         }
         
+        .victory-princess {
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 20px;
+            background-image: url('/games/terminal-velocity/assets/victory-princess.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: princessFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.5)) drop-shadow(0 0 40px rgba(0, 255, 255, 0.3));
+        }
+        
+        @keyframes princessFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
         @keyframes victoryGlow {
             0%, 100% { text-shadow: 0 0 20px rgba(255, 0, 255, 0.5); }
             50% { text-shadow: 0 0 40px rgba(255, 0, 255, 0.8), 0 0 60px rgba(255, 0, 255, 0.4); }
@@ -1079,6 +1096,7 @@
 
     <div class="victory-screen" id="victory-screen">
         <div class="victory-content">
+            <div class="victory-princess"></div>
             <h1>TERMINAL MASTERED</h1>
             <p>You've learned real CLI skills. Now you can build and ship projects from the command line!</p>
             

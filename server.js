@@ -16,6 +16,7 @@ app.use('/audio', express.static(path.join(__dirname, 'tools', 'audio')));
 
 // Serve game assets (images, etc.)
 app.use('/games/prompt-escape-rooms/assets', express.static(path.join(__dirname, 'apps', 'prompt-escape-rooms', 'assets')));
+app.use('/games/terminal-velocity/assets', express.static(path.join(__dirname, 'apps', 'terminal-velocity', 'assets')));
 
 // Serve shared design system CSS
 app.use('/css', express.static(path.join(__dirname, 'packages', 'design-system', 'css')));
