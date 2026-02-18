@@ -993,47 +993,62 @@
         (function() {
             const music = document.getElementById('bg-music');
             const toggle = document.getElementById('music-toggle');
+            let isPlaying = false;
             
-            // Always start muted (browser autoplay policy)
-            music.muted = true;
-            music.volume = 0.4; // 40% volume when unmuted
+            music.volume = 0.4; // 40% volume
             
-            // Update button state
+            // Update button state based on actual playing status
             function updateToggleState() {
-                if (music.muted || music.paused) {
-                    toggle.classList.remove('playing');
-                } else {
+                if (isPlaying && !music.muted) {
                     toggle.classList.add('playing');
-                }
-            }
-            
-            // Toggle music on click
-            toggle.addEventListener('click', function() {
-                if (music.paused) {
-                    music.play().then(function() {
-                        music.muted = false;
-                        localStorage.setItem('musicMuted', 'false');
-                        updateToggleState();
-                    }).catch(function(err) {
-                        console.log('Audio play failed:', err);
-                    });
                 } else {
-                    music.muted = !music.muted;
-                    localStorage.setItem('musicMuted', music.muted ? 'true' : 'false');
+                    toggle.classList.remove('playing');
+                }
+            }
+            
+            // Start playing music
+            function startMusic() {
+                music.muted = false;
+                music.play().then(function() {
+                    isPlaying = true;
+                    localStorage.setItem('musicPlaying', 'true');
                     updateToggleState();
+                }).catch(function(err) {
+                    console.log('Autoplay blocked, waiting for user interaction:', err);
+                    // Set up one-time click handler on document to start music
+                    document.addEventListener('click', function startOnInteraction() {
+                        if (!isPlaying) {
+                            music.play().then(function() {
+                                isPlaying = true;
+                                localStorage.setItem('musicPlaying', 'true');
+                                updateToggleState();
+                            });
+                        }
+                        document.removeEventListener('click', startOnInteraction);
+                    }, { once: true });
+                });
+            }
+            
+            // Stop/mute music
+            function stopMusic() {
+                music.pause();
+                isPlaying = false;
+                localStorage.setItem('musicPlaying', 'false');
+                updateToggleState();
+            }
+            
+            // Toggle music on button click
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation(); // Don't trigger document click handler
+                if (isPlaying) {
+                    stopMusic();
+                } else {
+                    startMusic();
                 }
             });
             
-            // Try to autoplay muted
-            music.play().catch(function() {
-                // Autoplay blocked - user will need to click
-            });
-            
-            // Check if user previously had music playing
-            if (localStorage.getItem('musicMuted') === 'false') {
-                // User had music on - show visual hint that music is available
-                toggle.style.animation = 'music-pulse 1s ease-in-out 3';
-            }
+            // Auto-start music (will work if browser allows, otherwise waits for interaction)
+            startMusic();
             
             updateToggleState();
         })();
