@@ -457,65 +457,116 @@ const GameEngine = (() => {
                     position: fixed;
                     top: 100px;
                     right: 30px;
-                    background: var(--bg-card, #1a1a25);
-                    border: 2px solid var(--accent-green, #00ff88);
-                    border-radius: 12px;
-                    padding: 15px 20px;
+                    background: rgba(10, 0, 20, 0.95);
+                    border: 2px solid #00ffff;
+                    border-radius: 4px;
+                    padding: 12px 18px;
                     z-index: 1000;
                     animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s;
                     pointer-events: none;
+                    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4), 0 0 40px rgba(0, 255, 255, 0.2), inset 0 0 20px rgba(0, 255, 255, 0.1);
+                    font-family: 'Chrome Engine', 'Pixelmax', monospace;
+                }
+                
+                .xp-notification::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: repeating-linear-gradient(
+                        0deg,
+                        rgba(0, 0, 0, 0.1),
+                        rgba(0, 0, 0, 0.1) 1px,
+                        transparent 1px,
+                        transparent 2px
+                    );
+                    pointer-events: none;
+                    border-radius: 4px;
                 }
                 
                 .xp-amount {
-                    font-size: 1.5rem;
+                    font-size: 1.4rem;
                     font-weight: 700;
-                    color: var(--accent-green, #00ff88);
-                    font-family: 'Fira Code', monospace;
+                    color: #00ffff;
+                    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.4);
+                    font-family: 'Chrome Engine', monospace;
                 }
                 
                 .xp-reason {
-                    font-size: 0.85rem;
-                    color: var(--text-secondary, #a0a0b0);
-                    margin-top: 5px;
+                    font-size: 0.75rem;
+                    color: #8070A0;
+                    margin-top: 4px;
+                    font-family: 'Pixelmax', monospace;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
                 }
                 
                 .achievement-notification {
                     position: fixed;
                     top: 100px;
                     right: 30px;
-                    background: var(--bg-card, #1a1a25);
-                    border: 2px solid var(--accent-yellow, #ffd60a);
-                    border-radius: 16px;
-                    padding: 20px;
+                    background: rgba(10, 0, 20, 0.95);
+                    border: 2px solid #ff00ff;
+                    border-radius: 8px;
+                    padding: 18px 22px;
                     z-index: 1001;
-                    min-width: 300px;
-                    box-shadow: 0 0 40px rgba(255, 214, 10, 0.3);
-                    animation: achievementSlide 0.5s ease, fadeOut 0.3s ease 4.7s;
+                    min-width: 280px;
+                    box-shadow: 0 0 30px rgba(255, 0, 255, 0.5), 0 0 60px rgba(255, 0, 255, 0.3), inset 0 0 30px rgba(255, 0, 255, 0.1);
+                    animation: achievementSlide 0.4s ease, fadeOut 0.3s ease 4.7s;
                     pointer-events: none;
+                    font-family: 'Pixelmax', monospace;
+                }
+                
+                .achievement-notification::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: repeating-linear-gradient(
+                        0deg,
+                        rgba(0, 0, 0, 0.15),
+                        rgba(0, 0, 0, 0.15) 1px,
+                        transparent 1px,
+                        transparent 2px
+                    );
+                    pointer-events: none;
+                    border-radius: 8px;
                 }
                 
                 .achievement-header {
                     display: flex;
                     align-items: center;
-                    gap: 15px;
-                    margin-bottom: 10px;
+                    gap: 12px;
+                    margin-bottom: 8px;
+                    position: relative;
+                    z-index: 1;
                 }
                 
                 .achievement-icon {
-                    font-size: 2.5rem;
+                    font-size: 2rem;
+                    filter: drop-shadow(0 0 8px rgba(255, 0, 255, 0.6));
                 }
                 
                 .achievement-title {
-                    color: var(--accent-yellow, #ffd60a);
+                    color: #ff00ff;
                     font-weight: 700;
-                    font-size: 1.1rem;
-                    margin: 0 0 5px 0;
+                    font-size: 0.9rem;
+                    margin: 0 0 3px 0;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+                    font-family: 'Chrome Engine', monospace;
                 }
                 
                 .achievement-description {
-                    color: var(--text-secondary, #a0a0b0);
-                    font-size: 0.9rem;
+                    color: #E0D0FF;
+                    font-size: 0.8rem;
                     margin: 0;
+                    font-family: 'Pixelmax', monospace;
                 }
                 
                 .level-up-notification {
@@ -523,32 +574,91 @@ const GameEngine = (() => {
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
-                    background: var(--bg-card, #1a1a25);
-                    border: 3px solid var(--accent-green, #00ff88);
-                    border-radius: 20px;
-                    padding: 40px;
+                    background: rgba(10, 0, 20, 0.98);
+                    border: 3px solid #ff00ff;
+                    border-radius: 12px;
+                    padding: 35px 50px;
                     z-index: 1002;
                     text-align: center;
-                    min-width: 400px;
-                    box-shadow: 0 0 60px rgba(0, 255, 136, 0.4);
+                    min-width: 360px;
+                    box-shadow: 0 0 50px rgba(255, 0, 255, 0.6), 0 0 100px rgba(255, 0, 255, 0.3), 0 0 150px rgba(0, 255, 255, 0.2), inset 0 0 50px rgba(255, 0, 255, 0.15);
                     animation: popIn 0.5s ease, fadeOut 0.3s ease 3.7s;
+                    font-family: 'Cyberway Riders', 'Chrome Engine', monospace;
+                }
+                
+                .level-up-notification::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: repeating-linear-gradient(
+                        0deg,
+                        rgba(0, 0, 0, 0.12),
+                        rgba(0, 0, 0, 0.12) 1px,
+                        transparent 1px,
+                        transparent 2px
+                    );
+                    pointer-events: none;
+                    border-radius: 12px;
+                }
+                
+                .level-up-notification::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border-radius: 12px;
+                    animation: crtFlicker 0.1s infinite;
+                    pointer-events: none;
+                    opacity: 0.03;
+                    background: #fff;
+                }
+                
+                @keyframes crtFlicker {
+                    0% { opacity: 0.02; }
+                    50% { opacity: 0.04; }
+                    100% { opacity: 0.02; }
                 }
                 
                 .level-up-title {
-                    font-size: 2.5rem;
+                    font-size: 2rem;
                     font-weight: 700;
-                    background: linear-gradient(135deg, #00ff88, #00a8ff);
+                    background: linear-gradient(135deg, #ff00ff, #00ffff);
                     -webkit-background-clip: text;
+                    background-clip: text;
                     -webkit-text-fill-color: transparent;
-                    margin-bottom: 20px;
+                    margin-bottom: 15px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.15em;
+                    font-family: 'Cyberway Riders', sans-serif;
+                    filter: drop-shadow(0 0 15px rgba(255, 0, 255, 0.5));
+                    position: relative;
+                    z-index: 1;
                 }
                 
                 .level-up-level {
-                    font-size: 4rem;
+                    font-size: 3.5rem;
                     font-weight: 700;
-                    color: var(--accent-green, #00ff88);
-                    font-family: 'Fira Code', monospace;
-                    margin: 20px 0;
+                    color: #00ffff;
+                    font-family: 'Chrome Engine', monospace;
+                    margin: 15px 0;
+                    text-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.4), 0 0 60px rgba(0, 255, 255, 0.2);
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .level-up-rank {
+                    color: #E0D0FF;
+                    font-size: 1.1rem;
+                    font-family: 'Pixelmax', monospace;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    position: relative;
+                    z-index: 1;
                 }
                 
                 @keyframes slideInRight {
@@ -574,11 +684,14 @@ const GameEngine = (() => {
                 }
                 
                 @keyframes popIn {
-                    from {
+                    0% {
                         opacity: 0;
-                        transform: translate(-50%, -50%) scale(0.8);
+                        transform: translate(-50%, -50%) scale(0.5);
                     }
-                    to {
+                    60% {
+                        transform: translate(-50%, -50%) scale(1.05);
+                    }
+                    100% {
                         opacity: 1;
                         transform: translate(-50%, -50%) scale(1);
                     }
@@ -631,7 +744,7 @@ const GameEngine = (() => {
         notification.innerHTML = `
             <div class="level-up-title">LEVEL UP!</div>
             <div class="level-up-level">Level ${newLevel}</div>
-            <p style="color: var(--text-secondary); font-size: 1.2rem;">${levelData.title}</p>
+            <p class="level-up-rank">${levelData.title}</p>
         `;
         
         document.body.appendChild(notification);
