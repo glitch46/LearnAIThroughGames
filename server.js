@@ -14,6 +14,9 @@ app.use('/fonts', express.static(path.join(__dirname, 'tools')));
 // Serve audio files
 app.use('/audio', express.static(path.join(__dirname, 'tools', 'audio')));
 
+// Serve game assets (images, etc.)
+app.use('/games/prompt-escape-rooms/assets', express.static(path.join(__dirname, 'apps', 'prompt-escape-rooms', 'assets')));
+
 // Serve shared design system CSS
 app.use('/css', express.static(path.join(__dirname, 'packages', 'design-system', 'css')));
 
