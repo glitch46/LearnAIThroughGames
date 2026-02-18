@@ -35,7 +35,7 @@
         }
     </style>
     <!-- Chrome Dreams Font Imports -->
-    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@900&family=Mr+Dafoe&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@900&family=Mr+Dafoe&family=Righteous&display=swap" rel="stylesheet">
     <style>
         /* ================================
            CHROME DREAMS FONT STYLES
@@ -82,6 +82,48 @@
             z-index: 20;
             display: block;
             text-align: center;
+        }
+        
+        /* ================================
+           VECTRO FONT STYLE (for Terminal Velocity card)
+           ================================ */
+        
+        .vectro-title {
+            font-family: 'Righteous', cursive !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+        }
+        
+        .vectro-title .vectro-text {
+            background-image: -webkit-linear-gradient(#C3BFB4 0%, #FDFCFA 50%, #E8E7E5 51%, #757172 52%, #E8E9DB 100%);
+            background-image: linear-gradient(to bottom, #C3BFB4 0%, #FDFCFA 50%, #E8E7E5 51%, #757172 52%, #E8E9DB 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 0.5px #f1f1f1;
+            filter: drop-shadow(1px 1px 8px #3F59F4);
+        }
+        
+        .vectro-title .vectro-slash-red {
+            color: #F10C20;
+            -webkit-text-fill-color: #F10C20;
+            font-style: italic;
+            filter: drop-shadow(1px 1px 8px #F10C20);
+        }
+        
+        .vectro-title .vectro-slash-green {
+            color: #6BFF2B;
+            -webkit-text-fill-color: #6BFF2B;
+            font-style: italic;
+            filter: drop-shadow(1px 1px 8px #6BFF2B);
+        }
+        
+        .vectro-title .vectro-slash-blue {
+            color: #3F59F4;
+            -webkit-text-fill-color: #3F59F4;
+            font-style: italic;
+            filter: drop-shadow(1px 1px 8px #3F59F4);
         }
     </style>
     <style>
@@ -768,7 +810,7 @@
                     <span class="game-card__category">CLI</span>
                     <span class="game-card__badge">New</span>
                 </div>
-                <h2 class="game-card__title">Terminal Velocity</h2>
+                <h2 class="game-card__title vectro-title"><span class="vectro-text">Terminal Velocity</span><span class="vectro-slash-red">/</span><span class="vectro-slash-green">/</span><span class="vectro-slash-blue">/</span></h2>
                 <p class="game-card__description">Escape the Matrix by mastering CLI commands. Navigate filesystems, manage files, and use Git in an immersive adventure.</p>
                 <div class="game-card__footer">
                     <div class="game-card__stat">
