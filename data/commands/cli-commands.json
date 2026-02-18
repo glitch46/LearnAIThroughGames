@@ -107,7 +107,7 @@
     {
       "level": 9,
       "title": "Set Git Remote",
-      "story": "Time to connect to your GitHub repo! You need to set the remote origin so you can push/pull code.\n\nYour project repo is: https://github.com/neo/.SAASApp.git\n\nUse: git remote add origin https://github.com/neo/.SAASApp.git",
+      "story": "Time to connect to your GitHub repo! You need to set the remote origin so you can push/pull code.\n\nYour project repo is: https://github.com/neo/.SAASApp.git",
       "objective": "Add remote origin: https://github.com/neo/.SAASApp.git",
       "startDirectory": "/home/user/.SAASApp",
       "command": "git remote add origin https://github.com/neo/.SAASApp.git",
@@ -115,20 +115,20 @@
         "git remote add origin https://github.com/neo/.SAASApp.git"
       ],
       "response": "✓ Remote origin configured: https://github.com/neo/.SAASApp.git",
-      "hint": "git remote add origin [URL] = connect to GitHub. The URL is https://github.com/neo/.SAASApp.git",
+      "hint": "git remote add origin [URL] = connect to GitHub.",
       "xp": 125,
       "lesson": "git remote = connect to GitHub"
     },
     {
       "level": 10,
       "title": "Pull from Remote",
-      "story": "Your teammate pushed an updated README.md to the repo. Pull the latest changes to get the file.\n\nNavigate to .SAASApp if needed, then use: git pull origin main",
+      "story": "Your teammate pushed an updated README.md to the repo. Pull the latest changes to get the file.\n\nNavigate to .SAASApp if needed.",
       "objective": "Pull latest changes from origin/main",
       "startDirectory": "/home/user",
       "command": "git pull origin main",
       "acceptCommands": ["git pull origin main", "git pull"],
       "response": "✓ Pulled latest changes! README.md updated from remote.",
-      "hint": "git pull = download commits from GitHub. Use 'git pull origin main' to pull from your remote.",
+      "hint": "git pull = download commits from GitHub. Specify the remote (origin) and branch (main).",
       "xp": 100,
       "lesson": "git pull = get latest code from team"
     },
