@@ -8,6 +8,9 @@ const PORT = process.env.PORT || 3004;
 // Middleware
 app.use(express.json());
 
+// Serve fonts
+app.use('/fonts', express.static(path.join(__dirname, 'tools')));
+
 // Serve shared design system CSS
 app.use('/css', express.static(path.join(__dirname, 'packages', 'design-system', 'css')));
 
