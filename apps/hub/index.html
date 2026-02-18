@@ -592,6 +592,17 @@
            MUSIC TOGGLE - 80s RETRO STYLE
            ================================ */
         
+        /* Hover zone to reveal hidden toggle */
+        .music-toggle-zone {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            z-index: 999;
+            pointer-events: auto;
+        }
+        
         .music-toggle {
             position: fixed;
             top: 20px;
@@ -606,8 +617,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, opacity 0.5s ease;
             padding: 0;
+            opacity: 1;
+        }
+        
+        /* Faded out state */
+        .music-toggle.faded {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* Show on hover zone hover */
+        .music-toggle-zone:hover + .music-toggle,
+        .music-toggle-zone:hover ~ .music-toggle,
+        .music-toggle:hover {
+            opacity: 1 !important;
+            pointer-events: auto !important;
         }
 
         .music-toggle:hover {
@@ -692,6 +718,9 @@
     <audio id="bg-music" loop preload="auto">
         <source src="/audio/neon-gaming.mp3" type="audio/mpeg">
     </audio>
+    
+    <!-- Hover zone to reveal music toggle -->
+    <div id="music-toggle-zone" class="music-toggle-zone"></div>
     
     <!-- Music Toggle Button - 80s Retro Style -->
     <button id="music-toggle" class="music-toggle" aria-label="Toggle music" title="Toggle Music">
@@ -1075,7 +1104,10 @@
         (function() {
             const music = document.getElementById('bg-music');
             const toggle = document.getElementById('music-toggle');
+            const toggleZone = document.getElementById('music-toggle-zone');
             let isPlaying = false;
+            let fadeTimeout = null;
+            const FADE_DELAY = 10000; // 10 seconds
             
             music.volume = 0.4; // 40% volume
             
@@ -1086,6 +1118,20 @@
                 } else {
                     toggle.classList.remove('playing');
                 }
+            }
+            
+            // Fade out toggle after inactivity
+            function startFadeTimer() {
+                clearTimeout(fadeTimeout);
+                fadeTimeout = setTimeout(function() {
+                    toggle.classList.add('faded');
+                }, FADE_DELAY);
+            }
+            
+            // Show toggle and reset timer
+            function showToggle() {
+                toggle.classList.remove('faded');
+                startFadeTimer();
             }
             
             // Start playing music
@@ -1122,6 +1168,7 @@
             // Toggle music on button click
             toggle.addEventListener('click', function(e) {
                 e.stopPropagation(); // Don't trigger document click handler
+                showToggle(); // Reset fade timer on interaction
                 if (isPlaying) {
                     stopMusic();
                 } else {
@@ -1129,10 +1176,21 @@
                 }
             });
             
+            // Show toggle on hover (zone or button)
+            toggle.addEventListener('mouseenter', showToggle);
+            toggleZone.addEventListener('mouseenter', showToggle);
+            
+            // Also show on touch for mobile
+            toggle.addEventListener('touchstart', showToggle);
+            toggleZone.addEventListener('touchstart', showToggle);
+            
             // Auto-start music (will work if browser allows, otherwise waits for interaction)
             startMusic();
             
             updateToggleState();
+            
+            // Start initial fade timer
+            startFadeTimer();
         })();
     </script>
 </body>
