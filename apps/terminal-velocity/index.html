@@ -279,12 +279,18 @@
         }
         
         .game-title h1 {
-            font-family: var(--font-display);
             font-size: 1.8rem;
             margin: 0;
-            color: var(--neon-magenta);
-            text-shadow: var(--glow-magenta);
             letter-spacing: 0.1em;
+        }
+        
+        /* VECTRO font override - must override default h1 */
+        .game-title h1.vectro {
+            font-family: 'Righteous', cursive !important;
+            font-size: 2.2rem;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 0.5px #f1f1f1;
+            color: transparent;
         }
         
         .game-title p {
