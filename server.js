@@ -133,8 +133,11 @@ app.use((req, res) => {
 // ============================================
 // START SERVER
 // ============================================
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`
+
+// Only start server if running directly (not through Passenger)
+if (require.main === module) {
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`
 ╔═══════════════════════════════════════════════════════════╗
 ║                                                           ║
 ║   🎮 LEARN AI THROUGH GAMES                              ║
@@ -156,4 +159,8 @@ app.listen(PORT, '0.0.0.0', () => {
 ║                                                           ║
 ╚═══════════════════════════════════════════════════════════╝
     `);
-});
+    });
+}
+
+// Export for Passenger
+module.exports = app;
