@@ -68,79 +68,77 @@
     {
       "level": 6,
       "title": "Create a New Folder",
-      "story": "You need to create a new folder called 'languageapp' for your next project.",
-      "objective": "Create a new directory called languageapp",
-      "startDirectory": "/home/user",
+      "story": "You're working in .SAASApp and need to create a new folder called 'languageapp' for a side project.",
+      "objective": "Create a new directory called languageapp (stay in current directory)",
+      "startDirectory": "/home/user/.SAASApp",
       "command": "mkdir languageapp",
-      "acceptCommands": ["mkdir languageapp", "mkdir -p languageapp"],
-      "response": "✓ Created directory: languageapp",
-      "hint": "mkdir = make directory. Use mkdir -p to create nested folders automatically.",
+      "acceptCommands": ["mkdir languageapp", "mkdir -p languageapp", "mkdir ./languageapp"],
+      "response": "✓ Created directory: languageapp\n\nNotice you're still in .SAASApp. The mkdir command creates a folder but doesn't navigate into it.",
+      "hint": "mkdir = make directory. It creates the folder but you stay where you are. You'll need to cd into it separately.",
       "xp": 75,
-      "lesson": "mkdir = create folders"
+      "lesson": "mkdir creates folders but doesn't change your location"
     },
     {
       "level": 7,
+      "title": "Navigate to New Project",
+      "story": "You created the languageapp folder. Now navigate into it to start working on your new project.",
+      "objective": "Change into the languageapp directory",
+      "startDirectory": "/home/user/.SAASApp",
+      "command": "cd languageapp",
+      "acceptCommands": ["cd languageapp", "cd ./languageapp"],
+      "response": "✓ You're now in /home/user/.SAASApp/languageapp\n\nThis is your new project workspace!",
+      "hint": "Use cd to navigate into the directory you just created.",
+      "xp": 50,
+      "lesson": "cd = navigate into directories you created"
+    },
+    {
+      "level": 8,
       "title": "Install Dependencies",
-      "story": "You're in a new project folder that has package.json. Install the dependencies using npm.",
+      "story": "You're in your new project folder. This project has a package.json file. Install the dependencies using npm.",
       "objective": "Install npm dependencies",
-      "startDirectory": "/home/user/languageapp",
+      "startDirectory": "/home/user/.SAASApp/languageapp",
       "command": "npm install",
       "acceptCommands": ["npm install", "npm i"],
-      "response": "✓ Dependencies installed successfully!",
+      "response": "✓ Dependencies installed successfully!\n\nnpm downloaded all the packages listed in package.json.",
       "hint": "npm install = read package.json and download all dependencies. npm i is shorthand.",
       "xp": 100,
       "lesson": "npm install = download project dependencies"
     },
     {
-      "level": 8,
+      "level": 9,
       "title": "Check Git Status",
-      "story": "You've made changes to your project. Check git status to see what's changed.",
+      "story": "You've installed dependencies. Now check the git status to see what's in this project.",
       "objective": "View current git status",
-      "startDirectory": "/home/user/languageapp",
+      "startDirectory": "/home/user/.SAASApp/languageapp",
       "command": "git status",
       "acceptCommands": ["git status"],
-      "response": "✓ Git status checked!",
+      "response": "✓ Git status checked!\n\nYou can see the project structure and any changes.",
       "hint": "git status = see what files have changed, what's staged, what's untracked",
       "xp": 100,
       "lesson": "git status = see your changes"
     },
     {
-      "level": 9,
-      "title": "Set Git Remote",
-      "story": "Time to connect to your GitHub repo! You need to set the remote origin so you can push/pull code.\n\nYour project repo is: https://github.com/neo/.SAASApp.git",
-      "objective": "Add remote origin: https://github.com/neo/.SAASApp.git",
-      "startDirectory": "/home/user/.SAASApp",
-      "command": "git remote add origin https://github.com/neo/.SAASApp.git",
-      "acceptCommands": [
-        "git remote add origin https://github.com/neo/.SAASApp.git"
-      ],
-      "response": "✓ Remote origin configured: https://github.com/neo/.SAASApp.git",
-      "hint": "git remote add origin [URL] = connect to GitHub.",
-      "xp": 125,
-      "lesson": "git remote = connect to GitHub"
-    },
-    {
       "level": 10,
-      "title": "Pull from Remote",
-      "story": "Your teammate pushed an updated README.md to the repo. Pull the latest changes to get the file.\n\nNavigate to .SAASApp if needed.",
-      "objective": "Pull latest changes from origin/main",
-      "startDirectory": "/home/user",
-      "command": "git pull origin main",
-      "acceptCommands": ["git pull origin main", "git pull"],
-      "response": "✓ Pulled latest changes! README.md updated from remote.",
-      "hint": "git pull = download commits from GitHub. Specify the remote (origin) and branch (main).",
-      "xp": 100,
-      "lesson": "git pull = get latest code from team"
+      "title": "Go Back to Main Project",
+      "story": "Your languageapp project is set up. Now navigate back to your main .SAASApp project to continue work there.",
+      "objective": "Navigate back to .SAASApp (parent directory)",
+      "startDirectory": "/home/user/.SAASApp/languageapp",
+      "command": "cd ..",
+      "acceptCommands": ["cd ..", "cd ../", "cd /home/user/.SAASApp"],
+      "response": "✓ Back in /home/user/.SAASApp\n\nYou navigated up one level to your main project.",
+      "hint": "cd .. = go up one directory level",
+      "xp": 50,
+      "lesson": "cd .. = navigate to parent directory"
     },
     {
       "level": 11,
       "title": "Push to GitHub",
-      "story": "Your changes are committed and you've pulled the latest. Now push your work to GitHub! This is the final step to ship!\n\nMake sure you're in .SAASApp, then push to origin.",
+      "story": "Your main project is ready. Push your work to GitHub! This is the final step to ship!",
       "objective": "Push code to GitHub",
       "startDirectory": "/home/user/.SAASApp",
       "command": "git push -u origin main",
       "acceptCommands": ["git push -u origin main", "git push origin main", "git push"],
-      "response": "✓ Code pushed to GitHub successfully! Your project is now live!",
+      "response": "✓ Code pushed to GitHub successfully! Your project is now live!\n\nCongratulations! You've mastered the essential CLI commands!",
       "hint": "git push = send commits to GitHub. -u flag sets upstream. After first push, just 'git push' works.",
       "xp": 150,
       "easterEgg": "shipped-it",
@@ -163,7 +161,7 @@
       "hidden": [".bashrc", ".profile", ".gitconfig", ".cache", ".config", ".git", ".ssh"]
     },
     "/home/user/.SAASApp": {
-      "dirs": ["src", "tests", "public"],
+      "dirs": ["src", "tests", "public", "languageapp"],
       "files": ["package.json", "README.md", ".env.example", ".gitignore"],
       "hidden": [".env.example", ".gitignore"]
     },
@@ -171,10 +169,15 @@
       "dirs": ["components", "utils"],
       "files": ["app.js", "index.js", "styles.css"]
     },
-    "/home/user/languageapp": {
+    "/home/user/.SAASApp/languageapp": {
       "dirs": ["src", "public", "node_modules"],
       "files": ["package.json", "README.md", ".gitignore", ".env"],
       "hidden": [".gitignore", ".env"]
+    },
+    "/home/user/languageapp": {
+      "dirs": ["src", "public"],
+      "files": ["package.json", "README.md"],
+      "hidden": []
     },
     "/var/log": {
       "dirs": [],
@@ -204,22 +207,22 @@
        "all_long": "total 48\ndrwxr-xr-x  2 user user  4096 Feb  8 09:15 Desktop\ndrwxr-xr-x  2 user user  4096 Feb  8 09:15 Documents\ndrwxr-xr-x  2 user user  4096 Feb  8 09:15 Downloads\ndrwx------  2 user user  4096 Feb 10 14:20 .cache\ndrwxr-xr-x  2 user user  4096 Feb 10 14:20 .config\ndrwxr-xr-x  3 user user  4096 Feb 10 14:20 .git\ndrwx------  2 user user  4096 Feb 10 14:20 .ssh\ndrwxr-xr-x  3 user user  4096 Feb 10 14:20 .SAASApp\n-rw-r--r--  1 user user   220 Feb  5 10:30 .bashrc\n-rw-r--r--  1 user user   128 Feb  5 10:30 .gitconfig\n-rw-r--r--  1 user user   655 Feb  5 10:30 .profile",
        "all_long_human": "total 48K\ndrwxr-xr-x  2 user user 4.0K Feb  8 09:15 Desktop\ndrwxr-xr-x  2 user user 4.0K Feb  8 09:15 Documents\ndrwxr-xr-x  2 user user 4.0K Feb  8 09:15 Downloads\ndrwx------  2 user user 4.0K Feb 10 14:20 .cache\ndrwxr-xr-x  2 user user 4.0K Feb 10 14:20 .config\ndrwxr-xr-x  3 user user 4.0K Feb 10 14:20 .git\ndrwx------  2 user user 4.0K Feb 10 14:20 .ssh\ndrwxr-xr-x  3 user user 4.0K Feb 10 14:20 .SAASApp\n-rw-r--r--  1 user user 220 Feb  5 10:30 .bashrc\n-rw-r--r--  1 user user 128 Feb  5 10:30 .gitconfig\n-rw-r--r--  1 user user 655 Feb  5 10:30 .profile"
      },
-     "/home/user/.SAASApp": {
-       "normal": "README.md  package.json  public/  src/  tests/",
-       "detailed": "total 48\ndrwxr-xr-x  3 user user  4096 Feb 10 14:23 public\ndrwxr-xr-x  3 user user  4096 Feb 10 14:23 src\ndrwxr-xr-x  2 user user  4096 Feb 10 14:23 tests\n-rw-r--r--  1 user user  2048 Feb 10 13:45 package.json\n-rw-r--r--  1 user user  5120 Feb 10 13:45 README.md\n-rw-r--r--  1 user user  1024 Feb 10 12:30 .env.example\n-rw-r--r--  1 user user   512 Feb 10 12:30 .gitignore",
-       "all": ".  ..  .env.example  .gitignore  README.md  package.json  public/  src/  tests/",
-       "all_long": "total 56\ndrwxr-xr-x  3 user user  4096 Feb 10 14:23 public\ndrwxr-xr-x  3 user user  4096 Feb 10 14:23 src\ndrwxr-xr-x  2 user user  4096 Feb 10 14:23 tests\n-rw-r--r--  1 user user  2048 Feb 10 13:45 package.json\n-rw-r--r--  1 user user  5120 Feb 10 13:45 README.md\n-rw-r--r--  1 user user  1024 Feb 10 12:30 .env.example\n-rw-r--r--  1 user user   512 Feb 10 12:30 .gitignore",
-       "all_long_human": "total 56K\ndrwxr-xr-x  3 user user 4.0K Feb 10 14:23 public\ndrwxr-xr-x  3 user user 4.0K Feb 10 14:23 src\ndrwxr-xr-x  2 user user 4.0K Feb 10 14:23 tests\n-rw-r--r--  1 user user 5.0K Feb 10 13:45 README.md\n-rw-r--r--  1 user user 2.0K Feb 10 13:45 package.json\n-rw-r--r--  1 user user 1.0K Feb 10 12:30 .env.example\n-rw-r--r--  1 user user 512 Feb 10 12:30 .gitignore"
+"/home/user/.SAASApp": {
+       "normal": "README.md  package.json  public/  src/  tests/  languageapp/",
+       "detailed": "total 56\ndrwxr-xr-x  3 user user  4096 Feb 10 14:23 public\ndrwxr-xr-x  3 user user  4096 Feb 10 14:23 src\ndrwxr-xr-x  2 user user  4096 Feb 10 14:23 tests\ndrwxr-xr-x  3 user user  4096 Feb 10 14:30 languageapp\n-rw-r--r--  1 user user  2048 Feb 10 13:45 package.json\n-rw-r--r--  1 user user  5120 Feb 10 13:45 README.md\n-rw-r--r--  1 user user  1024 Feb 10 12:30 .env.example\n-rw-r--r--  1 user user   512 Feb 10 12:30 .gitignore",
+       "all": ".  ..  .env.example  .gitignore  README.md  package.json  public/  src/  tests/  languageapp/",
+       "all_long": "total 64\ndrwxr-xr-x  3 user user  4096 Feb 10 14:23 public\ndrwxr-xr-x  3 user user  4096 Feb 10 14:23 src\ndrwxr-xr-x  2 user user  4096 Feb 10 14:23 tests\ndrwxr-xr-x  3 user user  4096 Feb 10 14:30 languageapp\n-rw-r--r--  1 user user  2048 Feb 10 13:45 package.json\n-rw-r--r--  1 user user  5120 Feb 10 13:45 README.md\n-rw-r--r--  1 user user  1024 Feb 10 12:30 .env.example\n-rw-r--r--  1 user user   512 Feb 10 12:30 .gitignore",
+       "all_long_human": "total 64K\ndrwxr-xr-x  3 user user 4.0K Feb 10 14:23 public\ndrwxr-xr-x  3 user user 4.0K Feb 10 14:23 src\ndrwxr-xr-x  2 user user 4.0K Feb 10 14:23 tests\ndrwxr-xr-x  3 user user 4.0K Feb 10 14:30 languageapp\n-rw-r--r--  1 user user 5.0K Feb 10 13:45 README.md\n-rw-r--r--  1 user user 2.0K Feb 10 13:45 package.json\n-rw-r--r--  1 user user 1.0K Feb 10 12:30 .env.example\n-rw-r--r--  1 user user 512 Feb 10 12:30 .gitignore"
      },
-    "/home/user/.SAASApp/src": {
-      "normal": "app.js  components/  index.js  styles.css  utils/",
-      "detailed": "total 24\ndrwxr-xr-x  2 user user  4096 Feb 10 14:23 components\ndrwxr-xr-x  2 user user  4096 Feb 10 14:23 utils\n-rw-r--r--  1 user user  3456 Feb 10 13:30 app.js\n-rw-r--r--  1 user user  2048 Feb 10 13:25 index.js\n-rw-r--r--  1 user user  1024 Feb 10 13:20 styles.css",
-      "all": ".  ..  app.js  components/  index.js  styles.css  utils/"
-    },
-     "/home/user/languageapp": {
+    "/home/user/.SAASApp/languageapp": {
        "normal": "README.md  package.json  public/  src/",
        "detailed": "total 32\ndrwxr-xr-x  3 user user  4096 Feb 10 14:30 node_modules\ndrwxr-xr-x  2 user user  4096 Feb 10 14:20 public\ndrwxr-xr-x  2 user user  4096 Feb 10 14:20 src\n-rw-r--r--  1 user user  2048 Feb 10 14:15 package.json\n-rw-r--r--  1 user user  3072 Feb 10 14:10 README.md\n-rw-r--r--  1 user user   256 Feb 10 14:05 .env\n-rw-r--r--  1 user user   512 Feb 10 14:05 .gitignore",
        "all": ".  ..  .env  .gitignore  README.md  package.json  node_modules/  public/  src/"
+     },
+     "/home/user/languageapp": {
+       "normal": "README.md  package.json  public/  src/",
+       "detailed": "total 16\ndrwxr-xr-x  2 user user  4096 Feb 10 14:20 public\ndrwxr-xr-x  2 user user  4096 Feb 10 14:20 src\n-rw-r--r--  1 user user  2048 Feb 10 14:15 package.json\n-rw-r--r--  1 user user  3072 Feb 10 14:10 README.md",
+       "all": ".  ..  README.md  package.json  public/  src/"
      }
    },
    "commandHelp": {
