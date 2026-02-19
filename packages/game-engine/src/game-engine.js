@@ -5,6 +5,8 @@
 
 const GameEngine = (() => {
     
+    const PROGRESS_VERSION = 1;
+
     // Achievement definitions
     const ACHIEVEMENTS = {
         // Milestone badges
@@ -293,11 +295,47 @@ const GameEngine = (() => {
     function getProgress() {
         const stored = localStorage.getItem('bootcamp-progress');
         if (stored) {
-            return JSON.parse(stored);
+            try {
+                const parsed = JSON.parse(stored);
+                const progress = {
+                    version: PROGRESS_VERSION,
+                    totalXP: 0,
+                    achievements: [],
+                    achievementUnlockDates: {},
+                    gamesCompleted: [],
+                    lessonsCompleted: [],
+                    dailyActivity: {},
+                    currentStreak: 0,
+                    longestStreak: 0,
+                    lastActiveDate: null,
+                    startDate: Date.now(),
+                    history: [],
+                    easterEggsFound: [],
+                    ...parsed
+                };
+
+                if (!Array.isArray(progress.history)) {
+                    progress.history = [];
+                }
+
+                if (!Array.isArray(progress.gamesCompleted)) {
+                    progress.gamesCompleted = [];
+                }
+
+                if (progress.version !== PROGRESS_VERSION) {
+                    progress.version = PROGRESS_VERSION;
+                }
+
+                saveProgress(progress);
+                return progress;
+            } catch (error) {
+                localStorage.removeItem('bootcamp-progress');
+            }
         }
-        
+
         // Initialize new progress
         const newProgress = {
+            version: PROGRESS_VERSION,
             totalXP: 0,
             achievements: [],
             achievementUnlockDates: {},
@@ -311,7 +349,7 @@ const GameEngine = (() => {
             history: [],
             easterEggsFound: []
         };
-        
+
         saveProgress(newProgress);
         return newProgress;
     }

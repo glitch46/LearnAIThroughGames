@@ -8,25 +8,27 @@ const PORT = process.env.PORT || 3005;
 // Middleware
 app.use(express.json());
 
+const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+
 // Serve fonts
-app.use('/fonts', express.static(path.join(__dirname, 'tools')));
+app.use('/fonts', express.static(path.join(__dirname, 'tools'), { maxAge: ONE_WEEK_MS, immutable: true }));
 
 // Serve audio files
-app.use('/audio', express.static(path.join(__dirname, 'tools', 'audio')));
+app.use('/audio', express.static(path.join(__dirname, 'tools', 'audio'), { maxAge: ONE_WEEK_MS, immutable: true }));
 
 // Serve game assets (images, etc.)
-app.use('/games/prompt-escape-rooms/assets', express.static(path.join(__dirname, 'apps', 'prompt-escape-rooms', 'assets')));
-app.use('/games/terminal-velocity/assets', express.static(path.join(__dirname, 'apps', 'terminal-velocity', 'assets')));
-app.use('/games/hub/assets', express.static(path.join(__dirname, 'apps', 'hub', 'assets')));
+app.use('/games/prompt-escape-rooms/assets', express.static(path.join(__dirname, 'apps', 'prompt-escape-rooms', 'assets'), { maxAge: ONE_WEEK_MS, immutable: true }));
+app.use('/games/terminal-velocity/assets', express.static(path.join(__dirname, 'apps', 'terminal-velocity', 'assets'), { maxAge: ONE_WEEK_MS, immutable: true }));
+app.use('/games/hub/assets', express.static(path.join(__dirname, 'apps', 'hub', 'assets'), { maxAge: ONE_WEEK_MS, immutable: true }));
 
 // Serve shared design system CSS
-app.use('/css', express.static(path.join(__dirname, 'packages', 'design-system', 'css')));
+app.use('/css', express.static(path.join(__dirname, 'packages', 'design-system', 'css'), { maxAge: ONE_WEEK_MS, immutable: true }));
 
 // Serve shared game engine JS
-app.use('/js', express.static(path.join(__dirname, 'packages', 'game-engine', 'src')));
+app.use('/js', express.static(path.join(__dirname, 'packages', 'game-engine', 'src'), { maxAge: ONE_WEEK_MS, immutable: true }));
 
 // Serve data files
-app.use('/data', express.static(path.join(__dirname, 'data')));
+app.use('/data', express.static(path.join(__dirname, 'data'), { maxAge: ONE_WEEK_MS, immutable: true }));
 
 // ============================================
 // GAMES HUB

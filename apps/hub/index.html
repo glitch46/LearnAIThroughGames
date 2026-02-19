@@ -1477,8 +1477,38 @@
             mousePos.inCanvas = false;
         });
 
+        let lastFrameTime = 0;
+        let animationHandle = null;
+
+        function renderFrame(timestamp) {
+            if (!lastFrameTime || (timestamp - lastFrameTime) >= renderPeriod) {
+                render();
+                lastFrameTime = timestamp;
+            }
+            animationHandle = window.requestAnimationFrame(renderFrame);
+        }
+
+        function startAnimation() {
+            if (animationHandle) return;
+            animationHandle = window.requestAnimationFrame(renderFrame);
+        }
+
+        function stopAnimation() {
+            if (!animationHandle) return;
+            window.cancelAnimationFrame(animationHandle);
+            animationHandle = null;
+        }
+
         render();
-        window.setInterval(render, renderPeriod);
+        startAnimation();
+
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                stopAnimation();
+            } else {
+                startAnimation();
+            }
+        });
     </script>
     
     <!-- Music Control Script -->
