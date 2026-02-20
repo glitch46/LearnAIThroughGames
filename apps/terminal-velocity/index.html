@@ -1621,22 +1621,25 @@
                 
                 // Also check if we're trying to reach the intended destination
                 // by checking if any of the accept commands would lead to this directory
+                // This allows alternative commands like 'cd -' or 'cd ~' to work
                 if (!isCorrect && level.command && level.command.includes('cd')) {
                     // Check if target matches what the level expects
                     // Level 1: expects /home/user
                     // Level 3: expects /home/user/.SAASApp
-                    // Level 5: expects /home/user/.SAASApp (going back from src)
+                    // Level 5: expects /home/user/.SAASApp (going back from src) - cd .. or cd -
                     // Level 7: expects /home/user/.SAASApp/languageapp
-                    // Level 10: expects /home/user/.SAASApp (going back from languageapp)
+                    // Level 10: expects /home/user/.SAASApp (going back from languageapp) - cd .. or cd -
                     if (level.level === 1 && targetDirectory === '/home/user') {
                         isCorrect = true;
                     } else if (level.level === 3 && targetDirectory === '/home/user/.SAASApp') {
                         isCorrect = true;
                     } else if (level.level === 5 && targetDirectory === '/home/user/.SAASApp') {
+                        // Accept any command that gets us to the parent directory
                         isCorrect = true;
                     } else if (level.level === 7 && targetDirectory === '/home/user/.SAASApp/languageapp') {
                         isCorrect = true;
                     } else if (level.level === 10 && targetDirectory === '/home/user/.SAASApp') {
+                        // Accept any command that gets us to the parent directory
                         isCorrect = true;
                     }
                 }
@@ -1931,9 +1934,17 @@
                 const parts = currentDirectory.split('/').filter(p => p);
                 if (parts.length > 0) parts.pop();
                 newDirectory = parts.length === 0 ? '/' : '/' + parts.join('/');
-            } else if (target === '-') {
-                // Go to previous directory (simplified - just go home)
-                newDirectory = '/home/user';
+            } else             if (target === '-') {
+                // Go to previous directory - in this game, we track a previousDirectory
+                // For simplicity, interpret 'cd -' contextually based on current location
+                // If in a subdirectory, go to parent (common use case)
+                if (currentDirectory !== '/home/user' && currentDirectory !== '/') {
+                    const parts = currentDirectory.split('/').filter(p => p);
+                    if (parts.length > 0) parts.pop();
+                    newDirectory = parts.length === 0 ? '/' : '/' + parts.join('/');
+                } else {
+                    newDirectory = '/home/user';
+                }
             } else if (target.startsWith('/')) {
                 newDirectory = target;
             } else {
@@ -2019,7 +2030,7 @@
             const level = gameData.levels.find(l => l.level === currentLevel);
             if (level) {
                 let levelComplete = false;
-                if (currentLevel === 8 && subcommand === 'status') {
+                if (currentLevel === 9 && subcommand === 'status') {
                     levelComplete = true;
                 } else if (currentLevel === 9 && subcommand === 'remote' && args[1] === 'add' && args[2] === 'origin' && args[3] && args[3].includes('github.com/neo/.SAASApp')) {
                     levelComplete = true;
@@ -2066,9 +2077,9 @@
                 return;
             }
 
-            // Check for level completion (level 7)
+            // Check for level completion (level 8)
             const level = gameData.levels.find(l => l.level === currentLevel);
-            if (level && currentLevel === 7 && (subcommand === 'install' || subcommand === 'i')) {
+            if (level && currentLevel === 8 && (subcommand === 'install' || subcommand === 'i')) {
                 addOutput(level.response, 'success');
                 totalXP += level.xp;
                 document.getElementById('xp-display').textContent = totalXP;
