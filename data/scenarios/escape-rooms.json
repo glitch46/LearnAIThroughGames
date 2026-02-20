@@ -30,6 +30,7 @@
         "setting": "The android sits at the front desk—porcelain face, polished luminous violet eyes, faint seam along the jawline. She calls you 'Doctor' but her protocols block identity data. Your badge is soma-fogged. She's programmed to help, but only if you ask CLEARLY.",
         "intel": [
           "INTEL: Biometric authentication failed. She can't tell you WHO you are.",
+          "ALERT: SOMA GAS DETECTED. Exposure can cause temporary amnesia in human subjects.",
           "She mentioned you purchased a train ticket last night. Destination data is RESTRICTED by her protocols.",
           "Vague requests confuse her. She needs CLEAR, DIRECT instructions.",
           "No small talk. No ambiguity. Just tell her exactly what you want."
