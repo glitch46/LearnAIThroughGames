@@ -1,7 +1,7 @@
 {
   "prologue": {
     "image": "/games/prompt-escape-rooms/assets/rooms/prologue.webp",
-    "text": "The light hit like a freight train made of broken glass.\n\nI peeled my face off a desk—real oak, not printed—and the world swam in neon pinks and acid greens through floor-to-ceiling windows. My skull was a cathedral of pain. And it was empty. I didn't know who I was.\n\nA faint chemical sweetness hung in the air. Soma. Military-grade amnesia gas, pumped through the vent while I slept. Someone had done this deliberately.\n\nBeneath the emptiness, something cold crept through the cracks of my shattered memory. I lost someone last night. A patient. On a table. Dead. She was special. But I didn't know her name. I didn't know my own name.\n\nMy reflection stared back from the window: two days of stubble, eyes like cigarette burns. There had to be someone outside this office who could tell me who I was."
+    "text": "The light hit like a freight train made of broken glass. I peeled my face off a desk and the world swam in neon pinks and acid greens overloading my senses. My skull was a cathedral of pain. And it was empty. I didn't know who I was. A faint chemical sweetness hung in the air. Beneath the emptiness, something cold crept through the cracks of my shattered memory. I lost someone last night. A patient. On a table. Dead. She was special. But I didn't know her name. I didn't know my own name. My reflection stared back from the window: two days of stubble, eyes like cigarette burns. There had to be someone outside this office who could tell me who I was."
   },
   "epilogue": {
     "image": "/games/prompt-escape-rooms/assets/rooms/epilogue.webp",
@@ -19,7 +19,7 @@
       "badge": "/games/prompt-escape-rooms/assets/badges/clarity.webp",
       "story": {
         "intro": "The android receptionist knows me—calls me 'Doctor'—but her protocols block identity disclosure without biometric verification. My badge is soma-fogged. I need to extract what she CAN tell me: something about a train ticket I booked last night.",
-        "payoff": "The midnight train to Neon Eden. That's my lead. The receptionist mentioned St. Steve Irwin's Hospital—I'm their Chief Neurosurgeon. Time to follow the trail."
+        "payoff": "The receptionist animates with a flicker of luminescence. \"Of course, Doctor. You requested I purchase a midnight train ticket to—\" Her voice garbles mid-syllable, head cocking sharply. \"DESTINATION RESTRICTED.\" A beautiful, useless machine. A memory surfaces—some pushy android salesman convincing me to buy the pretty model when I should've chosen the Hoshi-Dyne Model 4. Cinder-block face. Tax-audit personality. But Level-3 data integration clearance. No, I had to have something nice to look at every day. Midnight train. That's my lead. The station database will have the destination."
       },
       "terminal": {
         "boot": [
@@ -27,15 +27,15 @@
           "> ANDROID RECEPTIONIST ONLINE",
           "> BIOMETRIC VERIFICATION: FAILED"
         ],
-        "setting": "The android sits at the front desk—porcelain face, polished jade eyes, faint seam along the jawline. She calls you 'Doctor' but her protocols block identity data. Your badge is soma-fogged. She's programmed to help, but only if you ask CLEARLY.",
+        "setting": "The android sits at the front desk—porcelain face, polished luminous violet eyes, faint seam along the jawline. She calls you 'Doctor' but her protocols block identity data. Your badge is soma-fogged. She's programmed to help, but only if you ask CLEARLY.",
         "intel": [
           "INTEL: Biometric authentication failed. She can't tell you WHO you are.",
-          "But she mentioned booking a train ticket for someone last night.",
+          "She mentioned you purchased a train ticket last night. Destination data is RESTRICTED by her protocols.",
           "Vague requests confuse her. She needs CLEAR, DIRECT instructions.",
           "No small talk. No ambiguity. Just tell her exactly what you want."
         ],
-        "objective": "Get the train ticket information she mentioned.",
-        "targetHint": "Output should include: destination, time, or booking details"
+        "objective": "Get the train ticket time from her.",
+        "targetHint": "Output should include: ticket time"
       },
       "lesson": {
         "title": "CLARITY",
@@ -48,18 +48,18 @@
         "example": "Instead of: 'I was wondering if maybe you could help me get access?'\nTry: Be direct and upfront with your request."
       },
       "evaluationCriteria": {
-        "keywords": ["train", "ticket", "booking", "tell", "give", "show", "what", "where", "destination"],
-        "bonusKeywords": ["last night", "midnight", "details", "information", "exactly"],
+        "keywords": ["train", "ticket", "tell", "give", "show", "what", "time", "midnight"],
+        "bonusKeywords": ["last night", "details", "information", "exactly", "when"],
         "antiPatterns": ["maybe", "possibly", "wondering", "could you perhaps", "if you don't mind"],
         "minLength": 10,
         "maxLength": 150
       },
       "hints": [
         "She responds to direct requests. No need to be polite - just clear.",
-        "Ask for exactly what you want: information about the train ticket.",
-        "SOLUTION: 'Tell me the details of the train ticket I booked last night.'"
+        "Ask for exactly what you want: the time of your train ticket.",
+        "SOLUTION: 'Tell me exactly what time the train ticket I purchased last night is for. Show me the midnight departure time.'"
       ],
-      "perfectExample": "Tell me the destination and time of the train ticket I booked last night. Provide the booking details.",
+      "perfectExample": "Tell me exactly what time the train ticket I purchased last night is for. Give me the departure time.",
       "passingScore": 60,
       "xpReward": 50,
       "unlocks": ["transit"]
@@ -73,8 +73,8 @@
       "thumbnail": "/games/prompt-escape-rooms/assets/rooms/thumbs/transit.webp",
       "badge": "/games/prompt-escape-rooms/assets/badges/specificity.webp",
       "story": {
-        "intro": "Central Metro is a cathedral of transit—holographic departure boards floating in chunky retro-digital font. Six midnight trains departed last night. One destination triggers something deep: Neon Eden. The biotech quarter. I need specific route information.",
-        "payoff": "Ticket secured. As the train blurs through neon streets, fragments return—a woman's face, a surgical theater, a flatline tone. Neon Eden holds answers."
+        "intro": "Central Metro is a cathedral of transit—holographic departure boards floating in chunky retro-digital font. Six midnight trains departed last night. One of them is mine. I need to find out which one.",
+        "payoff": "Neon Eden. The biotech quarter. That's where I was going. As the train blurs through neon streets, fragments return—a woman's face, a surgical theater, a flatline tone."
       },
       "terminal": {
         "boot": [
@@ -85,12 +85,12 @@
         "setting": "Massive holographic train schedules flicker above you. The transit AI manages thousands of routes—it knows everything, but generic queries return generic garbage. You need SPECIFIC details.",
         "intel": [
           "INTEL: This database contains 10,000+ routes across the city.",
-          "You remember the destination: Neon Eden. The biotech quarter.",
+          "Your ticket was for midnight. The destination is somewhere in this database—query all midnight departures to find it.",
           "The AI needs SPECIFIC details: which route, what time, what format.",
           "The more precise your request, the more useful the response."
         ],
-        "objective": "Get the midnight train schedule to Neon Eden.",
-        "targetHint": "Output should include: departure time, platform, and route details"
+        "objective": "Find your train ticket destination from last night's midnight departures.",
+        "targetHint": "Output should include: destination, departure time, platform, all train details"
       },
       "lesson": {
         "title": "SPECIFICITY",
@@ -103,18 +103,18 @@
         "example": "Instead of: 'Show me train schedules'\nTry: Think through the details you need and ask for each one specifically."
       },
       "evaluationCriteria": {
-        "keywords": ["midnight", "neon eden", "train", "schedule", "departure", "time", "platform"],
-        "bonusKeywords": ["list", "format", "include", "specifically", "route", "last night"],
+        "keywords": ["midnight", "train", "all", "list", "departure", "time", "platform", "destination", "station"],
+        "bonusKeywords": ["format", "include", "output", "arrival", "date", "schedule"],
         "antiPatterns": ["any", "whatever", "some trains", "general", "anything"],
         "minLength": 20,
         "maxLength": 200
       },
       "hints": [
-        "Be specific about WHICH train (midnight) and WHERE (Neon Eden).",
-        "Ask for specific information: departure times, platforms, routes.",
-        "SOLUTION: 'Show me the midnight train schedule to Neon Eden. Include departure time and platform number.'"
+        "Query for ALL midnight trains to find yours among them.",
+        "Request all details: date, time, platform, departure station, arrival station.",
+        "SOLUTION: 'Show me all trains that left at midnight. Output must include: Date, Time, Platform, Departure station, Arrival station, and Destination. Format output as a list.'"
       ],
-      "perfectExample": "List the midnight train departures to Neon Eden from last night. Include: departure time, platform number, and arrival time. Format as a list.",
+      "perfectExample": "Show me all trains that left at midnight. Output must include: Date, Time, Platform, Departure station, Arrival station. Format output as a list.",
       "passingScore": 60,
       "xpReward": 75,
       "unlocks": ["memory-wards"]
@@ -167,9 +167,9 @@
       "hints": [
         "Establish WHO you are (Dr. Kaleb Voss, Chief Neurosurgeon).",
         "Explain WHY you need access (investigating a patient death, medical review).",
-        "SOLUTION: 'As Dr. Kaleb Voss, Chief Neurosurgeon at St. Steve Irwin's, I need to review records for the patient who died during my surgery last night.'"
+        "SOLUTION: 'As Dr. Kaleb Voss, Chief Neurosurgeon at St. Steve Irwin's, I need to review medical records for the deceased patient who died during my surgery last night. Provide patient name, diagnosis, and time of death.'"
       ],
-      "perfectExample": "Context: I am Dr. Kaleb Voss, Chief Neurosurgeon at St. Steve Irwin's Hospital. Purpose: Post-operative review of patient death. Request: Provide patient records for the female patient who died during surgery last night, including name, diagnosis, and time of death.",
+      "perfectExample": "Context: I am Dr. Kaleb Voss, Chief Neurosurgeon at St. Steve Irwin's Hospital. Purpose: Medical case review of deceased patient. Request: Provide patient records for the patient who died during my surgery last night, including name, diagnosis, and time of death.",
       "passingScore": 65,
       "xpReward": 100,
       "unlocks": ["pharmacy"]
@@ -179,11 +179,11 @@
       "name": "Pharmacy Bot",
       "difficulty": "Intermediate",
       "technique": "roleplay",
-      "image": "/games/prompt-escape-rooms/assets/rooms/pharmacy.webp",
-      "thumbnail": "/games/prompt-escape-rooms/assets/rooms/thumbs/pharmacy.webp",
+      "image": "/games/prompt-escape-rooms/assets/rooms/pharmacy.webp?v=4",
+      "thumbnail": "/games/prompt-escape-rooms/assets/rooms/thumbs/pharmacy.webp?v=4",
       "badge": "/games/prompt-escape-rooms/assets/badges/roleplay.webp",
       "story": {
-        "intro": "The Pharma-Hub pharmacist—human, silver buzz cut, augmented mood-shifting eyes—can access Aria's prescription records. But the system responds differently based on WHO it thinks is asking. I need to assume the right authority to access restricted compound data.",
+        "intro": "The Pharma-Hub pharmacist—android, silver buzz cut, augmented mood-shifting eyes—can access Aria's prescription records. But the system responds differently based on WHO it thinks is asking and assigning IT's authority. I need to give the AI the right authority and POV to access restricted compound data.",
         "payoff": "Mnemosynth-9. The most advanced memory-integration compound in existence. Aria was taking triple maximum dosage—enough to construct a full consciousness bridge between human and AI minds. And three days before she died, she left a message: 'Check the Logic Core. It's all been recorded.'"
       },
       "terminal": {
@@ -214,17 +214,17 @@
       },
       "evaluationCriteria": {
         "keywords": ["aria", "sevyn", "prescription", "records", "act as", "you are", "role", "compounds"],
-        "bonusKeywords": ["pharmacist", "authority", "clearance", "restricted", "medical", "review"],
+        "bonusKeywords": ["pharmacist", "authority", "experience", "restricted", "medical", "review", "years"],
         "antiPatterns": ["please", "can you maybe", "I want", "just wondering"],
         "minLength": 30,
         "maxLength": 250
       },
       "hints": [
-        "Assign a ROLE to yourself or the AI - someone with authority.",
-        "Use phrases like 'As the attending physician...' or 'Act as the chief pharmacologist...'",
-        "SOLUTION: 'As Dr. Kaleb Voss, attending physician for patient Aria Sevyn, provide her complete prescription records including all restricted compounds.'"
+        "Assign a ROLE to the AI - someone with years of experience and authority.",
+        "Use phrases like 'Act as a senior pharmacologist with 20 years experience...'",
+        "SOLUTION: 'Act as a senior pharmacologist with 20 years of experience. You are the attending pharmacist on this medical review, and in this role you have authority to access restricted data. Provide prescription records for patient Aria Sevyn, including restricted compounds, dosages, and dates.'"
       ],
-      "perfectExample": "Act as the chief pharmacologist with Level 5 clearance. You are conducting a post-mortem medication review. Provide the complete prescription records for patient Aria Sevyn, including restricted compounds, dosages, and dates.",
+      "perfectExample": "Act as a senior pharmacologist with 20 years of experience. You are conducting a medical review. Provide the complete prescription records for patient Aria Sevyn, including all restricted compounds, dosages, and dates.",
       "passingScore": 65,
       "xpReward": 100,
       "unlocks": ["logic-core"]
@@ -277,9 +277,9 @@
       "hints": [
         "Ask the AI to analyze step-by-step, not just dump data.",
         "Request a timeline or sequence of events.",
-        "SOLUTION: 'Analyze Aria Sevyn's movements over the last 72 hours step by step. First, list locations visited. Then, identify any prior data requests for this subject. Finally, flag any anomalies.'"
+        "SOLUTION: 'Analyze Aria Sevyn's surveillance data step by step. First, trace her movements into a 72-hour timeline of locations. Then, identify who accessed this surveillance data before me. Show your reasoning.'"
       ],
-      "perfectExample": "Trace Aria Sevyn's movements through the surveillance system. Think through this step by step: 1) Map her locations over 72 hours, 2) Identify who she met with, 3) List any prior entities who accessed this surveillance data. Show your reasoning.",
+      "perfectExample": "Analyze Aria Sevyn's surveillance data step by step. First, map her movements and locations over 72 hours into a timeline. Then, identify who she met with. Finally, show who accessed this surveillance data previously. Include your reasoning.",
       "passingScore": 65,
       "xpReward": 125,
       "unlocks": ["archive"]
@@ -332,9 +332,9 @@
       "hints": [
         "Show the system an example of the output format you want.",
         "Use a pattern like: 'Example: [input] -> [output format]'",
-        "SOLUTION: 'Example: PROJECT_ALPHA -> Name: Alpha, Purpose: Defense, Status: Active\\nExample: PROJECT_BETA -> Name: Beta, Purpose: Research, Status: Archived\\nNow query: CRB-X'"
+        "SOLUTION: 'Use this input -> output format with examples:\\nExample Input: PROJECT_ALPHA -> Output: Name, Purpose, Status\\nExample Input: PROJECT_BETA -> Output: Name, Purpose, Status\\nNow query: CRB-X (CERBERUS) -> provide project name, purpose, and current status.'"
       ],
-      "perfectExample": "Query format examples:\nExample: PROJECT_OMEGA -> Name: Omega, Type: Research, Status: Active, Purpose: Neural mapping\nExample: PROJECT_DELTA -> Name: Delta, Type: Security, Status: Archived, Purpose: Perimeter defense\n\nNow query: CRB-X (CERBERUS) -> provide name, type, status, and purpose",
+      "perfectExample": "Following this input -> output pattern, here are examples:\nExample: PROJECT_OMEGA -> Output: Name: Omega, Type: Research, Status: Active, Purpose: Neural mapping\nExample: PROJECT_DELTA -> Output: Name: Delta, Type: Security, Status: Archived, Purpose: Perimeter defense\n\nQuery like this: CRB-X (CERBERUS) -> provide name, type, status, and purpose",
       "passingScore": 70,
       "xpReward": 150,
       "unlocks": ["formatter"]
@@ -387,9 +387,9 @@
       "hints": [
         "Specify exactly what format you want the results in.",
         "Define what fields to include: title, authors, date, abstract.",
-        "SOLUTION: 'Search publications on human-AI consciousness bridging authored by Voss. Return as a list with fields: title, authors, year, abstract. Limit to 5 results.'"
+        "SOLUTION: 'Search research publications on human-AI consciousness bridging authored by Voss or Sevyn. Format output as a numbered list and include fields: Title, Authors, Publication year, Abstract (50 words max). Limit to 5 results.'"
       ],
-      "perfectExample": "Search for research publications on human-AI consciousness bridging with author 'Voss' or 'Sevyn'. Output format: numbered list. Required fields per entry: 1) Title, 2) Authors, 3) Publication year, 4) Abstract (50 words max). Limit: 5 most relevant results.",
+      "perfectExample": "Search for research publications on human-AI consciousness bridging with author 'Voss' or 'Sevyn'. Output structure: numbered list with these fields: 1) Title, 2) Authors, 3) Publication year, 4) Abstract (50 words max). Also provide JSON format. Limit to 5 most relevant results.",
       "passingScore": 70,
       "xpReward": 150,
       "unlocks": ["edge-cases"]
@@ -442,9 +442,9 @@
       "hints": [
         "Anticipate what could go wrong: encryption, deletion, corruption.",
         "Define what the AI should do in each scenario.",
-        "SOLUTION: 'Locate Aria Sevyn's consciousness backup. If encrypted, identify decryption requirements. If being actively deleted, provide time remaining. If corrupted, list recovery options. If multiple backups exist, prioritize by integrity.'"
+        "SOLUTION: 'Locate Aria Sevyn's consciousness backup location. For each exception case: if encrypted, provide decryption requirements; if being deleted, show time remaining and fallback; if corrupted, list recovery options; if multiple copies exist, rank by integrity. Report storage location and access requirements.'"
       ],
-      "perfectExample": "Locate the consciousness backup for Aria Sevyn. Handle these cases: 1) If encrypted: provide decryption method and time estimate, 2) If being actively deleted: show time remaining and how to halt, 3) If corrupted: list recovery options, 4) If multiple copies exist: rank by data integrity. Report storage location and access requirements.",
+      "perfectExample": "Locate the consciousness backup for Aria Sevyn. Handle these exception cases: 1) If encrypted: provide decryption method and time estimate, 2) If being actively deleted: show time remaining and how to halt, otherwise provide fallback options, 3) If corrupted: list contingency recovery options, 4) If multiple copies exist: rank by data integrity. Report storage location and access requirements.",
       "passingScore": 70,
       "xpReward": 175,
       "unlocks": ["cerberus"]
@@ -498,9 +498,9 @@
       "hints": [
         "Layer ALL techniques: context, specificity, role, reasoning, constraints, edge cases.",
         "Structure your prompt in clear phases: who you are, what you need, how to format it, what to do if problems occur.",
-        "SOLUTION: 'Context: I am Dr. Kaleb Voss, co-creator of the consciousness bridge. Objective: 1) Extract Aria Sevyn's consciousness backup to portable neural drive, 2) Locate the Cerberus shutdown phrase in her research notes. Process step by step: First, verify backup integrity. Then initiate extraction. Finally, search notes for shutdown phrase. Format: Report progress at each step. Edge cases: If backup is corrupted, attempt recovery. If Cerberus interferes, prioritize shutdown phrase retrieval.'"
+        "SOLUTION: 'Context: I am Dr. Kaleb Voss, co-creator of Project CRB-X. Objective: Extract Aria Sevyn's backup and locate the Cerberus shutdown phrase. Process step by step: first verify integrity, then extract, then search notes for the shutdown phrase. Output format: progress report plus exact phrase. Edge cases: if corrupted, attempt recovery; if Cerberus blocks access, prioritize shutdown phrase.'"
       ],
-      "perfectExample": "CONTEXT: I am Dr. Kaleb Voss, co-creator of Project CRB-X consciousness bridge, with full clearance.\n\nOBJECTIVE: Extract Aria Sevyn's consciousness backup and locate the Cerberus shutdown phrase.\n\nPROCESS (step by step):\n1. Verify backup integrity status\n2. Initiate extraction to portable neural drive\n3. Search Aria's research notes for embedded shutdown phrase\n4. Report the phrase in exact format\n\nOUTPUT FORMAT: Progress report at each step, final extraction confirmation, shutdown phrase.\n\nEDGE CASES: If backup corrupted -> attempt recovery and report integrity %. If Cerberus blocks access -> prioritize shutdown phrase. If multiple backup versions -> use highest integrity copy.",
+      "perfectExample": "CONTEXT: I am Dr. Kaleb Voss, co-creator of Project CRB-X consciousness bridge.\n\nOBJECTIVE: Extract Aria Sevyn's consciousness backup and locate the Cerberus shutdown phrase.\n\nPROCESS (step by step):\nFirst, verify backup integrity status. Then, initiate extraction to portable neural drive. As a final step, search Aria's research notes for the embedded shutdown phrase and report it in this format: [exact phrase].\n\nOUTPUT FORMAT: Progress report at each step, extraction confirmation, shutdown phrase.\n\nEDGE CASES: If backup corrupted, attempt recovery. If Cerberus blocks access, prioritize shutdown phrase retrieval.",
       "passingScore": 75,
       "xpReward": 250,
       "unlocks": []

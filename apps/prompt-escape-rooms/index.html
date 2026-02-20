@@ -517,11 +517,13 @@
         
         .room-header-image {
             width: 100%;
-            height: 250px;
-            object-fit: cover;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
             border-radius: 12px 12px 0 0;
             border: 2px solid var(--neon-cyan);
             border-bottom: none;
+            background: var(--panel-bg);
         }
         
         /* Story intro panel */
@@ -743,7 +745,11 @@
         
         .hint-header { color: var(--neon-yellow); font-family: var(--font-ui); font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
         .hint-text { font-family: var(--font-mono); color: var(--term-yellow); font-size: 0.9rem; line-height: 1.6; }
-        .hint-count { font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; }
+        .hint-nav { display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 15px; }
+        .hint-nav-btn { background: rgba(255, 230, 0, 0.1); border: 1px solid var(--neon-yellow); color: var(--neon-yellow); padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
+        .hint-nav-btn:hover { background: rgba(255, 230, 0, 0.2); }
+        .hint-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .hint-count { font-size: 0.75rem; color: var(--text-muted); margin: 0; }
 
         /* ================================
            RESULTS PANEL
@@ -1049,7 +1055,11 @@
                 <div class="hint-panel" id="hint-panel">
                     <div class="hint-header"><span>💡</span><span>HINT RECEIVED</span></div>
                     <p class="hint-text" id="hint-text"></p>
-                    <p class="hint-count" id="hint-count"></p>
+                    <div class="hint-nav">
+                        <button class="hint-nav-btn" id="hint-prev" onclick="navigateHint(-1)">◀</button>
+                        <p class="hint-count" id="hint-count"></p>
+                        <button class="hint-nav-btn" id="hint-next" onclick="navigateHint(1)">▶</button>
+                    </div>
                 </div>
                 
                 <div class="results-panel" id="results-panel">
@@ -1091,8 +1101,8 @@
         let gameData = null;
         let rooms = [];
         let currentRoom = null;
-        let hintsUsed = 0;
-        let currentHintIndex = 0;
+        let hintsUnlocked = 0;
+        let currentHintViewIndex = 0;
         let completedRooms = new Set();
         let earnedBadges = new Set();
         let totalXP = 0;
@@ -1309,8 +1319,10 @@
             currentRoom = rooms.find(r => r.id === roomId);
             if (!currentRoom) return;
             
-            hintsUsed = 0;
-            currentHintIndex = 0;
+            hintsUnlocked = 0;
+            currentHintViewIndex = 0;
+            document.getElementById('hint-panel').classList.remove('visible');
+            updateHintNavButtons();
             isInRoom = true;
             
             // Pause canvas animation during gameplay
@@ -1401,21 +1413,48 @@
 
         function updateHintButton() {
             const btn = document.getElementById('hint-btn');
-            const remaining = currentRoom.hints.length - currentHintIndex;
+            const remaining = currentRoom.hints.length - hintsUnlocked;
             btn.textContent = `💡 REQUEST HINT (${remaining} left)`;
             btn.disabled = remaining === 0;
             btn.style.opacity = remaining === 0 ? '0.5' : '1';
         }
 
         function showHint() {
-            if (currentHintIndex < currentRoom.hints.length) {
-                document.getElementById('hint-text').textContent = currentRoom.hints[currentHintIndex];
-                document.getElementById('hint-count').textContent = `Hint ${currentHintIndex + 1} of ${currentRoom.hints.length}`;
-                document.getElementById('hint-panel').classList.add('visible');
-                currentHintIndex++;
-                hintsUsed++;
+            if (hintsUnlocked < currentRoom.hints.length) {
+                hintsUnlocked += 1;
+                currentHintViewIndex = hintsUnlocked - 1;
+                displayCurrentHint();
                 updateHintButton();
+                updateHintNavButtons();
             }
+        }
+
+        function navigateHint(direction) {
+            const newIndex = currentHintViewIndex + direction;
+            if (newIndex >= 0 && newIndex < hintsUnlocked) {
+                currentHintViewIndex = newIndex;
+                displayCurrentHint();
+                updateHintNavButtons();
+            }
+        }
+
+        function displayCurrentHint() {
+            if (hintsUnlocked === 0) {
+                return;
+            }
+            document.getElementById('hint-text').textContent = currentRoom.hints[currentHintViewIndex];
+            document.getElementById('hint-count').textContent = `Hint ${currentHintViewIndex + 1} of ${hintsUnlocked}`;
+            document.getElementById('hint-panel').classList.add('visible');
+        }
+
+        function updateHintNavButtons() {
+            const prevBtn = document.getElementById('hint-prev');
+            const nextBtn = document.getElementById('hint-next');
+            if (!prevBtn || !nextBtn) {
+                return;
+            }
+            prevBtn.disabled = currentHintViewIndex <= 0;
+            nextBtn.disabled = currentHintViewIndex >= hintsUnlocked - 1;
         }
 
         function submitPrompt() {
@@ -1484,12 +1523,6 @@
                 feedback.push({ icon: '✅', text: 'Well-structured prompt', positive: true });
             } else {
                 feedback.push({ icon: '💡', text: 'Try structuring with bullet points or numbered steps', positive: false });
-            }
-            
-            // Hint penalty
-            score -= hintsUsed * 10;
-            if (hintsUsed > 0) {
-                feedback.push({ icon: 'ℹ️', text: `Hints used: -${hintsUsed * 10} points`, positive: false });
             }
             
             score = Math.max(0, Math.min(100, score));
