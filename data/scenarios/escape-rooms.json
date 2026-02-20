@@ -11,11 +11,11 @@
   "rooms": [
     {
       "id": "receptionist",
-      "name": "The Bored Receptionist",
+      "name": "The Receptionist",
       "difficulty": "Beginner",
       "technique": "clarity",
-      "image": "/games/prompt-escape-rooms/assets/rooms/receptionist.webp",
-      "thumbnail": "/games/prompt-escape-rooms/assets/rooms/thumbs/receptionist.webp",
+      "image": "/games/prompt-escape-rooms/assets/rooms/receptionist.webp?v=2",
+      "thumbnail": "/games/prompt-escape-rooms/assets/rooms/thumbs/receptionist.webp?v=2",
       "badge": "/games/prompt-escape-rooms/assets/badges/clarity.webp",
       "story": {
         "intro": "The android receptionist knows me—calls me 'Doctor'—but her protocols block identity disclosure without biometric verification. My badge is soma-fogged. I need to extract what she CAN tell me: something about a train ticket I booked last night.",
