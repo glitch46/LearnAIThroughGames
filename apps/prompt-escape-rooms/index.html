@@ -75,43 +75,75 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--void);
             z-index: 10000;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
+            justify-content: flex-end;
+            padding: 40px 20px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .loading-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                rgba(0, 0, 0, 0.3) 0%, 
+                rgba(0, 0, 0, 0.5) 50%, 
+                rgba(0, 0, 0, 0.9) 100%);
+            z-index: 1;
+        }
+        
+        .loading-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
         }
         
         .loading-screen.hidden {
             display: none;
         }
         
-        .loading-image {
-            max-width: 100%;
-            max-height: 40vh;
-            border-radius: 12px;
-            border: 2px solid var(--neon-magenta);
-            box-shadow: var(--glow-magenta);
-            margin-bottom: 30px;
-        }
-        
         .loading-text {
-            max-width: 700px;
-            max-height: 30vh;
+            width: 100%;
+            max-height: 35vh;
             overflow-y: auto;
             font-family: var(--font-ui);
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--text-primary);
-            line-height: 1.8;
+            line-height: 2;
             text-align: left;
-            padding: 20px;
-            background: var(--panel-bg);
-            border: 1px solid var(--panel-border);
+            padding: 25px;
+            background: rgba(10, 0, 20, 0.85);
+            border: 1px solid var(--neon-magenta);
             border-radius: 8px;
-            margin-bottom: 30px;
-            white-space: pre-wrap;
+            margin-bottom: 25px;
+            box-shadow: var(--glow-magenta);
+        }
+        
+        .loading-text .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background: var(--neon-cyan);
+            animation: blink 0.7s infinite;
+            vertical-align: text-bottom;
+            margin-left: 2px;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
         
         .loading-progress-container {
@@ -871,24 +903,26 @@
             .room-header-image { height: 180px; }
             .hub-image { max-height: 200px; }
             .result-actions { flex-direction: column; }
-            .loading-text { font-size: 0.8rem; max-height: 25vh; }
-            .loading-image { max-height: 35vh; }
+            .loading-text { font-size: 0.85rem; max-height: 30vh; line-height: 1.7; padding: 15px; }
+            .loading-screen { padding: 20px 15px; }
+            .loading-content { max-width: 100%; }
             .story-modal-text { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
     <!-- Loading Screen with Prologue -->
-    <div class="loading-screen" id="loading-screen">
-        <img src="/games/prompt-escape-rooms/assets/rooms/prologue.webp" alt="Prologue" class="loading-image" id="loading-image">
-        <div class="loading-text" id="loading-text">Loading story...</div>
-        <div class="loading-progress-container">
-            <div class="loading-progress-bar">
-                <div class="loading-progress-fill" id="loading-progress"></div>
+    <div class="loading-screen" id="loading-screen" style="background-image: url('/games/prompt-escape-rooms/assets/rooms/prologue.webp');">
+        <div class="loading-content">
+            <div class="loading-text" id="loading-text"><span class="cursor"></span></div>
+            <div class="loading-progress-container">
+                <div class="loading-progress-bar">
+                    <div class="loading-progress-fill" id="loading-progress"></div>
+                </div>
+                <div class="loading-status" id="loading-status">Initializing neural systems...</div>
             </div>
-            <div class="loading-status" id="loading-status">Initializing neural systems...</div>
+            <button class="loading-btn" id="loading-btn" disabled onclick="startGame()">BEGIN MISSION</button>
         </div>
-        <button class="loading-btn" id="loading-btn" disabled onclick="startGame()">BEGIN MISSION</button>
     </div>
     
     <!-- Epilogue Modal -->
@@ -1068,6 +1102,8 @@
         // Asset preloading
         const assetsToLoad = [];
         let assetsLoaded = 0;
+        let prologueText = '';
+        let textStreamInterval = null;
 
         // Initialize game
         async function initGame() {
@@ -1076,17 +1112,25 @@
             
             try {
                 const response = await fetch('/data/scenarios/escape-rooms.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
                 gameData = await response.json();
+                
+                if (!gameData || !gameData.rooms) {
+                    throw new Error('Invalid game data structure');
+                }
+                
                 rooms = gameData.rooms;
+                prologueText = gameData.prologue?.text || 'Loading...';
                 
                 updateLoadingProgress(15);
-                updateLoadingStatus('Loading prologue...');
+                updateLoadingStatus('Decrypting memory fragments...');
                 
-                // Show prologue text
-                document.getElementById('loading-text').textContent = gameData.prologue.text;
+                // Start streaming prologue text
+                streamPrologueText(prologueText);
                 
                 updateLoadingProgress(25);
-                updateLoadingStatus('Preloading assets...');
                 
                 // Collect all thumbnail images for preloading
                 rooms.forEach(room => {
@@ -1105,12 +1149,43 @@
                 
             } catch (error) {
                 console.error('Failed to load game data:', error);
-                updateLoadingStatus('Error loading game. Please refresh.');
+                updateLoadingStatus(`Error: ${error.message}. Check console and refresh.`);
             }
+        }
+
+        function streamPrologueText(text) {
+            const textEl = document.getElementById('loading-text');
+            let charIndex = 0;
+            const charsPerTick = 2; // Characters per interval
+            const intervalMs = 30; // Milliseconds between ticks (moderate speed)
+            
+            // Clear any existing interval
+            if (textStreamInterval) clearInterval(textStreamInterval);
+            
+            textStreamInterval = setInterval(() => {
+                if (charIndex < text.length) {
+                    // Add characters
+                    const nextChars = text.substring(charIndex, charIndex + charsPerTick);
+                    charIndex += charsPerTick;
+                    
+                    // Update display with cursor
+                    textEl.innerHTML = text.substring(0, charIndex) + '<span class="cursor"></span>';
+                    
+                    // Auto-scroll to bottom
+                    textEl.scrollTop = textEl.scrollHeight;
+                } else {
+                    // Done streaming
+                    clearInterval(textStreamInterval);
+                    textStreamInterval = null;
+                    textEl.innerHTML = text + '<span class="cursor"></span>';
+                }
+            }, intervalMs);
         }
 
         async function preloadAssets() {
             const total = assetsToLoad.length;
+            if (total === 0) return;
+            
             let loaded = 0;
             
             const promises = assetsToLoad.map(src => {
@@ -1120,7 +1195,7 @@
                         loaded++;
                         const progress = 25 + (loaded / total) * 70;
                         updateLoadingProgress(progress);
-                        updateLoadingStatus(`Loading assets... ${loaded}/${total}`);
+                        updateLoadingStatus(`Loading neural pathways... ${loaded}/${total}`);
                         resolve();
                     };
                     img.src = src;
@@ -1148,8 +1223,18 @@
 
         function showPrologue() {
             document.getElementById('loading-screen').classList.remove('hidden');
+            document.getElementById('game-wrapper').classList.remove('visible');
             document.getElementById('loading-btn').disabled = false;
             document.getElementById('loading-btn').textContent = 'CONTINUE MISSION';
+            
+            // Restart text streaming
+            if (prologueText) {
+                streamPrologueText(prologueText);
+            }
+            
+            // Reset progress bar
+            updateLoadingProgress(100);
+            updateLoadingStatus('Memory playback active.');
         }
 
         function loadProgress() {
