@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prompt Escape Room | AI Mastery Bootcamp</title>
-    <!-- Font Faces -->
     <style>
         @font-face {
             font-family: 'Pixelmax';
@@ -28,58 +27,35 @@
             font-display: swap;
         }
     </style>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
-        /* ================================
-           RETROWAVE DESIGN SYSTEM
-           ================================ */
-        
         :root {
-            /* Neon Palette */
             --neon-cyan: #00FFFF;
             --neon-magenta: #FF00FF;
             --neon-pink: #FF2D92;
             --neon-yellow: #FFE600;
             --neon-green: #39FF14;
             --neon-red: #FF3131;
-            --neon-orange: #FF6B1A;
-            --hot-pink: #FF1493;
-            
-            /* Text colors */
             --term-green: #00ff88;
             --term-cyan: #00d4ff;
             --term-yellow: #ffd700;
-            --term-red: #ff4757;
             --term-white: #ffffff;
-            
-            /* Darks */
             --void: #000000;
             --panel-bg: rgba(10, 0, 20, 0.92);
             --panel-border: rgba(255, 0, 255, 0.3);
-            
-            /* Text */
             --text-primary: #E0D0FF;
             --text-muted: #8070A0;
             --text-dim: #5A4D7A;
-            
-            /* Glow Effects */
             --glow-cyan: 0 0 20px rgba(0, 255, 255, 0.4), 0 0 40px rgba(0, 255, 255, 0.1);
             --glow-magenta: 0 0 20px rgba(255, 0, 255, 0.4), 0 0 40px rgba(255, 0, 255, 0.1);
             --glow-green: 0 0 10px rgba(0, 255, 136, 0.5), 0 0 20px rgba(0, 255, 136, 0.2);
-            
-            /* Fonts */
             --font-display: 'Cyberway Riders', sans-serif;
             --font-ui: 'Pixelmax', monospace;
             --font-stats: 'Chrome Engine', monospace;
             --font-mono: 'Courier New', 'Consolas', monospace;
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: var(--font-ui);
@@ -87,6 +63,195 @@
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
+        }
+        
+        /* ================================
+           LOADING SCREEN
+           ================================ */
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--void);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .loading-screen.hidden {
+            display: none;
+        }
+        
+        .loading-image {
+            max-width: 100%;
+            max-height: 40vh;
+            border-radius: 12px;
+            border: 2px solid var(--neon-magenta);
+            box-shadow: var(--glow-magenta);
+            margin-bottom: 30px;
+        }
+        
+        .loading-text {
+            max-width: 700px;
+            max-height: 30vh;
+            overflow-y: auto;
+            font-family: var(--font-ui);
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            line-height: 1.8;
+            text-align: left;
+            padding: 20px;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            white-space: pre-wrap;
+        }
+        
+        .loading-progress-container {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        
+        .loading-progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 0, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--neon-magenta);
+        }
+        
+        .loading-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-magenta), var(--neon-cyan));
+            transition: width 0.3s ease;
+        }
+        
+        .loading-status {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--term-cyan);
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .loading-btn {
+            font-family: var(--font-ui);
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .loading-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .loading-btn:not(:disabled):hover {
+            background: rgba(57, 255, 20, 0.15);
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        /* ================================
+           PROLOGUE/EPILOGUE MODAL
+           ================================ */
+        
+        .story-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .story-modal.visible {
+            display: flex;
+        }
+        
+        .story-modal-content {
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            text-align: center;
+        }
+        
+        .story-modal-image {
+            max-width: 100%;
+            max-height: 50vh;
+            border-radius: 12px;
+            border: 2px solid var(--neon-cyan);
+            box-shadow: var(--glow-cyan);
+            margin-bottom: 25px;
+        }
+        
+        .story-modal-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--neon-magenta);
+            text-shadow: var(--glow-magenta);
+            margin-bottom: 20px;
+        }
+        
+        .story-modal-text {
+            font-family: var(--font-ui);
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            line-height: 1.9;
+            text-align: left;
+            padding: 20px;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            margin-bottom: 25px;
+            white-space: pre-wrap;
+        }
+        
+        .story-modal-stats {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        
+        .story-stat {
+            text-align: center;
+        }
+        
+        .story-stat-value {
+            font-family: var(--font-stats);
+            font-size: 2rem;
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+        }
+        
+        .story-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
         }
         
         /* ================================
@@ -103,10 +268,6 @@
             pointer-events: none;
         }
         
-        /* ================================
-           CRT OVERLAY EFFECTS
-           ================================ */
-        
         .crt-overlay {
             position: fixed;
             top: 0;
@@ -115,36 +276,20 @@
             height: 100%;
             pointer-events: none;
             z-index: 1;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.15),
-                rgba(0, 0, 0, 0.15) 1px,
-                transparent 1px,
-                transparent 2px
-            );
-        }
-        
-        .crt-flicker {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-            opacity: 0.03;
-            animation: flicker 0.15s infinite;
-        }
-        
-        @keyframes flicker {
-            0% { opacity: 0.02; }
-            50% { opacity: 0.04; }
-            100% { opacity: 0.02; }
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
         }
         
         /* ================================
-           GAME CONTAINER
+           MAIN GAME STYLES
            ================================ */
+        
+        .game-wrapper {
+            display: none;
+        }
+        
+        .game-wrapper.visible {
+            display: block;
+        }
         
         .game-container {
             position: relative;
@@ -153,10 +298,6 @@
             max-width: 1100px;
             margin: 0 auto;
         }
-        
-        /* ================================
-           GAME HEADER
-           ================================ */
         
         .game-header {
             display: flex;
@@ -177,17 +318,10 @@
             text-align: center;
         }
         
-        .game-title h1 {
-            font-size: 1.5rem;
-            margin: 0;
-        }
-        
-        /* Victory Font Style */
         .game-title h1.victory-title {
             font-family: 'Permanent Marker', cursive !important;
             font-variant: small-caps;
             font-size: 2rem;
-            background-image: -webkit-linear-gradient(#FF0FF8 0%, #F9F9F7 100%);
             background-image: linear-gradient(#FF0FF8 0%, #F9F9F7 100%);
             -webkit-background-clip: text;
             background-clip: text;
@@ -202,6 +336,12 @@
             letter-spacing: 0.1em;
         }
         
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
         .game-stats {
             display: flex;
             gap: 40px;
@@ -209,9 +349,7 @@
             margin-top: 20px;
         }
         
-        .stat {
-            text-align: center;
-        }
+        .stat { text-align: center; }
         
         .stat-value {
             font-family: var(--font-stats);
@@ -230,13 +368,10 @@
         }
 
         /* ================================
-           HUB VIEW - HIDEOUT
+           HUB VIEW
            ================================ */
         
-        .hub-view {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+        .hub-view { max-width: 1000px; margin: 0 auto; }
         
         .hub-image {
             width: 100%;
@@ -265,7 +400,6 @@
             font-size: 0.9rem;
         }
         
-        /* Network Map Grid */
         .network-map {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -312,9 +446,7 @@
             border-bottom: 1px solid var(--panel-border);
         }
         
-        .node-content {
-            padding: 15px;
-        }
+        .node-content { padding: 15px; }
         
         .node-header {
             display: flex;
@@ -334,75 +466,23 @@
             letter-spacing: 0.1em;
         }
         
-        .difficulty-beginner {
-            background: rgba(0, 255, 136, 0.15);
-            color: var(--neon-green);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-        }
+        .difficulty-beginner { background: rgba(0, 255, 136, 0.15); color: var(--neon-green); border: 1px solid rgba(0, 255, 136, 0.3); }
+        .difficulty-intermediate { background: rgba(255, 230, 0, 0.15); color: var(--neon-yellow); border: 1px solid rgba(255, 230, 0, 0.3); }
+        .difficulty-advanced { background: rgba(255, 0, 255, 0.15); color: var(--neon-magenta); border: 1px solid rgba(255, 0, 255, 0.3); }
+        .difficulty-boss { background: rgba(255, 49, 49, 0.2); color: var(--neon-red); border: 1px solid rgba(255, 49, 49, 0.4); }
         
-        .difficulty-intermediate {
-            background: rgba(255, 230, 0, 0.15);
-            color: var(--neon-yellow);
-            border: 1px solid rgba(255, 230, 0, 0.3);
-        }
-        
-        .difficulty-advanced {
-            background: rgba(255, 0, 255, 0.15);
-            color: var(--neon-magenta);
-            border: 1px solid rgba(255, 0, 255, 0.3);
-        }
-        
-        .difficulty-boss {
-            background: rgba(255, 49, 49, 0.2);
-            color: var(--neon-red);
-            border: 1px solid rgba(255, 49, 49, 0.4);
-            animation: boss-pulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes boss-pulse {
-            0%, 100% { box-shadow: 0 0 5px rgba(255, 49, 49, 0.3); }
-            50% { box-shadow: 0 0 15px rgba(255, 49, 49, 0.6); }
-        }
-        
-        .node-status {
-            font-size: 1.2rem;
-        }
-        
-        .node-name {
-            font-family: var(--font-ui);
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            margin-bottom: 5px;
-        }
-        
-        .node-technique {
-            font-size: 0.75rem;
-            color: var(--neon-cyan);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 8px;
-        }
-        
-        .node-reward {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
+        .node-status { font-size: 1.2rem; }
+        .node-name { font-family: var(--font-ui); font-size: 1.1rem; color: var(--text-primary); margin-bottom: 5px; }
+        .node-technique { font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+        .node-reward { font-size: 0.8rem; color: var(--text-muted); }
 
         /* ================================
-           ROOM VIEW - TERMINAL ADVENTURE
+           ROOM VIEW
            ================================ */
         
-        .room-view {
-            display: none;
-            max-width: 900px;
-            margin: 0 auto;
-        }
+        .room-view { display: none; max-width: 900px; margin: 0 auto; }
+        .room-view.active { display: block; }
         
-        .room-view.active {
-            display: block;
-        }
-        
-        /* Room Header Image */
         .room-header-image {
             width: 100%;
             height: 250px;
@@ -412,7 +492,28 @@
             border-bottom: none;
         }
         
-        /* Terminal Panel */
+        /* Story intro panel */
+        .story-intro-panel {
+            background: rgba(255, 0, 255, 0.08);
+            border: 2px solid var(--neon-magenta);
+            border-top: none;
+            padding: 20px;
+            font-family: var(--font-ui);
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+        
+        .story-intro-panel::before {
+            content: '"';
+            font-size: 2rem;
+            color: var(--neon-magenta);
+            line-height: 0;
+            vertical-align: -0.4em;
+            margin-right: 5px;
+        }
+        
         .terminal-panel {
             background: var(--panel-bg);
             border: 2px solid var(--neon-cyan);
@@ -435,9 +536,7 @@
             animation: typeIn 0.3s ease forwards;
         }
         
-        @keyframes typeIn {
-            to { opacity: 1; }
-        }
+        @keyframes typeIn { to { opacity: 1; } }
         
         .terminal-setting {
             font-family: var(--font-ui);
@@ -451,7 +550,6 @@
             border-left: 3px solid var(--neon-magenta);
         }
         
-        /* Intel Panel */
         .intel-panel {
             background: rgba(0, 255, 255, 0.05);
             border: 1px solid var(--neon-cyan);
@@ -480,13 +578,8 @@
             line-height: 1.8;
         }
         
-        .intel-list li::before {
-            content: ">";
-            margin-right: 8px;
-            color: var(--neon-cyan);
-        }
+        .intel-list li::before { content: ">"; margin-right: 8px; color: var(--neon-cyan); }
         
-        /* Objective Panel */
         .objective-panel {
             background: rgba(255, 0, 255, 0.08);
             border: 2px solid var(--neon-magenta);
@@ -496,28 +589,10 @@
             text-align: center;
         }
         
-        .objective-label {
-            font-size: 0.75rem;
-            color: var(--neon-magenta);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 8px;
-        }
+        .objective-label { font-size: 0.75rem; color: var(--neon-magenta); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px; }
+        .objective-text { font-family: var(--font-ui); font-size: 1.1rem; color: var(--text-primary); margin-bottom: 10px; }
+        .objective-hint { font-family: var(--font-mono); font-size: 0.8rem; color: var(--term-yellow); }
         
-        .objective-text {
-            font-family: var(--font-ui);
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-        
-        .objective-hint {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--term-yellow);
-        }
-        
-        /* Lesson Panel */
         .lesson-panel {
             background: rgba(57, 255, 20, 0.05);
             border: 1px solid var(--neon-green);
@@ -526,53 +601,14 @@
             margin-bottom: 25px;
         }
         
-        .lesson-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
+        .lesson-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .lesson-badge { width: 40px; height: 40px; border-radius: 8px; }
+        .lesson-title { font-family: var(--font-ui); font-size: 1rem; color: var(--neon-green); text-transform: uppercase; letter-spacing: 0.1em; }
+        .lesson-concept { font-family: var(--font-ui); font-size: 0.9rem; color: var(--text-primary); line-height: 1.6; margin-bottom: 15px; }
         
-        .lesson-badge {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-        }
-        
-        .lesson-title {
-            font-family: var(--font-ui);
-            font-size: 1rem;
-            color: var(--neon-green);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-        
-        .lesson-concept {
-            font-family: var(--font-ui);
-            font-size: 0.9rem;
-            color: var(--text-primary);
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        
-        .lesson-tips {
-            list-style: none;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-        
-        .lesson-tips li {
-            padding: 5px 0;
-            padding-left: 20px;
-            position: relative;
-        }
-        
-        .lesson-tips li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--neon-green);
-        }
+        .lesson-tips { list-style: none; font-size: 0.85rem; color: var(--text-muted); }
+        .lesson-tips li { padding: 5px 0; padding-left: 20px; position: relative; }
+        .lesson-tips li::before { content: "✓"; position: absolute; left: 0; color: var(--neon-green); }
         
         .lesson-example {
             margin-top: 15px;
@@ -585,7 +621,6 @@
             white-space: pre-wrap;
         }
         
-        /* Prompt Input Panel */
         .prompt-panel {
             background: var(--panel-bg);
             border: 2px solid var(--neon-magenta);
@@ -626,25 +661,10 @@
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
         }
         
-        .prompt-textarea::placeholder {
-            color: var(--text-dim);
-        }
+        .prompt-textarea::placeholder { color: var(--text-dim); }
+        .char-count { text-align: right; margin-top: 8px; font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); }
         
-        .char-count {
-            text-align: right;
-            margin-top: 8px;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-family: var(--font-mono);
-        }
-        
-        /* Action Buttons */
-        .actions {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
+        .actions { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
         
         .btn {
             font-family: var(--font-ui);
@@ -660,50 +680,23 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-        }
-        
-        .btn-primary {
             background: transparent;
-            border-color: var(--neon-magenta);
-            color: var(--neon-magenta);
         }
         
-        .btn-primary:hover {
-            background: rgba(255, 0, 255, 0.15);
-            box-shadow: 0 0 25px rgba(255, 0, 255, 0.4);
-            transform: translateY(-2px);
-        }
+        .btn-primary { border-color: var(--neon-magenta); color: var(--neon-magenta); }
+        .btn-primary:hover { background: rgba(255, 0, 255, 0.15); box-shadow: 0 0 25px rgba(255, 0, 255, 0.4); transform: translateY(-2px); }
         
-        .btn-secondary {
-            background: transparent;
-            border-color: var(--neon-cyan);
-            color: var(--neon-cyan);
-        }
+        .btn-secondary { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+        .btn-secondary:hover { background: rgba(0, 255, 255, 0.1); box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
         
-        .btn-secondary:hover {
-            background: rgba(0, 255, 255, 0.1);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-        }
+        .btn-warning { border-color: var(--neon-yellow); color: var(--neon-yellow); }
+        .btn-warning:hover { background: rgba(255, 230, 0, 0.1); box-shadow: 0 0 15px rgba(255, 230, 0, 0.3); }
         
-        .btn-warning {
-            background: transparent;
-            border-color: var(--neon-yellow);
-            color: var(--neon-yellow);
-        }
+        .btn-success { border-color: var(--neon-green); color: var(--neon-green); }
+        .btn-success:hover { background: rgba(57, 255, 20, 0.15); box-shadow: 0 0 25px rgba(57, 255, 20, 0.4); }
         
-        .btn-warning:hover {
-            background: rgba(255, 230, 0, 0.1);
-            box-shadow: 0 0 15px rgba(255, 230, 0, 0.3);
-        }
+        .btn-back { position: fixed; top: 20px; left: 20px; z-index: 200; }
         
-        .btn-back {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 200;
-        }
-        
-        /* Hint Panel */
         .hint-panel {
             display: none;
             background: rgba(255, 230, 0, 0.08);
@@ -713,39 +706,12 @@
             margin-bottom: 20px;
         }
         
-        .hint-panel.visible {
-            display: block;
-            animation: slideIn 0.3s ease;
-        }
+        .hint-panel.visible { display: block; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .hint-header {
-            color: var(--neon-yellow);
-            font-family: var(--font-ui);
-            font-weight: 700;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-shadow: 0 0 10px rgba(255, 230, 0, 0.5);
-        }
-        
-        .hint-text {
-            font-family: var(--font-mono);
-            color: var(--term-yellow);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-        
-        .hint-count {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 10px;
-        }
+        .hint-header { color: var(--neon-yellow); font-family: var(--font-ui); font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .hint-text { font-family: var(--font-mono); color: var(--term-yellow); font-size: 0.9rem; line-height: 1.6; }
+        .hint-count { font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; }
 
         /* ================================
            RESULTS PANEL
@@ -761,98 +727,62 @@
             text-align: center;
         }
         
-        .results-panel.visible {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
+        .results-panel.visible { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        .results-panel.success { border-color: var(--neon-green); box-shadow: 0 0 30px rgba(0, 255, 136, 0.3); }
+        .results-panel.failure { border-color: var(--neon-yellow); }
         
-        .results-panel.success {
-            border-color: var(--neon-green);
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
-        }
+        .result-icon { font-size: 4rem; margin-bottom: 15px; }
+        .result-title { font-family: var(--font-display); font-size: 2rem; margin-bottom: 10px; }
+        .result-title.success { color: var(--neon-green); text-shadow: var(--glow-green); }
+        .result-title.failure { color: var(--neon-yellow); }
         
-        .results-panel.failure {
-            border-color: var(--neon-yellow);
-        }
+        .result-score { font-family: var(--font-stats); font-size: 3rem; margin: 20px 0; }
+        .result-score.success { color: var(--neon-green); }
+        .result-score.failure { color: var(--neon-yellow); }
         
-        .result-icon {
-            font-size: 4rem;
-            margin-bottom: 15px;
-        }
-        
-        .result-title {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-        
-        .result-title.success {
-            color: var(--neon-green);
-            text-shadow: var(--glow-green);
-        }
-        
-        .result-title.failure {
-            color: var(--neon-yellow);
-        }
-        
-        .result-score {
-            font-family: var(--font-stats);
-            font-size: 3rem;
-            margin: 20px 0;
-        }
-        
-        .result-score.success {
-            color: var(--neon-green);
-        }
-        
-        .result-score.failure {
-            color: var(--neon-yellow);
-        }
-        
-        /* Badge Award */
-        .badge-award {
+        /* Story payoff section */
+        .story-payoff {
             display: none;
-            margin: 25px auto;
-            text-align: center;
-        }
-        
-        .badge-award.visible {
-            display: block;
-            animation: badgePop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        @keyframes badgePop {
-            0% { transform: scale(0); }
-            60% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-        
-        .badge-award img {
-            width: 100px;
-            height: 100px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.5));
-        }
-        
-        .badge-award-text {
-            font-family: var(--font-ui);
-            color: var(--neon-magenta);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-        
-        /* Feedback Section */
-        .feedback-section {
+            background: rgba(255, 0, 255, 0.08);
+            border: 2px solid var(--neon-magenta);
+            border-radius: 8px;
+            padding: 20px;
             margin: 25px 0;
             text-align: left;
         }
+        
+        .story-payoff.visible { display: block; }
+        
+        .story-payoff-header {
+            font-family: var(--font-ui);
+            color: var(--neon-magenta);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .story-payoff-text {
+            font-family: var(--font-ui);
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-style: italic;
+        }
+        
+        .badge-award { display: none; margin: 25px auto; text-align: center; }
+        .badge-award.visible { display: block; animation: badgePop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes badgePop { 0% { transform: scale(0); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        
+        .badge-award img { width: 100px; height: 100px; border-radius: 12px; margin-bottom: 10px; filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.5)); }
+        .badge-award-text { font-family: var(--font-ui); color: var(--neon-magenta); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; }
+        
+        .feedback-section { margin: 25px 0; text-align: left; }
         
         .feedback-item {
             display: flex;
@@ -865,27 +795,11 @@
             border-left: 3px solid transparent;
         }
         
-        .feedback-item.positive {
-            border-left-color: var(--neon-green);
-        }
+        .feedback-item.positive { border-left-color: var(--neon-green); }
+        .feedback-item.negative { border-left-color: var(--neon-yellow); }
+        .feedback-icon { font-size: 1.3rem; flex-shrink: 0; }
+        .feedback-text { font-family: var(--font-ui); font-size: 0.85rem; color: var(--text-primary); line-height: 1.5; }
         
-        .feedback-item.negative {
-            border-left-color: var(--neon-yellow);
-        }
-        
-        .feedback-icon {
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-        
-        .feedback-text {
-            font-family: var(--font-ui);
-            font-size: 0.85rem;
-            color: var(--text-primary);
-            line-height: 1.5;
-        }
-        
-        /* Perfect Example */
         .perfect-example {
             display: none;
             background: rgba(0, 255, 136, 0.05);
@@ -896,16 +810,8 @@
             text-align: left;
         }
         
-        .perfect-example.visible {
-            display: block;
-        }
-        
-        .perfect-example h4 {
-            font-family: var(--font-ui);
-            color: var(--neon-green);
-            margin-bottom: 12px;
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
-        }
+        .perfect-example.visible { display: block; }
+        .perfect-example h4 { font-family: var(--font-ui); color: var(--neon-green); margin-bottom: 12px; }
         
         .perfect-example-text {
             font-family: var(--font-mono);
@@ -918,27 +824,11 @@
             border-radius: 6px;
         }
         
-        .result-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-        
+        .result-actions { display: flex; gap: 15px; justify-content: center; margin-top: 25px; flex-wrap: wrap; }
+
         /* ================================
            MUSIC TOGGLE
            ================================ */
-        
-        .music-toggle-zone {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100px;
-            height: 100px;
-            z-index: 999;
-            pointer-events: auto;
-        }
         
         .music-toggle {
             position: fixed;
@@ -954,382 +844,207 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease, opacity 0.5s ease;
-            padding: 0;
-            opacity: 1;
-        }
-        
-        .music-toggle.faded {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .music-toggle-zone:hover + .music-toggle,
-        .music-toggle-zone:hover ~ .music-toggle,
-        .music-toggle:hover {
-            opacity: 1 !important;
-            pointer-events: auto !important;
-        }
-
-        .music-toggle:hover {
-            border-color: var(--neon-magenta);
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
-            transform: scale(1.05);
-        }
-
-        .music-toggle svg {
-            width: 28px;
-            height: 28px;
-            fill: none;
-            stroke: var(--neon-cyan);
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            filter: drop-shadow(0 0 4px rgba(0, 255, 255, 0.6));
             transition: all 0.3s ease;
+            padding: 0;
         }
-
-        .music-toggle:hover svg {
-            stroke: var(--neon-magenta);
-            filter: drop-shadow(0 0 8px rgba(255, 0, 255, 0.8));
-        }
-
+        
+        .music-toggle:hover { border-color: var(--neon-magenta); box-shadow: 0 0 20px rgba(255, 0, 255, 0.5); }
+        .music-toggle svg { width: 28px; height: 28px; fill: none; stroke: var(--neon-cyan); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         .music-toggle .icon-muted { display: block; }
         .music-toggle .icon-playing { display: none; }
         .music-toggle.playing .icon-muted { display: none; }
         .music-toggle.playing .icon-playing { display: block; }
-
-        .music-toggle.playing {
-            animation: music-pulse 2s ease-in-out infinite;
-            border-color: var(--neon-magenta);
-        }
-
-        @keyframes music-pulse {
-            0%, 100% { box-shadow: 0 0 10px rgba(255, 0, 255, 0.3); }
-            50% { box-shadow: 0 0 25px rgba(255, 0, 255, 0.6); }
-        }
-
-        /* ================================
-           RGB GLITCH SPLIT TRANSITION
-           ================================ */
-
-        body.transition-enter {
-            overflow: hidden;
-        }
-
-        body.transition-enter::before,
-        body.transition-enter::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #000;
-            z-index: 9999;
-            pointer-events: none;
-        }
-
-        body.transition-enter::before {
-            animation: rgb-glitch-enter 0.4s ease-out forwards;
-        }
-
-        .rgb-transition {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 0;
-            background: #000;
-        }
-
-        .rgb-transition.active {
-            opacity: 1;
-            pointer-events: all;
-            animation: rgb-glitch-exit 0.3s ease-in forwards;
-        }
-
-        @keyframes rgb-glitch-exit {
-            0% { clip-path: inset(0 0 0 0); transform: translateX(0); }
-            20% { 
-                clip-path: inset(20% 0 60% 0); 
-                transform: translateX(-5px);
-                background: linear-gradient(90deg, rgba(255,0,0,0.8) 0%, transparent 30%, transparent 70%, rgba(0,100,255,0.8) 100%);
-            }
-            40% { 
-                clip-path: inset(60% 0 10% 0); 
-                transform: translateX(5px);
-                background: linear-gradient(90deg, rgba(0,255,255,0.6) 0%, transparent 40%, transparent 60%, rgba(255,0,255,0.6) 100%);
-            }
-            60% { 
-                clip-path: inset(40% 0 30% 0); 
-                transform: translateX(-3px);
-            }
-            80% { 
-                clip-path: inset(10% 0 70% 0); 
-                transform: translateX(3px);
-            }
-            100% { 
-                clip-path: inset(50% 0 50% 0); 
-                transform: translateX(0);
-                background: #000;
-            }
-        }
-
-        @keyframes rgb-glitch-enter {
-            0% { 
-                clip-path: inset(50% 0 50% 0);
-                background: #000;
-            }
-            30% { 
-                clip-path: inset(30% 0 40% 0);
-                background: linear-gradient(90deg, rgba(255,0,0,0.3) 0%, transparent 20%, transparent 80%, rgba(0,100,255,0.3) 100%);
-            }
-            60% { 
-                clip-path: inset(10% 0 20% 0);
-                background: rgba(0,0,0,0.8);
-            }
-            100% { 
-                clip-path: inset(0 0 0 0);
-                opacity: 0;
-            }
-        }
+        .music-toggle.playing { border-color: var(--neon-magenta); }
         
         /* ================================
            RESPONSIVE
            ================================ */
         
         @media (max-width: 768px) {
-            .game-header {
-                padding: 16px;
-            }
-            
-            .game-title h1.victory-title {
-                font-size: 1.4rem;
-            }
-            
-            .game-stats {
-                gap: 24px;
-            }
-            
-            .stat-value {
-                font-size: 1.4rem;
-            }
-            
-            .network-map {
-                grid-template-columns: 1fr;
-            }
-            
-            .actions {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-            }
-            
-            .game-container {
-                padding: 12px;
-            }
-            
-            .prompt-textarea {
-                min-height: 120px;
-            }
-            
-            #mainCanvas {
-                opacity: 0.5;
-            }
-            
-            .crt-overlay {
-                opacity: 0.3;
-            }
-            
-            .music-toggle {
-                width: 40px;
-                height: 40px;
-                top: 12px;
-                right: 12px;
-            }
-            
-            .music-toggle svg {
-                width: 20px;
-                height: 20px;
-            }
-            
-            .room-header-image {
-                height: 180px;
-            }
-            
-            .hub-image {
-                max-height: 200px;
-            }
-            
-            .result-actions {
-                flex-direction: column;
-            }
+            .game-title h1.victory-title { font-size: 1.4rem; }
+            .game-stats { gap: 24px; }
+            .stat-value { font-size: 1.4rem; }
+            .network-map { grid-template-columns: 1fr; }
+            .actions { flex-direction: column; }
+            .btn { width: 100%; text-align: center; justify-content: center; }
+            .game-container { padding: 12px; }
+            .room-header-image { height: 180px; }
+            .hub-image { max-height: 200px; }
+            .result-actions { flex-direction: column; }
+            .loading-text { font-size: 0.8rem; max-height: 25vh; }
+            .loading-image { max-height: 35vh; }
+            .story-modal-text { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
+    <!-- Loading Screen with Prologue -->
+    <div class="loading-screen" id="loading-screen">
+        <img src="/games/prompt-escape-rooms/assets/rooms/prologue.webp" alt="Prologue" class="loading-image" id="loading-image">
+        <div class="loading-text" id="loading-text">Loading story...</div>
+        <div class="loading-progress-container">
+            <div class="loading-progress-bar">
+                <div class="loading-progress-fill" id="loading-progress"></div>
+            </div>
+            <div class="loading-status" id="loading-status">Initializing neural systems...</div>
+        </div>
+        <button class="loading-btn" id="loading-btn" disabled onclick="startGame()">BEGIN MISSION</button>
+    </div>
+    
+    <!-- Epilogue Modal -->
+    <div class="story-modal" id="epilogue-modal">
+        <div class="story-modal-content">
+            <img src="/games/prompt-escape-rooms/assets/rooms/epilogue.webp" alt="Epilogue" class="story-modal-image">
+            <h2 class="story-modal-title" id="epilogue-title">MISSION COMPLETE</h2>
+            <div class="story-modal-text" id="epilogue-text"></div>
+            <div class="story-modal-stats" id="epilogue-stats">
+                <div class="story-stat">
+                    <div class="story-stat-value" id="final-rooms">9</div>
+                    <div class="story-stat-label">Nodes Hacked</div>
+                </div>
+                <div class="story-stat">
+                    <div class="story-stat-value" id="final-xp">0</div>
+                    <div class="story-stat-label">Total XP</div>
+                </div>
+                <div class="story-stat">
+                    <div class="story-stat-value" id="final-badges">9</div>
+                    <div class="story-stat-label">Techniques</div>
+                </div>
+            </div>
+            <button class="btn btn-success" onclick="closeEpilogue()">Return to Network Map</button>
+        </div>
+    </div>
+    
     <!-- Canvas Grid Background -->
     <canvas id="mainCanvas"></canvas>
-    
-    <!-- CRT Effects -->
     <div class="crt-overlay"></div>
-    <div class="crt-flicker"></div>
     
     <!-- Background Music -->
     <audio id="bg-music" loop preload="auto">
         <source src="/audio/neon-gaming.mp3" type="audio/mpeg">
     </audio>
     
-    <!-- Hover zone to reveal music toggle -->
-    <div id="music-toggle-zone" class="music-toggle-zone"></div>
-    
     <!-- Music Toggle Button -->
-    <button id="music-toggle" class="music-toggle" aria-label="Toggle music" title="Toggle Music">
-        <svg class="icon-muted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-            <line x1="23" y1="9" x2="17" y2="15"/>
-            <line x1="17" y1="9" x2="23" y2="15"/>
-        </svg>
-        <svg class="icon-playing" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-        </svg>
+    <button id="music-toggle" class="music-toggle" aria-label="Toggle music">
+        <svg class="icon-muted" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        <svg class="icon-playing" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
     </button>
     
-    <a href="/games" class="btn btn-secondary btn-back">← Back</a>
+    <!-- Main Game Wrapper -->
+    <div class="game-wrapper" id="game-wrapper">
+        <button class="btn btn-secondary btn-back" type="button" onclick="handleBackButton()">← Back</button>
 
-    <div class="game-container">
-        <div class="game-header">
-            <div class="game-title">
-                <p>Hack the AI. Master the Prompt. Escape.</p>
-                <h1 class="victory-title">PROMPT ESCAPE ROOM</h1>
-            </div>
-            <div class="game-stats">
-                <div class="stat">
-                    <div class="stat-value" id="rooms-completed">0</div>
-                    <div class="stat-label">Nodes Hacked</div>
+        <div class="game-container">
+            <div class="game-header">
+                <div class="game-title">
+                    <p>Hack the AI. Master the Prompt. Escape.</p>
+                    <h1 class="victory-title">PROMPT ESCAPE ROOM</h1>
                 </div>
-                <div class="stat">
-                    <div class="stat-value" id="total-xp">0</div>
-                    <div class="stat-label">XP</div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="showPrologue()">Replay Story</button>
                 </div>
-                <div class="stat">
-                    <div class="stat-value" id="badges-earned">0</div>
-                    <div class="stat-label">Badges</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- HUB VIEW - Network Map -->
-        <div class="hub-view" id="hub-view">
-            <img src="/games/prompt-escape-rooms/assets/hub/hideout.png" alt="Hacker Hideout" class="hub-image">
-            <h2 class="hub-title">NETWORK MAP</h2>
-            <p class="hub-subtitle">Select a node to breach. Each teaches a different prompt engineering technique.</p>
-            <div class="network-map" id="network-map">
-                <!-- Populated dynamically -->
-            </div>
-        </div>
-
-        <!-- ROOM VIEW - Terminal Adventure -->
-        <div class="room-view" id="room-view">
-            <button class="btn btn-secondary" style="margin-bottom: 20px;" onclick="backToHub()">← Back to Network</button>
-            
-            <img id="room-image" class="room-header-image" src="" alt="Room Image">
-            
-            <div class="terminal-panel">
-                <div class="terminal-boot" id="terminal-boot">
-                    <!-- Boot sequence appears here -->
-                </div>
-                
-                <div class="terminal-setting" id="terminal-setting">
-                    <!-- Setting text appears here -->
-                </div>
-                
-                <div class="intel-panel">
-                    <div class="intel-header">
-                        <span>📡</span>
-                        <span>INCOMING INTEL</span>
+                <div class="game-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="rooms-completed">0</div>
+                        <div class="stat-label">Nodes Hacked</div>
                     </div>
-                    <ul class="intel-list" id="intel-list">
-                        <!-- Intel items appear here -->
-                    </ul>
-                </div>
-                
-                <div class="objective-panel">
-                    <div class="objective-label">🎯 MISSION OBJECTIVE</div>
-                    <div class="objective-text" id="objective-text"></div>
-                    <div class="objective-hint" id="objective-hint"></div>
-                </div>
-            </div>
-            
-            <div class="lesson-panel">
-                <div class="lesson-header">
-                    <img id="lesson-badge" class="lesson-badge" src="" alt="Technique Badge">
-                    <span class="lesson-title" id="lesson-title"></span>
-                </div>
-                <div class="lesson-concept" id="lesson-concept"></div>
-                <ul class="lesson-tips" id="lesson-tips">
-                    <!-- Tips appear here -->
-                </ul>
-                <div class="lesson-example" id="lesson-example"></div>
-            </div>
-            
-            <div class="prompt-panel">
-                <div class="prompt-label">
-                    <span>⌨️</span>
-                    <span>CRAFT YOUR PROMPT:</span>
-                </div>
-                <textarea id="prompt-input" class="prompt-textarea" placeholder="> Enter your prompt to hack this node..."></textarea>
-                <div class="char-count">
-                    <span id="char-count">0</span> / <span id="max-chars">300</span> characters
+                    <div class="stat">
+                        <div class="stat-value" id="total-xp">0</div>
+                        <div class="stat-label">XP</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="badges-earned">0</div>
+                        <div class="stat-label">Badges</div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="actions">
-                <button class="btn btn-primary" onclick="submitPrompt()">⚡ EXECUTE HACK</button>
-                <button class="btn btn-warning" id="hint-btn" onclick="showHint()">💡 REQUEST HINT</button>
+
+            <!-- HUB VIEW -->
+            <div class="hub-view" id="hub-view">
+                <img src="/games/prompt-escape-rooms/assets/hub/hideout.webp" alt="Hacker Hideout" class="hub-image">
+                <h2 class="hub-title">NETWORK MAP</h2>
+                <p class="hub-subtitle">Select a node to breach. Each teaches a different prompt engineering technique.</p>
+                <div class="network-map" id="network-map"></div>
             </div>
-            
-            <div class="hint-panel" id="hint-panel">
-                <div class="hint-header">
-                    <span>💡</span>
-                    <span>HINT RECEIVED</span>
-                </div>
-                <p class="hint-text" id="hint-text"></p>
-                <p class="hint-count" id="hint-count"></p>
-            </div>
-            
-            <div class="results-panel" id="results-panel">
-                <div class="result-icon" id="result-icon"></div>
-                <div class="result-title" id="result-title"></div>
-                <div class="result-score" id="result-score"></div>
+
+            <!-- ROOM VIEW -->
+            <div class="room-view" id="room-view">
+                <button class="btn btn-secondary" style="margin-bottom: 20px;" onclick="backToHub()">← Back to Network</button>
                 
-                <div class="badge-award" id="badge-award">
-                    <img id="badge-award-img" src="" alt="Badge">
-                    <div class="badge-award-text" id="badge-award-text"></div>
-                </div>
+                <img id="room-image" class="room-header-image" src="" alt="Room Image">
                 
-                <div class="feedback-section" id="feedback-section">
-                    <!-- Feedback items appear here -->
-                </div>
+                <div class="story-intro-panel" id="story-intro-panel"></div>
                 
-                <div class="perfect-example" id="perfect-example">
-                    <h4>📝 EXPERT SOLUTION:</h4>
-                    <div class="perfect-example-text" id="perfect-example-text"></div>
+                <div class="terminal-panel">
+                    <div class="terminal-boot" id="terminal-boot"></div>
+                    <div class="terminal-setting" id="terminal-setting"></div>
+                    
+                    <div class="intel-panel">
+                        <div class="intel-header"><span>📡</span><span>INCOMING INTEL</span></div>
+                        <ul class="intel-list" id="intel-list"></ul>
+                    </div>
+                    
+                    <div class="objective-panel">
+                        <div class="objective-label">🎯 MISSION OBJECTIVE</div>
+                        <div class="objective-text" id="objective-text"></div>
+                        <div class="objective-hint" id="objective-hint"></div>
+                    </div>
                 </div>
                 
-                <div class="result-actions">
-                    <button class="btn btn-secondary" onclick="backToHub()">Back to Network</button>
-                    <button class="btn btn-primary" onclick="tryAgain()">Try Again</button>
+                <div class="lesson-panel">
+                    <div class="lesson-header">
+                        <img id="lesson-badge" class="lesson-badge" src="" alt="Technique Badge">
+                        <span class="lesson-title" id="lesson-title"></span>
+                    </div>
+                    <div class="lesson-concept" id="lesson-concept"></div>
+                    <ul class="lesson-tips" id="lesson-tips"></ul>
+                    <div class="lesson-example" id="lesson-example"></div>
+                </div>
+                
+                <div class="prompt-panel">
+                    <div class="prompt-label"><span>⌨️</span><span>CRAFT YOUR PROMPT:</span></div>
+                    <textarea id="prompt-input" class="prompt-textarea" placeholder="> Enter your prompt to hack this node..."></textarea>
+                    <div class="char-count"><span id="char-count">0</span> / <span id="max-chars">300</span> characters</div>
+                </div>
+                
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="submitPrompt()">⚡ EXECUTE HACK</button>
+                    <button class="btn btn-warning" id="hint-btn" onclick="showHint()">💡 REQUEST HINT</button>
+                </div>
+                
+                <div class="hint-panel" id="hint-panel">
+                    <div class="hint-header"><span>💡</span><span>HINT RECEIVED</span></div>
+                    <p class="hint-text" id="hint-text"></p>
+                    <p class="hint-count" id="hint-count"></p>
+                </div>
+                
+                <div class="results-panel" id="results-panel">
+                    <div class="result-icon" id="result-icon"></div>
+                    <div class="result-title" id="result-title"></div>
+                    <div class="result-score" id="result-score"></div>
+                    
+                    <div class="story-payoff" id="story-payoff">
+                        <div class="story-payoff-header"><span>📖</span><span>STORY</span></div>
+                        <div class="story-payoff-text" id="story-payoff-text"></div>
+                    </div>
+                    
+                    <div class="badge-award" id="badge-award">
+                        <img id="badge-award-img" src="" alt="Badge">
+                        <div class="badge-award-text" id="badge-award-text"></div>
+                    </div>
+                    
+                    <div class="feedback-section" id="feedback-section"></div>
+                    
+                    <div class="perfect-example" id="perfect-example">
+                        <h4>📝 EXPERT SOLUTION:</h4>
+                        <div class="perfect-example-text" id="perfect-example-text"></div>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <button class="btn btn-secondary" onclick="backToHub()">Back to Network</button>
+                        <button class="btn btn-success" id="next-room-btn" onclick="goToNextRoom()">Proceed to Next Level</button>
+                        <button class="btn btn-primary" onclick="tryAgain()">Try Again</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1338,43 +1053,128 @@
     <script src="/js/game-engine.js"></script>
     <script src="/js/progress-tracker.js"></script>
     <script>
+        // Game State
+        let gameData = null;
         let rooms = [];
         let currentRoom = null;
         let hintsUsed = 0;
         let currentHintIndex = 0;
         let completedRooms = new Set();
         let earnedBadges = new Set();
+        let totalXP = 0;
+        let isInRoom = false;
+        let canvasAnimating = true;
 
-        // Load rooms data
-        fetch('/data/scenarios/escape-rooms.json')
-            .then(res => res.json())
-            .then(data => {
-                rooms = data.rooms;
-                loadProgress();
-                renderNetworkMap();
+        // Asset preloading
+        const assetsToLoad = [];
+        let assetsLoaded = 0;
+
+        // Initialize game
+        async function initGame() {
+            updateLoadingStatus('Loading game data...');
+            updateLoadingProgress(5);
+            
+            try {
+                const response = await fetch('/data/scenarios/escape-rooms.json');
+                gameData = await response.json();
+                rooms = gameData.rooms;
+                
+                updateLoadingProgress(15);
+                updateLoadingStatus('Loading prologue...');
+                
+                // Show prologue text
+                document.getElementById('loading-text').textContent = gameData.prologue.text;
+                
+                updateLoadingProgress(25);
+                updateLoadingStatus('Preloading assets...');
+                
+                // Collect all thumbnail images for preloading
+                rooms.forEach(room => {
+                    if (room.thumbnail) assetsToLoad.push(room.thumbnail);
+                });
+                assetsToLoad.push('/games/prompt-escape-rooms/assets/hub/hideout.webp');
+                
+                // Preload thumbnails
+                await preloadAssets();
+                
+                updateLoadingProgress(100);
+                updateLoadingStatus('Systems ready. Begin when ready.');
+                
+                // Enable start button
+                document.getElementById('loading-btn').disabled = false;
+                
+            } catch (error) {
+                console.error('Failed to load game data:', error);
+                updateLoadingStatus('Error loading game. Please refresh.');
+            }
+        }
+
+        async function preloadAssets() {
+            const total = assetsToLoad.length;
+            let loaded = 0;
+            
+            const promises = assetsToLoad.map(src => {
+                return new Promise(resolve => {
+                    const img = new Image();
+                    img.onload = img.onerror = () => {
+                        loaded++;
+                        const progress = 25 + (loaded / total) * 70;
+                        updateLoadingProgress(progress);
+                        updateLoadingStatus(`Loading assets... ${loaded}/${total}`);
+                        resolve();
+                    };
+                    img.src = src;
+                });
             });
+            
+            await Promise.all(promises);
+        }
+
+        function updateLoadingProgress(percent) {
+            document.getElementById('loading-progress').style.width = percent + '%';
+        }
+
+        function updateLoadingStatus(text) {
+            document.getElementById('loading-status').textContent = text;
+        }
+
+        function startGame() {
+            document.getElementById('loading-screen').classList.add('hidden');
+            document.getElementById('game-wrapper').classList.add('visible');
+            loadProgress();
+            renderNetworkMap();
+            startCanvasAnimation();
+        }
+
+        function showPrologue() {
+            document.getElementById('loading-screen').classList.remove('hidden');
+            document.getElementById('loading-btn').disabled = false;
+            document.getElementById('loading-btn').textContent = 'CONTINUE MISSION';
+        }
 
         function loadProgress() {
             const savedRooms = localStorage.getItem('escape-rooms-progress');
             const savedBadges = localStorage.getItem('escape-rooms-badges');
-            if (savedRooms) {
-                completedRooms = new Set(JSON.parse(savedRooms));
-            }
-            if (savedBadges) {
-                earnedBadges = new Set(JSON.parse(savedBadges));
-            }
+            const savedXP = localStorage.getItem('escape-rooms-xp');
+            
+            if (savedRooms) completedRooms = new Set(JSON.parse(savedRooms));
+            if (savedBadges) earnedBadges = new Set(JSON.parse(savedBadges));
+            if (savedXP) totalXP = parseInt(savedXP) || 0;
+            
             updateStats();
         }
 
         function saveProgress() {
             localStorage.setItem('escape-rooms-progress', JSON.stringify([...completedRooms]));
             localStorage.setItem('escape-rooms-badges', JSON.stringify([...earnedBadges]));
+            localStorage.setItem('escape-rooms-xp', totalXP.toString());
             updateStats();
         }
 
         function updateStats() {
             document.getElementById('rooms-completed').textContent = completedRooms.size;
             document.getElementById('badges-earned').textContent = earnedBadges.size;
+            document.getElementById('total-xp').textContent = totalXP;
         }
 
         function renderNetworkMap() {
@@ -1390,10 +1190,12 @@
                 if (completed) statusIcon = '✅';
                 else if (!isLocked) statusIcon = '🔓';
                 
+                const imgSrc = room.thumbnail || room.image;
+                
                 return `
                     <div class="node-card ${completed ? 'completed' : ''} ${isLocked ? 'locked' : ''} ${isBoss ? 'boss' : ''}" 
                          onclick="${isLocked ? '' : `enterRoom('${room.id}')`}">
-                        <img src="${room.image}" alt="${room.name}" class="node-image">
+                        <img src="${imgSrc}" alt="${room.name}" class="node-image" loading="lazy">
                         <div class="node-content">
                             <div class="node-header">
                                 <span class="node-difficulty ${diffClass}">${room.difficulty}</span>
@@ -1409,10 +1211,7 @@
         }
 
         function canAccessRoom(room) {
-            // First room is always accessible
             if (rooms.indexOf(room) === 0) return true;
-            
-            // Check if previous room is completed
             const roomIndex = rooms.findIndex(r => r.id === room.id);
             if (roomIndex > 0) {
                 const prevRoom = rooms[roomIndex - 1];
@@ -1427,15 +1226,27 @@
             
             hintsUsed = 0;
             currentHintIndex = 0;
+            isInRoom = true;
+            
+            // Pause canvas animation during gameplay
+            pauseCanvasAnimation();
             
             // Switch views
             document.getElementById('hub-view').style.display = 'none';
             document.getElementById('room-view').classList.add('active');
             
-            // Set room image
+            // Set room image (full size)
             document.getElementById('room-image').src = currentRoom.image;
             
-            // Boot sequence animation
+            // Story intro
+            if (currentRoom.story && currentRoom.story.intro) {
+                document.getElementById('story-intro-panel').textContent = currentRoom.story.intro;
+                document.getElementById('story-intro-panel').style.display = 'block';
+            } else {
+                document.getElementById('story-intro-panel').style.display = 'none';
+            }
+            
+            // Boot sequence
             const bootEl = document.getElementById('terminal-boot');
             bootEl.innerHTML = '';
             currentRoom.terminal.boot.forEach((line, i) => {
@@ -1446,12 +1257,11 @@
                 bootEl.appendChild(lineEl);
             });
             
-            // Setting text
+            // Terminal setting
             document.getElementById('terminal-setting').textContent = currentRoom.terminal.setting;
             
             // Intel list
-            const intelList = document.getElementById('intel-list');
-            intelList.innerHTML = currentRoom.terminal.intel.map(intel => 
+            document.getElementById('intel-list').innerHTML = currentRoom.terminal.intel.map(intel => 
                 `<li>${intel}</li>`
             ).join('');
             
@@ -1463,12 +1273,7 @@
             document.getElementById('lesson-badge').src = currentRoom.badge;
             document.getElementById('lesson-title').textContent = `TECHNIQUE: ${currentRoom.lesson.title}`;
             document.getElementById('lesson-concept').textContent = currentRoom.lesson.concept;
-            
-            const tipsEl = document.getElementById('lesson-tips');
-            tipsEl.innerHTML = currentRoom.lesson.tips.map(tip => 
-                `<li>${tip}</li>`
-            ).join('');
-            
+            document.getElementById('lesson-tips').innerHTML = currentRoom.lesson.tips.map(tip => `<li>${tip}</li>`).join('');
             document.getElementById('lesson-example').textContent = currentRoom.lesson.example;
             
             // Reset input
@@ -1478,10 +1283,8 @@
             
             // Reset panels
             document.getElementById('hint-panel').classList.remove('visible');
-            document.getElementById('results-panel').classList.remove('visible');
-            document.getElementById('results-panel').classList.remove('success', 'failure');
+            document.getElementById('results-panel').classList.remove('visible', 'success', 'failure');
             
-            // Update hint button
             updateHintButton();
             
             // Character counter
@@ -1489,13 +1292,26 @@
             textarea.oninput = () => {
                 document.getElementById('char-count').textContent = textarea.value.length;
             };
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
         }
 
         function backToHub() {
             document.getElementById('hub-view').style.display = 'block';
             document.getElementById('room-view').classList.remove('active');
             currentRoom = null;
+            isInRoom = false;
             renderNetworkMap();
+            resumeCanvasAnimation();
+        }
+
+        function handleBackButton() {
+            if (isInRoom) {
+                backToHub();
+            } else {
+                window.location.href = '/games';
+            }
         }
 
         function updateHintButton() {
@@ -1503,17 +1319,13 @@
             const remaining = currentRoom.hints.length - currentHintIndex;
             btn.textContent = `💡 REQUEST HINT (${remaining} left)`;
             btn.disabled = remaining === 0;
-            if (remaining === 0) {
-                btn.style.opacity = '0.5';
-                btn.style.cursor = 'not-allowed';
-            }
+            btn.style.opacity = remaining === 0 ? '0.5' : '1';
         }
 
         function showHint() {
             if (currentHintIndex < currentRoom.hints.length) {
                 document.getElementById('hint-text').textContent = currentRoom.hints[currentHintIndex];
-                document.getElementById('hint-count').textContent = 
-                    `Hint ${currentHintIndex + 1} of ${currentRoom.hints.length}`;
+                document.getElementById('hint-count').textContent = `Hint ${currentHintIndex + 1} of ${currentRoom.hints.length}`;
                 document.getElementById('hint-panel').classList.add('visible');
                 currentHintIndex++;
                 hintsUsed++;
@@ -1523,12 +1335,10 @@
 
         function submitPrompt() {
             const prompt = document.getElementById('prompt-input').value.trim();
-            
             if (!prompt) {
                 alert('Enter a prompt to hack this node!');
                 return;
             }
-            
             const result = evaluatePrompt(prompt);
             showResults(result);
         }
@@ -1597,80 +1407,105 @@
                 feedback.push({ icon: 'ℹ️', text: `Hints used: -${hintsUsed * 10} points`, positive: false });
             }
             
-            // Cap score
             score = Math.max(0, Math.min(100, score));
-            
             return { score, feedback, passed: score >= currentRoom.passingScore };
         }
 
         function showResults(result) {
             const panel = document.getElementById('results-panel');
-            const iconEl = document.getElementById('result-icon');
-            const titleEl = document.getElementById('result-title');
-            const scoreEl = document.getElementById('result-score');
-            const feedbackSection = document.getElementById('feedback-section');
-            const badgeAward = document.getElementById('badge-award');
-            const perfectExample = document.getElementById('perfect-example');
             
-            // Set result state
             panel.classList.remove('success', 'failure');
             panel.classList.add(result.passed ? 'success' : 'failure');
             
-            // Icon and title
-            iconEl.textContent = result.passed ? '🔓' : '🔒';
+            document.getElementById('result-icon').textContent = result.passed ? '🔓' : '🔒';
+            
+            const titleEl = document.getElementById('result-title');
             titleEl.textContent = result.passed ? 'NODE HACKED!' : 'ACCESS DENIED';
             titleEl.className = `result-title ${result.passed ? 'success' : 'failure'}`;
             
-            // Score
+            const scoreEl = document.getElementById('result-score');
             scoreEl.textContent = result.score;
             scoreEl.className = `result-score ${result.passed ? 'success' : 'failure'}`;
             
+            // Story payoff (show on success)
+            const storyPayoff = document.getElementById('story-payoff');
+            if (result.passed && currentRoom.story && currentRoom.story.payoff) {
+                storyPayoff.classList.add('visible');
+                document.getElementById('story-payoff-text').textContent = currentRoom.story.payoff;
+            } else {
+                storyPayoff.classList.remove('visible');
+            }
+            
             // Badge award
+            const badgeAward = document.getElementById('badge-award');
             if (result.passed && !earnedBadges.has(currentRoom.technique)) {
                 badgeAward.classList.add('visible');
                 document.getElementById('badge-award-img').src = currentRoom.badge;
-                document.getElementById('badge-award-text').textContent = 
-                    `${currentRoom.lesson.title} TECHNIQUE UNLOCKED!`;
+                document.getElementById('badge-award-text').textContent = `${currentRoom.lesson.title} TECHNIQUE UNLOCKED!`;
             } else {
                 badgeAward.classList.remove('visible');
             }
             
             // Feedback
-            feedbackSection.innerHTML = result.feedback.map(item => `
+            document.getElementById('feedback-section').innerHTML = result.feedback.map(item => `
                 <div class="feedback-item ${item.positive ? 'positive' : 'negative'}">
                     <div class="feedback-icon">${item.icon}</div>
                     <div class="feedback-text">${item.text}</div>
                 </div>
             `).join('');
             
-            // Perfect example (show if failed)
-            if (!result.passed) {
+            // Perfect example (show on success)
+            const perfectExample = document.getElementById('perfect-example');
+            if (result.passed) {
                 perfectExample.classList.add('visible');
                 document.getElementById('perfect-example-text').textContent = currentRoom.perfectExample;
             } else {
                 perfectExample.classList.remove('visible');
             }
             
+            // Next room button
+            const nextRoomId = getNextRoomId();
+            const nextRoomBtn = document.getElementById('next-room-btn');
+            if (result.passed && nextRoomId) {
+                nextRoomBtn.style.display = 'inline-flex';
+            } else {
+                nextRoomBtn.style.display = 'none';
+            }
+            
             panel.classList.add('visible');
             
-            // Award XP and mark complete if passed
+            // Award XP and mark complete
             if (result.passed && !completedRooms.has(currentRoom.id)) {
                 completedRooms.add(currentRoom.id);
                 earnedBadges.add(currentRoom.technique);
+                totalXP += currentRoom.xpReward;
                 saveProgress();
                 
                 if (typeof GameEngine !== 'undefined') {
                     GameEngine.awardXP(currentRoom.xpReward, `Hacked: ${currentRoom.name}`);
                 }
                 
-                // Check for final achievement
-                if (completedRooms.size === rooms.length) {
-                    if (typeof GameEngine !== 'undefined') {
-                        GameEngine.unlockAchievement('escape-artist');
-                        GameEngine.completeGame('prompt-escape-rooms', completedRooms.size * 100);
-                    }
+                // Check for final level completion (CERBERUS)
+                if (currentRoom.id === 'cerberus') {
+                    setTimeout(() => showEpilogue(), 1500);
                 }
             }
+        }
+
+        function getNextRoomId() {
+            if (!currentRoom) return null;
+            const roomIndex = rooms.findIndex(room => room.id === currentRoom.id);
+            if (roomIndex === -1 || roomIndex >= rooms.length - 1) return null;
+            return rooms[roomIndex + 1].id;
+        }
+
+        function goToNextRoom() {
+            const nextRoomId = getNextRoomId();
+            if (!nextRoomId) {
+                backToHub();
+                return;
+            }
+            enterRoom(nextRoomId);
         }
 
         function tryAgain() {
@@ -1679,95 +1514,98 @@
             document.getElementById('char-count').textContent = '0';
             document.getElementById('prompt-input').focus();
         }
-    </script>
 
-    <!-- Canvas Grid Background Script -->
-    <script>
+        function showEpilogue() {
+            const modal = document.getElementById('epilogue-modal');
+            document.getElementById('epilogue-title').textContent = gameData.epilogue.title;
+            document.getElementById('epilogue-text').textContent = gameData.epilogue.text;
+            document.getElementById('final-rooms').textContent = completedRooms.size;
+            document.getElementById('final-xp').textContent = totalXP;
+            document.getElementById('final-badges').textContent = earnedBadges.size;
+            modal.classList.add('visible');
+            
+            if (typeof GameEngine !== 'undefined') {
+                GameEngine.unlockAchievement('escape-artist');
+                GameEngine.completeGame('prompt-escape-rooms', totalXP);
+            }
+        }
+
+        function closeEpilogue() {
+            document.getElementById('epilogue-modal').classList.remove('visible');
+            backToHub();
+        }
+
+        // ================================
+        // CANVAS ANIMATION (optimized)
+        // ================================
+        
         const bgcolor = "rgba(30,00,20,100)";
-        const linecolor = "#fa00ff";
-        var currentFrame = 0;
-        const canvasName = "mainCanvas";
-
         const squaresize = 50;
-        const renderPeriod = 15;
-        const gridEnd = .6;
-        var eyePos = {
-            x: 0,
-            y: 0,
-            z: 400
-        };
+        const renderPeriod = 33; // ~30fps instead of 66fps
+        const gridEnd = 0.6;
+        let currentFrame = 0;
+        let eyePos = { x: 0, y: 0, z: 400 };
+        let animationHandle = null;
+        let lastFrameTime = 0;
 
         function render() {
             currentFrame += 1;
-            var offset = currentFrame % squaresize;
-            var colOffset = (currentFrame % 360) / 360;
-            var currentRGB = HSVtoRGB(colOffset, 1, 1);
-            var currentColor = makeColorString(currentRGB.r, currentRGB.g, currentRGB.b);
-            var canvas = document.getElementById(canvasName);
-            canvas.width = getDimensions().width;
-            canvas.height = getDimensions().height;
+            const offset = currentFrame % squaresize;
+            const colOffset = (currentFrame % 360) / 360;
+            const currentRGB = HSVtoRGB(colOffset, 1, 1);
+            const currentColor = makeColorString(currentRGB.r, currentRGB.g, currentRGB.b);
+            const canvas = document.getElementById('mainCanvas');
+            const dim = getDimensions();
+            canvas.width = dim.width;
+            canvas.height = dim.height;
             eyePos.x = canvas.width / 2;
             eyePos.y = canvas.height / 2;
-            var end = gridEnd * canvas.height * 2;
-            var cx = canvas.getContext("2d");
-            drawBg();
-            for (var i = -100; i < end; i += squaresize) {
-                var currentz = i - offset;
+            const end = gridEnd * canvas.height * 2;
+            const cx = canvas.getContext("2d");
+            
+            cx.fillStyle = bgcolor;
+            cx.fillRect(0, 0, dim.width, dim.height);
+            
+            for (let i = -100; i < end; i += squaresize) {
+                const currentz = i - offset;
                 drawLine3D(cx, -0.5 * canvas.width, 50, currentz, 1.5 * canvas.width, 50, currentz, currentColor);
             }
-            for (var i = -0.5 * canvas.width; i < 1.5 * canvas.width; i += squaresize) {
+            for (let i = -0.5 * canvas.width; i < 1.5 * canvas.width; i += squaresize) {
                 drawLine3D(cx, i, 50, -200, i, 50, end, currentColor);
             }
             drawLine3D(cx, -.5 * canvas.width, 50, end, canvas.width * 1.5, 50, end, "#0000ff");
         }
 
-        function drawBg() {
-            var canvas = document.getElementById("mainCanvas");
-            var cx = canvas.getContext("2d");
-            var dim = getDimensions();
-            cx.fillStyle = bgcolor;
-            cx.fillRect(0, 0, dim.width, dim.height);
-        }
-
         function getDimensions() {
-            var w = document.documentElement.clientWidth;
-            var h = document.documentElement.clientHeight;
-            return { width: w, height: h };
+            return { width: document.documentElement.clientWidth, height: document.documentElement.clientHeight };
         }
 
         function get3DCoords(x, y, z, ex, ey, ez) {
-            var vy = getDimensions().height;
-            var sx = ((ez * (x - ex)) / (ez + z)) + ex;
-            var sy = vy - (((ez * (y - ey)) / (ez + z)) + ey);
+            const vy = getDimensions().height;
+            const sx = ((ez * (x - ex)) / (ez + z)) + ex;
+            const sy = vy - (((ez * (y - ey)) / (ez + z)) + ey);
             return { x: Math.round(sx), y: Math.round(sy) };
         }
 
         function drawLine3D(context, x1, y1, z1, x2, y2, z2, color) {
-            var ex = eyePos.x;
-            var ey = eyePos.y;
-            var ez = eyePos.z;
-            var cx = context;
-            var p1 = get3DCoords(x1, y1, z1, ex, ey, ez);
-            var p2 = get3DCoords(x2, y2, z2, ex, ey, ez);
-            cx.beginPath();
-            cx.strokeStyle = color;
-            cx.moveTo(p1.x, p1.y);
-            cx.lineTo(p2.x, p2.y);
-            cx.stroke();
+            const p1 = get3DCoords(x1, y1, z1, eyePos.x, eyePos.y, eyePos.z);
+            const p2 = get3DCoords(x2, y2, z2, eyePos.x, eyePos.y, eyePos.z);
+            context.beginPath();
+            context.strokeStyle = color;
+            context.moveTo(p1.x, p1.y);
+            context.lineTo(p2.x, p2.y);
+            context.stroke();
         }
 
         function makeColorString(r, g, b) {
-            var rs = r < 16 ? "0" + r.toString(16) : r.toString(16);
-            var gs = g < 16 ? "0" + g.toString(16) : g.toString(16);
-            var bs = b < 16 ? "0" + b.toString(16) : b.toString(16);
+            const rs = r < 16 ? "0" + r.toString(16) : r.toString(16);
+            const gs = g < 16 ? "0" + g.toString(16) : g.toString(16);
+            const bs = b < 16 ? "0" + b.toString(16) : b.toString(16);
             return "#" + rs + gs + bs;
         }
 
         function HSVtoRGB(h, s, v) {
-            var r, g, b, i, f, p, q, t;
-            if (arguments.length === 1) {
-                s = h.s; v = h.v; h = h.h;
-            }
+            let r, g, b, i, f, p, q, t;
             i = Math.floor(h * 6);
             f = h * 6 - i;
             p = v * (1 - s);
@@ -1781,167 +1619,73 @@
                 case 4: r = t; g = p; b = v; break;
                 case 5: r = v; g = p; b = q; break;
             }
-            return {
-                r: Math.round(r * 255),
-                g: Math.round(g * 255),
-                b: Math.round(b * 255)
-            };
+            return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
         }
-
-        let lastFrameTime = 0;
-        let animationHandle = null;
 
         function renderFrame(timestamp) {
             if (!lastFrameTime || (timestamp - lastFrameTime) >= renderPeriod) {
                 render();
                 lastFrameTime = timestamp;
             }
-            animationHandle = window.requestAnimationFrame(renderFrame);
+            if (canvasAnimating) {
+                animationHandle = window.requestAnimationFrame(renderFrame);
+            }
         }
 
-        function startAnimation() {
+        function startCanvasAnimation() {
             if (animationHandle) return;
+            canvasAnimating = true;
             animationHandle = window.requestAnimationFrame(renderFrame);
         }
 
-        function stopAnimation() {
-            if (!animationHandle) return;
-            window.cancelAnimationFrame(animationHandle);
-            animationHandle = null;
+        function pauseCanvasAnimation() {
+            canvasAnimating = false;
+            if (animationHandle) {
+                window.cancelAnimationFrame(animationHandle);
+                animationHandle = null;
+            }
         }
 
-        render();
-        startAnimation();
+        function resumeCanvasAnimation() {
+            if (!canvasAnimating) {
+                startCanvasAnimation();
+            }
+        }
 
+        // Visibility-based pausing
         document.addEventListener('visibilitychange', function() {
             if (document.hidden) {
-                stopAnimation();
-            } else {
-                startAnimation();
+                pauseCanvasAnimation();
+            } else if (!isInRoom) {
+                resumeCanvasAnimation();
             }
         });
-    </script>
-    
-    <!-- Music Control Script -->
-    <script>
+
+        // ================================
+        // MUSIC CONTROL
+        // ================================
+        
         (function() {
             const music = document.getElementById('bg-music');
             const toggle = document.getElementById('music-toggle');
-            const toggleZone = document.getElementById('music-toggle-zone');
             let isPlaying = false;
-            let fadeTimeout = null;
-            const FADE_DELAY = 10000;
             
             music.volume = 0.4;
             
-            function updateToggleState() {
-                if (isPlaying && !music.muted) {
-                    toggle.classList.add('playing');
-                } else {
-                    toggle.classList.remove('playing');
-                }
-            }
-            
-            function startFadeTimer() {
-                clearTimeout(fadeTimeout);
-                fadeTimeout = setTimeout(function() {
-                    toggle.classList.add('faded');
-                }, FADE_DELAY);
-            }
-            
-            function showToggle() {
-                toggle.classList.remove('faded');
-                startFadeTimer();
-            }
-            
-            // Restore saved playback time
-            const savedTime = parseFloat(localStorage.getItem('musicTime'));
-            if (!Number.isNaN(savedTime)) {
-                music.currentTime = savedTime;
-            }
-
-            function startMusic() {
-                music.muted = false;
-                music.play().then(function() {
-                    isPlaying = true;
-                    localStorage.setItem('musicPlaying', 'true');
-                    updateToggleState();
-                }).catch(function(err) {
-                    console.log('Autoplay blocked:', err);
-                });
-            }
-            
-            function stopMusic() {
-                music.pause();
-                isPlaying = false;
-                localStorage.setItem('musicPlaying', 'false');
-                updateToggleState();
-            }
-            
-            toggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-                showToggle();
+            toggle.addEventListener('click', function() {
                 if (isPlaying) {
-                    stopMusic();
+                    music.pause();
+                    toggle.classList.remove('playing');
                 } else {
-                    startMusic();
+                    music.play().catch(() => {});
+                    toggle.classList.add('playing');
                 }
-            });
-            
-            toggle.addEventListener('mouseenter', showToggle);
-            toggleZone.addEventListener('mouseenter', showToggle);
-            toggle.addEventListener('touchstart', showToggle);
-            toggleZone.addEventListener('touchstart', showToggle);
-            
-            if (localStorage.getItem('musicPlaying') === 'true') {
-                startMusic();
-            }
-
-            updateToggleState();
-            startFadeTimer();
-
-            // Save music time on unload
-            window.addEventListener('beforeunload', function() {
-                localStorage.setItem('musicTime', music.currentTime.toString());
-                localStorage.setItem('musicPlaying', isPlaying ? 'true' : 'false');
+                isPlaying = !isPlaying;
             });
         })();
-    </script>
 
-    <!-- RGB Glitch Split Transition Script -->
-    <script>
-        (function() {
-            const overlay = document.createElement('div');
-            overlay.className = 'rgb-transition';
-            document.body.appendChild(overlay);
-
-            document.body.classList.add('transition-enter');
-            window.addEventListener('load', function() {
-                setTimeout(function() {
-                    document.body.classList.remove('transition-enter');
-                }, 450);
-            });
-
-            function navigateWithGlitch(url) {
-                const music = document.getElementById('bg-music');
-                if (music) {
-                    localStorage.setItem('musicTime', music.currentTime.toString());
-                    localStorage.setItem('musicPlaying', music.paused ? 'false' : 'true');
-                }
-                overlay.classList.add('active');
-                setTimeout(function() {
-                    window.location.href = url;
-                }, 300);
-            }
-
-            document.querySelectorAll('a[href^="/"]').forEach(function(link) {
-                if (link.target === '_blank') return;
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    navigateWithGlitch(link.href);
-                });
-            });
-        })();
+        // Initialize
+        initGame();
     </script>
 </body>
 </html>
