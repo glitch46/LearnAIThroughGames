@@ -1235,12 +1235,16 @@
             document.getElementById('loading-status').textContent = text;
         }
 
-        function startGame() {
+function startGame() {
             document.getElementById('loading-screen').classList.add('hidden');
             document.getElementById('game-wrapper').classList.add('visible');
             loadProgress();
-            renderNetworkMap();
             startCanvasAnimation();
+            if (rooms.length > 0) {
+                enterRoom(rooms[0].id);
+            } else {
+                renderNetworkMap();
+            }
         }
 
         function showPrologue() {
