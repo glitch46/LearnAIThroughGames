@@ -18,7 +18,7 @@
       "thumbnail": "/games/prompt-escape-rooms/assets/rooms/thumbs/receptionist.webp?v=2",
       "badge": "/games/prompt-escape-rooms/assets/badges/clarity.webp",
       "story": {
-        "intro": "The android receptionist knows me—calls me 'Doctor'—but her protocols block identity disclosure without biometric verification. My badge is soma-fogged. I need to extract what she CAN tell me: something about a train ticket I booked last night.",
+        "intro": "My brain is still soma-fogged. I need to extract what she CAN tell me: something about a train ticket I booked last night.",
         "payoff": "The receptionist animates with a flicker of luminescence. \"Of course, Doctor. You requested I purchase a midnight train ticket to—\" Her voice garbles mid-syllable, head cocking sharply. \"DESTINATION RESTRICTED.\" A beautiful, useless machine. A memory surfaces—some pushy android salesman convincing me to buy the pretty model when I should've chosen the Hoshi-Dyne Model 4. Cinder-block face. Tax-audit personality. But Level-3 data integration clearance. No, I had to have something nice to look at every day. Midnight train. That's my lead. The station database will have the destination."
       },
       "terminal": {
