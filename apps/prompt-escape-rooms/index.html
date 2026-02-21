@@ -1239,11 +1239,12 @@ function startGame() {
             document.getElementById('loading-screen').classList.add('hidden');
             document.getElementById('game-wrapper').classList.add('visible');
             loadProgress();
-            startCanvasAnimation();
+            render();
             if (rooms.length > 0) {
                 enterRoom(rooms[0].id);
             } else {
                 renderNetworkMap();
+                startCanvasAnimation();
             }
         }
 
