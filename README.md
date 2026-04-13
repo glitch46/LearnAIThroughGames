@@ -108,6 +108,25 @@ All games use the shared design system. Key CSS variables:
 - `--accent-green`, `--accent-blue`, `--accent-purple` - Accents
 - `--text-primary`, `--text-secondary` - Text colors
 
+## 🚦 Safe Deploy Workflow
+
+When this repo auto-deploys from GitHub (Hostinger), always run these commands before pushing:
+
+```bash
+git fetch origin --prune
+git pull --ff-only origin main
+npm ci
+npm test
+```
+
+If `npm test` fails, do not push. Fix the issue locally first.
+
+What `npm test` validates:
+- Home routes (`/`, `/games`) return HTTP 200 and HTML
+- Core game route (`/games/prompt-escape-rooms`) returns HTTP 200
+- API route (`/api/games`) returns valid JSON array
+- Critical static assets (hub lock icon, favicon) are served
+
 ## 📜 License
 
 MIT

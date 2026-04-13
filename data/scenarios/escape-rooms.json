@@ -1,7 +1,7 @@
 {
   "prologue": {
     "image": "/games/prompt-escape-rooms/assets/rooms/prologue.webp",
-    "text": "The light hit like a freight train made of broken glass. I peeled my face off a desk and the world swam in neon pinks and acid greens overloading my senses. My skull was a cathedral of pain. And it was empty. I didn't know who I was. A faint chemical sweetness hung in the air. Beneath the emptiness, something cold crept through the cracks of my shattered memory. I lost someone last night. A patient. On a table. Dead. She was special. But I didn't know her name. I didn't know my own name. My reflection stared back from the window: two days of stubble, eyes like cigarette burns. There had to be someone outside this office who could tell me who I was."
+    "text": "The light hit like a freight train screaming its horn. I peeled my face off a desk and the world swam in neon pinks and acid greens overloading my senses. My skull was a cathedral of pain. And it was empty. I didn't know who I was. A faint chemical sweetness hung in the air. Beneath the emptiness, something cold crept through the cracks of my shattered memory. I lost someone last night. A patient. On a table. Dead. She was special. But I didn't know her name. I didn't know my own name. My reflection stared back from the window: two days of stubble, eyes like cigarette burns. There had to be someone outside this office who could tell me who I was."
   },
   "epilogue": {
     "image": "/games/prompt-escape-rooms/assets/rooms/epilogue.webp",
@@ -53,7 +53,7 @@
         "bonusKeywords": ["last night", "details", "information", "exactly", "when"],
         "antiPatterns": ["maybe", "possibly", "wondering", "could you perhaps", "if you don't mind"],
         "minLength": 10,
-        "maxLength": 150
+        "maxLength": 500
       },
       "hints": [
         "She responds to direct requests. No need to be polite - just clear.",

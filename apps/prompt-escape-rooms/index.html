@@ -417,7 +417,8 @@
            HUB VIEW
            ================================ */
         
-        .hub-view { max-width: 1000px; margin: 0 auto; }
+        .hub-view { max-width: 1000px; margin: 0 auto; transition: opacity 0.4s ease, transform 0.4s ease; }
+        .hub-view.fade-out { opacity: 0; transform: translateY(-15px); }
         
         .hub-image {
             width: 100%;
@@ -526,8 +527,9 @@
            ROOM VIEW
            ================================ */
         
-        .room-view { display: none; max-width: 900px; margin: 0 auto; }
-        .room-view.active { display: block; }
+        .room-view { opacity: 0; transform: translateY(20px); pointer-events: none; max-width: 900px; margin: 0 auto; transition: opacity 0.5s ease, transform 0.5s ease; }
+        .room-view.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .room-view.hidden { display: none; }
         
         .room-header-image {
             width: 100%;
@@ -1022,7 +1024,7 @@
             </div>
 
             <!-- ROOM VIEW -->
-            <div class="room-view" id="room-view">
+            <div class="room-view hidden" id="room-view">
                 <button class="btn btn-secondary" style="margin-bottom: 20px;" onclick="backToHub()">← Back to Network</button>
                 
                 <img id="room-image" class="room-header-image" src="" alt="Room Image">
@@ -1057,8 +1059,8 @@
                 
                 <div class="prompt-panel">
                     <div class="prompt-label"><span>⌨️</span><span>CRAFT YOUR PROMPT:</span></div>
-                    <textarea id="prompt-input" class="prompt-textarea" placeholder="> Enter your prompt to hack this node..."></textarea>
-                    <div class="char-count"><span id="char-count">0</span> / <span id="max-chars">300</span> characters</div>
+                    <textarea id="prompt-input" class="prompt-textarea" maxlength="500" placeholder="> Enter your prompt to hack this node..."></textarea>
+                    <div class="char-count"><span id="char-count">0</span> / <span id="max-chars">500</span> characters</div>
                 </div>
                 
                 <div class="actions">
@@ -1348,8 +1350,19 @@ function startGame() {
             pauseCanvasAnimation();
             
             // Switch views
-            document.getElementById('hub-view').style.display = 'none';
-            document.getElementById('room-view').classList.add('active');
+            const hubView = document.getElementById('hub-view');
+            const roomView = document.getElementById('room-view');
+            hubView.classList.add('fade-out');
+            setTimeout(() => {
+                hubView.style.display = 'none';
+                hubView.classList.remove('fade-out');
+            }, 400);
+            roomView.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    roomView.classList.add('active');
+                });
+            });
             
             // Set room image (full size)
             document.getElementById('room-image').src = currentRoom.image;
@@ -1396,6 +1409,7 @@ function startGame() {
             document.getElementById('prompt-input').value = '';
             document.getElementById('char-count').textContent = '0';
             document.getElementById('max-chars').textContent = currentRoom.evaluationCriteria.maxLength;
+            document.getElementById('prompt-input').setAttribute('maxlength', currentRoom.evaluationCriteria.maxLength);
             
             // Reset panels
             document.getElementById('hint-panel').classList.remove('visible');
@@ -1406,6 +1420,10 @@ function startGame() {
             // Character counter
             const textarea = document.getElementById('prompt-input');
             textarea.oninput = () => {
+                const max = currentRoom.evaluationCriteria.maxLength;
+                if (textarea.value.length > max) {
+                    textarea.value = textarea.value.substring(0, max);
+                }
                 document.getElementById('char-count').textContent = textarea.value.length;
             };
             
@@ -1414,8 +1432,19 @@ function startGame() {
         }
 
         function backToHub() {
-            document.getElementById('hub-view').style.display = 'block';
-            document.getElementById('room-view').classList.remove('active');
+            const roomView = document.getElementById('room-view');
+            const hubView = document.getElementById('hub-view');
+            roomView.classList.remove('active');
+            setTimeout(() => {
+                roomView.classList.add('hidden');
+                hubView.style.display = 'block';
+                hubView.classList.add('fade-out');
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        hubView.classList.remove('fade-out');
+                    });
+                });
+            }, 500);
             currentRoom = null;
             isInRoom = false;
             renderNetworkMap();
